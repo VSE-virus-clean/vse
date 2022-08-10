@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<!-- XML File Name : global-config.xml Description : 서비스 공통 설정 PROPERTIE<br/> 
+	spEl을 사용하기 위해서 설정한다. author Jeong.Hyoung.Jae since 2013. 7. 30. version 1.0 
+	Modification Information since author description =========== ============= 
+	=========================== 2016. 1. 27. Jeong.Hyoung.Jae 최초 생성 -->
+
+<properties>
+
+	<entry key="service.mode">dev</entry>
+	<entry key="site.user.domain">http://local.ariacare.com</entry>
+	<entry key="site.user.host">local</entry>
+	<entry key="site.user.mobile.host">mlocal</entry>
+
+	<!-- 접속 기기별 JSP파일 디렉토리의 Prefix -->
+	<entry key="device.mobile">mobile</entry>
+	<entry key="device.normal">normal</entry>
+
+	<!-- 접속 사이트별 JSP파일 디렉토리의 Prefix -->
+	<entry key="site.jsp.prefix.admin">admin</entry>
+	<entry key="site.jsp.prefix.user">user</entry>
+
+	<!-- 접속 사이트별 Servlet Path Prefix -->
+	<entry key="site.servlet.prefix.admin">admin</entry>
+	<entry key="site.servlet.prefix.user"></entry>
+
+	<!-- 파일 관련 기본 속성 file.maxSize : 업로드 최대 용량 file.system.path.temp : 임시 저장 
+		경로 file.system.path.default : SYSTEM 기본 저장 경로 file.web.path.default : WEB 
+		페이지에서 표시하기 위한 파일 경로 -->
+	<entry key="file.maxSize">419430400</entry>
+	<entry key="file.system.path.temp">/home/emasin/was/uploadTemp</entry>
+	<entry key="file.system.path.default">/var/www/ariacare/resources/upload</entry>
+	<entry key="file.web.path.default">/resources/upload</entry>
+
+
+	<!-- 메일 관련 속성 mail.host : 메일서버 IP mail.port : 메일서버 PORT mail.protocol : 
+		메일서버 PROTOCOL mail.userID : 메일서버 관리자 아이디 mail.userPW : 메일서버 관리자 비밀번호 ->> 
+		mail.imageDomain : 이미지파일 도메인 정보 : 메일 이미지는 사용자쪽에 둘것 mail.adminMailAdress : 
+		관리자 대표 이메일 mail.primaryMailPersonal : 서비스 대표 표기명 mail.primaryMailPersonal 
+		: 서비스 대표 표기명 mail.primaryMailAdress : 서비스 대표 이메일 mail.htmlFilePath : 메일폼 
+		파일 위치 smtp.cafe24.com / 587 mw-001.cafe24.com / 25 -->
+	<entry key="mail.host">101.79.75.93</entry>
+	<entry key="mail.port">25</entry>
+	<entry key="mail.protocol">smtp</entry>
+	<entry key="mail.userID">XXXXX</entry>
+	<entry key="mail.userPW">XXXXX</entry>
+	<entry key="mail.imageDomain">//local.ariacare.com/resources/upload</entry>
+	<entry key="mail.primaryMailPersonal">관리자</entry>
+	<entry key="mail.primaryMailAdress">XXXXX</entry>
+	<entry key="mail.testMailAdress">fss1999@naver.com</entry>
+	<entry key="mail.htmlFilePath">D://eclipse-mars/workspace/java/ariacare/src/main/webapp/WEB-INF/jsp/mail</entry>
+
+
+
+	<!-- FTP 연동 정보 설정 -->
+	<entry key="ftp.ip">127.0.0.1</entry>
+	<entry key="ftp.port">21</entry>
+	<entry key="ftp.id">test</entry>
+	<entry key="ftp.pw">test</entry>
+	<entry key="ftp.useYn">N</entry>
+
+	<!-- 로그인 관련 속성 login.lock.dateDiff : 휴면처리 가능한 비로그인 일자. login.lock.errorCount 
+		: 휴면처리 가능한 비밀번호 오류 횟수 login.password.dateDiff : 비밀번호 변경 기일. -->
+	<entry key="login.lock.dateDiff">365</entry>
+	<entry key="login.lock.errorCount">10</entry>
+	<entry key="login.password.dateDiff">365</entry>
+
+	<!-- nicepay.properties : nicepay.properties 경로 nicepay.encodeKey : 상점키 
+		nicepay.mid : 상점 아이디 -->
+	<entry key="nicepay.properties">/home/emasin/was/ariacare/WEB-INF/</entry>
+	<entry key="nicepay.encodeKey">b+zhZ4yOZ7FsH8pm5lhDfHZEb79tIwnjsdA0FBXh86yLc6BJeFVrZFXhAoJ3gEWgrWwN+lJMV0W4hvDdbe4Sjw==</entry>
+	<entry key="nicepay.mid">nictest04m</entry>
+
+</properties>

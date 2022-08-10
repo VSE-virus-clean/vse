@@ -1,0 +1,474 @@
+
+
+
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+/**
+ * 1. 疫꿸퀡�궚 疫뀐옙�몭�똻�뱽 sans-serif嚥∽옙 占쎄퐬占쎌젟.
+ * 2. iOS占쏙옙 IE占쎈퓠占쎄퐣 疫꿸퀗由� 占쎌돳占쎌읈占쎈뻻占쎈퓠 占쎄텢占쎌뒠占쎌쁽揶쏉옙 占쎌넇占쏙옙占쎈릭筌욑옙 占쎈륫占쎈툡占쎈즲 疫뀐옙占쎈뎁 占쎄쾿疫꿸퀗占� 占쎌삺鈺곌퀣�젟占쎈┷占쎈뮉 野껉퍔�뱽 占쎌굙獄쏉옙.
+ */
+
+html {
+  font-family: Noto Sans CJK KR; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/**
+ * 疫꿸퀡�궚 筌띾뜆彛듿첎誘れ뱽 占쎌젫椰꾬옙.
+ */
+
+body {
+  margin: 0;
+}
+
+/* HTML5 display definitions
+   ========================================================================== */
+
+/**
+ * IE8/9占쎈퓠占쎄퐣 占쎌젟占쎌벥占쎈┷筌욑옙 占쎈륫占쏙옙 HTML5 占쎌뒄占쎈꺖�몴占� 'block'占쎌몵嚥∽옙 筌욑옙占쎌젟.
+ * IE10/11, Firefox占쎈퓠占쎄퐣 占쎌젟占쎌벥占쎈┷筌욑옙 占쎈륫占쏙옙 `detail` 占쎌깏占쏙옙 `summary` �몴占� `block`占쎌몵嚥∽옙 筌욑옙占쎌젟.
+ * IE11占쎈퓠占쎄퐣 占쎌젟占쎌벥占쎈┷筌욑옙 占쎈륫占쏙옙 `main`占쎌뱽 `block`占쎌몵嚥∽옙 筌욑옙占쎌젟
+ */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+/**
+ * 1. IE8/9占쎈퓠占쎄퐣 `inline-block`占쎌몵嚥∽옙 占쎌젟占쎌벥占쎈┷筌욑옙 占쎈륫占쏙옙 野껉퍔�뱽 占쎌궞獄쏅뗀�뀮野껓옙 筌욑옙占쎌젟.
+ * 2. Chrome, Firefox, Opera占쎈퓠占쎄퐣 `progress`占쎌벥 占쎄쉭嚥∽옙 占쎌젟占쎌졊占쎌뱽 占쎈ご餓ο옙占쎌넅.
+ */
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+
+/**
+ * 筌뤴뫀�쐲 �뇡�슢�뵬占쎌뒭占쏙옙占쎈굶占쎈퓠占쎄퐣 controls 占쎈꺗占쎄쉐占쎈씨占쎌뵠 audio 占쎌뒄占쎈꺖揶쏉옙 占쎌젉占쎈쐭筌랃옙 占쎈┷占쎈뮉 野껉퍔�뱽 占쎌굙獄쏉옙
+ * iOS 5 疫꿸퀗由곤옙肉됵옙苑� 占쎈꼥占쎌뵠�몴占� �룯�뜃�궢占쎈릭占쎈뮉 野껉퍔�뱽 占쎌젫椰꾬옙
+ */
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * `[hidden]` 占쎈꺗占쎄쉐占쎌벥 占쎈뮞占쏙옙占쎌뵬占쎌뵠 IE 8/9/10占쎈퓠占쎄퐣 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮉 野껉퍔�뱽 占쎈퉸野껓옙.
+ * IE 8/9/10/11, Safari, Firefox < 22 占쎈퓠占쎄퐣 `template` 占쎌뒄占쎈꺖�몴占� 占쎈떜繹먲옙.
+ */
+
+[hidden],
+template {
+  display: none;
+}
+
+/* Links
+   ========================================================================== */
+
+/**
+ * IE10占쎈퓠占쎄퐣 占쎌넞占쎄쉐占쎌넅(active)占쎈쭆 筌띻낱寃뺧옙�벥 占쎌돳占쎄퉳 獄쏄퀗瑗랃옙�뱽 占쎌젫椰꾬옙.
+ */
+
+a {
+  background-color: transparent;
+}
+
+/**
+ * active/hover 占쎄맒占쎄묶占쎌뵬占쎈르占쎈퓠占쎈즲 占쎈７�뚣끉�뮞占쎈쭆 占쎌뒄占쎈꺖占쎌벥 揶쏉옙占쎈즴占쎄쉐占쎌뱽 占쎈샨占쎄맒.
+ */
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * IE 8/9/10/11, Safari, Chrome占쎈퓠占쎄퐣 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮉 占쎈뮞占쏙옙占쎌뵬占쎌뱽 �겫占쏙옙肉�.
+ */
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/**
+ * Firefox 4+, Safari, Chrome占쎈퓠占쎄퐣 `bolder`嚥∽옙 占쎄퐬占쎌젟占쎈┷占쎈선 占쎌뿳占쎈뮉 野껉퍔�뱽 `bold`嚥∽옙 占쎈땾占쎌젟.
+ */
+
+b,
+strong {
+  font-weight: bold;
+}
+
+/**
+ * Safari,Chrome占쎈퓠占쎄퐣 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮉 占쎈뮞占쏙옙占쎌뵬占쎌뱽 �겫占쏙옙肉�.
+ */
+
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Firefox 4+, Safari, Chrome占쎈퓠占쎄퐣 `section`�⑨옙 `article` 占쎄땀�겫占쏙옙�벥 `h1` 占쎌뒄占쎈꺖占쎌벥 疫뀐옙�몭占� 占쎄쾿疫꿸퀣占� 筌띾뜆彛듿첎誘れ뵠 占쎄퐣嚥∽옙 占쎈뼄�몴占� 野껉퍔�뱽 占쎈꽰占쎌뵬占쎈뻻占쎄땀.
+ */
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/**
+ * IE 8/9占쎈퓠占쎄퐣 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮉 占쎈뮞占쏙옙占쎌뵬占쎌뱽 �겫占쏙옙肉�.
+ */
+
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+/**
+ * �뇡�슢�뵬占쎌뒭占쏙옙筌띾뜄�뼄 占쎈뼄�몴占� 疫뀐옙�몭占� 占쎄쾿疫꿸퀡占쏙옙 占쎈꽰占쎌뵬占쎈뻻占쎄땀.
+ */
+
+small {
+  font-size: 80%;
+}
+
+/**
+ * `sub`�⑨옙 `sup`占쎌뒄占쎈꺖揶쏉옙 筌뤴뫀諭� �뇡�슢�뵬占쎌뒭占쏙옙占쎈퓠占쎄퐣 `line-height`占쎈퓠 占쎌겫占쎈샨占쎌뱽 沃섎챷�뒄占쎈뮉 野껉퍔�뱽 占쎌굙獄쏉옙.
+ */
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * IE 8/9/10占쎈퓠占쎄퐣 `a` 占쎌뒄占쎈꺖占쎈툧占쎈퓠 占쎌뵠沃섎챷占썲첎占� 占쎌맄燁살꼹釉� 野껋럩�뒭 占쎄문疫꿸퀡�뮉 占쎈�믭옙紐®뵳占� 占쎌젫椰꾬옙.
+ */
+
+img {
+  border: 0;
+}
+
+/**
+ * IE 9/10/11占쎈퓠占쎄퐣 `svg` 占쎌뒄占쎈꺖揶쏉옙 占쎌겫占쎈열占쎌벥 占쎄쾿疫꿸퀡占쏙옙 甕곗�щ선占쎄돌筌욑옙 占쎈륫占쎈즲嚥∽옙 占쎈땾占쎌젟.
+ */
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * IE 8/9, Safari占쎈퓠占쎄퐣 鈺곕똻�삺占쎈릭筌욑옙 占쎈륫占쎈뮉 `margin` 揶쏅�れ뱽 �겫占쏙옙肉�.
+ */
+
+figure {
+  margin: 1em 40px;
+}
+
+/**
+ * Firefox占쏙옙 占쎈뼄�몴占� �뇡�슢�뵬占쎌뒭占쏙옙占쎈굶 占쎄텢占쎌뵠占쎌벥 筌△뫁�뵠占쎌젎 占쎈퉸野껓옙.
+ */
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+}
+
+/**
+ * 筌뤴뫀諭� �뇡�슢�뵬占쎌뒭占쏙옙占쎈퓠占쎄퐣 `pre` 占쎌뒄占쎈꺖占쎌벥 `overfolow` 揶쏅�れ뱽 占쎈꽰占쎌뵬.
+ */
+
+pre {
+  overflow: auto;
+}
+
+/**
+ * 筌뤴뫀諭� �뇡�슢�뵬占쎌뒭占쏙옙占쎈퓠占쎄퐣 疫뀐옙�몭�떯�궢 疫뀐옙�몭占� 占쎄쾿疫꿸퀗占� 占쎈뼄�몴占� 野껉퍔�뱽 占쎈퉸野껓옙.
+ */
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace !important;
+  font-size: 1em;
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 占쎈르占쎌젻筌욑옙 占쎈립�⑨옙: 疫꿸퀡�궚占쎌읅占쎌몵嚥∽옙 OS X占쎌벥  Chrome�⑨옙 Safari占쎈뮉 `border` 占쎈꺗占쎄쉐占쎌뱽 筌욑옙占쎌젟占쎈릭筌욑옙 占쎈륫占쎈뮉 占쎈립
+ * `select` 占쎌뒄占쎈꺖占쎌벥 占쎈뮞占쏙옙占쎌뵬筌띻낯肉� 筌띲끉�뒭 占쎌젫占쎈립占쎌읅占쎌뵠占쎈뼄.
+ */
+
+/**
+ * 1. color 占쎈꺗占쎄쉐占쎌뵠 占쎄맒占쎈꺗占쎈┷筌욑옙 占쎈륫占쎈뮉 野껉퍔�뱽 占쎈땾占쎌젟.
+ *    占쎈르占쎌젻筌욑옙 �눧紐꾩젫: disabled 占쎈쭆 占쎌뒄占쎈꺖占쎌벥 color 占쎈꺗占쎄쉐占쎈퓠占쎈즲 占쎌겫占쎈샨占쎌뱽 沃섎챷�뒊占쎈뼄.
+ * 2. font 占쎈꺗占쎄쉐占쎌뵠 占쎄맒占쎈꺗占쎈┷筌욑옙 占쎈륫占쎈뮉 野껉퍔�뱽 占쎈땾占쎌젟.
+ * 3. Firefox 4+, Safari, Chrome占쎈퓠占쎄퐣 筌띾뜆彛딉옙�뵠 占쎄퐣嚥∽옙 占쎈뼄�몴占� 野껉퍔�뱽 占쎈퉸野껓옙.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+
+/**
+ * IE 8/9/10/11占쎈퓠占쎄퐣 `overflow` 占쎈꺗占쎄쉐揶쏅�れ뵠 `hidden`占쎌몵嚥∽옙 占쎄퐬占쎌젟占쎈┷占쎈선 占쎌뿳占쎈뮉 野껉퍔�뱽 占쎈땾占쎌젟
+ */
+
+button {
+  overflow: visible;
+}
+
+/**
+ * `button`�⑨옙 `select` 占쎌뒄占쎈꺖占쎈퓠 `text-transform` 占쎄맒占쎈꺗占쎌뵠 占쎌뵬燁살꼹釉�筌욑옙 占쎈륫占쎈뮉 野껉퍔�뱽 占쎈퉸野껓옙
+ * 筌뤴뫀諭� 占쎈뼄�몴占� 占쎈쨲 �뚢뫂�뱜嚥∽옙 占쎌뒄占쎈꺖占쎈뮉 `text-transform` 揶쏅�れ뱽 占쎄맒占쎈꺗占쎈릭筌욑옙 占쎈륫占쎈뮉占쎈뼄.
+ * IE 8/9/10/11, Firefox, Opera占쎈퓠占쎄퐣 `button` 占쎌뒄占쎈꺖占쎌벥 占쎈뮞占쏙옙占쎌뵬 占쎄맒占쎈꺗 占쎈땾占쎌젟.
+ * Firefox占쎈퓠占쎄퐣 `select` 占쎌뒄占쎈꺖占쎌벥 占쎈뮞占쏙옙占쎌뵬 占쎄맒占쎈꺗 占쎈땾占쎌젟.
+ */
+
+button,
+select {
+  text-transform: none;
+}
+
+/**
+ * 1. Android 4.0.*占쎈퓠占쎄퐣 `audio`占쏙옙 `video` �뚢뫂�뱜嚥▲끉�뱽 占쎈솁�꽴�똾釉�占쎈뮉 占쎌럲占쎄땅 甕곌쑨�젃�몴占� 獄쎻뫗占�.
+ * 2. iOS占쎈퓠占쎄퐣 占쎄깻�뵳占썲첎占쏙옙�뮟占쎈립 `input` 占쎌�占쎌굨占쎈퓠 占쎈뮞占쏙옙占쎌뵬筌띻낯�뱽 占쎈막 占쎈땾 占쎈씨占쎈뮉 野껉퍔�뱽 占쎈땾占쎌젟.
+ * 3. `input` 占쎌뒄占쎈꺖占쏙옙 占쎈뼄�몴占� 占쎌뒄占쎈꺖占쎈굶占쎌벥 image-type占쎌벥 �뚣끉苑� 筌뤴뫁堉뉛옙�뱽 占쎌뵬燁살꼷�뻻�놂옙 揶쏉옙占쎌뒠占쎄쉐占쎌뱽 占쎈샨占쎄맒.
+ *    `input` and others.
+ */
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+
+/**
+ * disabled占쎈쭆 占쎌뒄占쎈꺖占쎌벥 疫꿸퀡�궚 �뚣끉苑뚨몴占� 占쎌삺占쎄퐬占쎌젟
+ */
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/**
+ * Firefox 4+占쎈퓠占쎄퐣 占쎄땀�겫占� `padding`�⑨옙 `border`�몴占� 占쎌젫椰꾬옙
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/**
+ * Firefox 4+占쎈퓠占쎄퐣 UA(User Agent) 占쎈뮞占쏙옙占쎌뵬占쎈뻻占쎈뱜占쎈퓠 `!important`�몴占� 占쎄텢占쎌뒠占쎈립 `input` 占쎌뒄占쎈꺖占쎌벥
+ * `line-height` 占쎄퐬占쎌젟揶쏅�れ뱽 占쎈퉸野껓옙.
+ */
+
+input {
+  line-height: normal;
+}
+
+/**
+ * 占쎌뵠占쎌쑎占쎈립 占쎌뒄占쎈꺖占쎌벥 占쎈뮞占쏙옙占쎌뵬占쎌뱽 占쎄퐬占쎌젟占쎈릭占쎌젻�⑥쥚釉�筌욑옙 占쎈륫占쎈뮉 野껉퍔�뵠 �넫�뿫�뼄.
+ * Firefox占쎈퓠占쎄퐣 占쎈툡占쎌삋占쎌벥 占쎌뒄占쎈꺖占쎈퓠占쎄퐣 box-sizing, padding, width揶쏉옙 �뤃�뗭겱占쎈쭍�댆�눖�뵬 疫꿸퀡占쏙옙釉�筌욑옙 筌띾Ŋ�쁽.
+ *
+ * 1. IE 8/9/10占쎈퓠占쎄퐣 box sizing 占쎈꺗占쎄쉐揶쏅�れ뱽 `content-box`占쎈퓠占쎄퐣 `border-box`嚥∽옙 癰귨옙野껓옙
+ * 2. IE 8/9/10占쎈퓠占쎄퐣 占쎌겫占쎈열占쎌뱽 甕곗�щ선占쎄돌筌욑옙 占쎈륫占쎈즲嚥∽옙 `padding`占쎌뱽 占쎌젫椰꾬옙
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Chrome占쎌벥 筌앹빓占�/揶쏅Ŋ�꺖 甕곌쑵�뱣占쎌벥 �뚣끉苑� 筌뤴뫁堉뉛옙�뱽 占쎈땾占쎌젟.
+ * `input` 占쎌뒄占쎈꺖占쎌벥 占쎈뱟占쎌젟 `font-size` 揶쏅�る퓠 占쏙옙占쎈퉸 揶쏅Ŋ�꺖 甕곌쑵�뱣占쎌벥 �뚣끉苑� 筌뤴뫁堉뉛옙�뵠 `default`占쎈퓠占쎄퐣 `text`嚥∽옙 癰귨옙占쎈립占쎈뼄.
+ */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * OS X占쎌벥 Safari, Chrome占쎈퓠占쎄퐣 占쎄땀�겫占�(inner) `padding`�⑨옙 野껓옙占쎄퉳 �뿆�뫁�꺖 甕곌쑵�뱣占쎌뱽 占쎌젫椰꾬옙.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * `border`, `margin`, `padding`占쎌뱽 占쎌뵬燁삼옙.
+ */
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. IE 8/9/10/11占쎈퓠占쎄퐣 `color`占쎈뮉 占쎄맒占쎈꺗占쎈┷筌욑옙 占쎈륫占쎈뮉占쎈뼄.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * IE 8/9/10/11占쎈퓠占쎄퐣 疫꿸퀡�궚 占쎄쉭嚥∽옙 占쎈뮞占쎄쾿嚥▲끇而��몴占� 占쎌젫椰꾬옙
+ */
+
+textarea {
+  overflow: auto;
+}
+
+/**
+ * `font-weight`占쎈뮉 占쎄맒占쎈꺗占쎈┷筌욑옙 占쎈륫占쎈뮉占쎈뼄.(applied by a rule above).
+ * 雅뚯눘�벥: OS X占쎌벥 Chrome�⑨옙 Safari占쎈퓠占쎄퐣 疫꿸퀡�궚揶쏅�れ뱽 癰귨옙野껋�釉�占쎈뮉 野껉퍔占� 占쎈툧占쎌읈占쎈릭筌욑옙 占쎈륫占쎈뼄.
+ */
+
+optgroup {
+  font-weight: bold;
+}
+
+/* Tables
+   ========================================================================== */
+
+/**
+ * 占쎈�믭옙�뵠�뇡占� 占쎌뒄占쎈꺖 占쎄텢占쎌뵠占쎌벥 揶쏄쑨爰쏙옙�뱽 占쎌젫椰꾬옙
+ */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+/* ========================================================================== */
+/* ===================================== Reset ================================= */
+/* ========================================================================== */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,textarea,p,blockquote,th,td,input,select,textarea,button {margin:0;padding:0;border: 0;}
+table {width:100%;}
+ul, li, ol {list-style-type:none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
+
+/* ========================================================================== */
+/* ================================ User Default ================================= */
+/* ========================================================================== */
+legend {position:absolute; z-index:-1; height:0; overflow:hidden; visibility:hidden; font-size:0; line-height:0;}
+caption {z-index:-1; height:0; overflow:hidden; visibility:hidden; font-size:0; line-height:0;}
+img{vertical-align:top;}
+address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal;}
+input,select,textarea,button {vertical-align:middle;}
+a{text-decoration:none; color:#555;}
+
+body,
+.total_menu{font-family: Noto Sans CJK KR; line-height: 1; font-weight: normal; font-size:16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; letter-spacing:-1px;}
+pre {line-height: 12px; font-family: Noto Sans CJK KR; color: #777; white-space: pre-line;}
+
+#skipnavigation a{position: absolute; left:-3000%; font-size: 14px;}
+#skipnavigation a:focus{display: block; position: absolute; top:0; left:0; width:100%; height: 20px; color:#fff; text-align: center; background-color: #0e3091; z-index: 9999;}
+/* ========================================================================== */
+/* ================================= Global style ================================= */
+/* ========================================================================== */
+.blind {overflow:hidden;position:absolute;width:0;height:0;line-height:0;text-indent:-9999px} /* 占쏙옙筌ｋ똾�볩옙�뮞占쎈뱜揶쏉옙 占쎈툡占쎈빒 占쎌젔域뱀눘苑�占쎌뱽 占쎌맄占쎈립 占쎈떜繹먲옙占쎈�볩옙�뮞占쎈뱜�몴占� 占쎌젫�⑤벏釉뤄옙釉� */
+.fl_box:after {content:'';display:block;clear:both;}
+.f_l {float:left}
+.f_r {float:right}
+.cl_b {width:0;height:0;font-size:0;line-height:0;clear:both}
+.show {display:block}
+.hide {display:none}
+
+.inner{margin:0 auto; width: 1200px;}
+
+.text_color-main{color:#1f4bb4;}
+
+.text_weight-regualr{font-weight: bold;}
+.text_weight-medium{font-weight: 800;}
+
+/*占쎈립餓ο옙 筌띾Ŋ夷わ옙�뿫*/
+.reduce_line{overflow: hidden; white-space: nowrap; text-overflow: ellipsis; word-wrap: normal;}
+/*占쎈립餓ο옙 筌띾Ŋ夷わ옙�뿫 占쎈툡占쎈땾揶쏉옙(癰귨옙野껋럡占쏙옙�뮟)*/
+.reduce_line{/*width: 920px;*/}
+
+/*筌롳옙占쎈뼒 筌띾Ŋ夷わ옙�뿫*/
+.reduce_multi,
+.reduce_multi > *{position: relative; overflow: hidden; display: block; word-break: break-all; }
+.reduce_multi:after{content: '...'; position: absolute; right: 0; bottom:0; width: 15px; z-index: 1;}
+.reduce_multi > *:after{content: ''; position: absolute; right: 0; bottom: 0; width: 15px; height: 10px; background-color: #fff; z-index: 9;}
+
+/*筌롳옙占쎈뼒 筌띾Ŋ夷わ옙�뿫 占쎈툡占쎈땾揶쏉옙(癰귨옙野껋럡占쏙옙�뮟)*/
+.reduce_multi,
+.reduce_multi > *{width: 140px; padding-right: 15px;}
+.reduce_multi{max-height: 37px;}
+.reduce_multi > *{min-height: 37px; line-height: 1.2em;}
+
+.f_eng{font-family: Noto Sans CJK KR; font-weight: normal;}
+.f_bold{font-weight: bold;}

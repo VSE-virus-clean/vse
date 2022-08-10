@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : ManagerDAO.xml 
+	Description : 관리자 정보를 조회한다. author : 
+ -->
+
+<sqlMap namespace="virus_clean_admin_auth_ManagerDAO">
+
+	<typeAlias alias="authVO" type="vc.virusclean.admin.auth.vo.AuthVO" />
+
+	<!-- 
+		Query Name : managerDAO.selectInfoCount 
+		Description : ROW의 수를 조회한다. 
+	 -->
+	<select id="managerDAO.selectInfoCount" parameterClass="authVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=managerDAO.selectInfoCount */
+            SELECT COUNT(1)
+              FROM VC_ADM_01
+             WHERE ST_CD <> 'D'
+        ]]>
+		<dynamic>
+			<isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="0">
+		        	<![CDATA[ AND ( MGR_ID LIKE CONCAT('%',#searchKey#,'%') OR MGR_NM LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="1">
+		        	<![CDATA[ AND MGR_ID LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="2">
+		        	<![CDATA[ AND MGR_NM LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<!-- 
+		Query Name : managerDAO.selectInfoList 
+		Description : 목록을 조회한다. 
+	-->
+	<select id="managerDAO.selectInfoList" parameterClass="authVO" resultClass="authVO">
+        <![CDATA[
+			/* ProgramID=managerDAO.selectInfoList */
+            SELECT MGR_SN mgrSn
+                 , MGR_ID mgrId
+                 , MGR_NM mgrNm
+                 , MGR_PW mgrPw
+                 , MGR_EML mgrEml
+                 , MGR_TN mgrTn
+                 , MGR_OPS_NM mgrOpsNm
+                 , MGR_POA_NM mgrPoaNm
+                 , MGR_AUTH_CD mgrAuthCd
+                 , CNNC_PSBL_IP cnncPsblIp
+                 , ST_CD stCd
+                 , TMP_PW_YN tmpPwYn
+                 , PW_ERR_OFT pwErrOft
+                 , DATE_FORMAT(FIN_CNNC_DTM, '%Y-%m-%d') finCnncDtm
+                 , DATE_FORMAT(FIN_PW_ALTR_DTM, '%Y-%m-%d') finPwAltrDtm
+                 , RGST_ID rgstId
+                 , DATE_FORMAT(RGST_DTM, '%Y-%m-%d') rgstDtm
+                 , MDFY_ID mdfyId
+                 , DATE_FORMAT(MDFY_DTM, '%Y-%m-%d') mdfyDtm
+              FROM VC_ADM_01
+             WHERE ST_CD <> 'D'
+        ]]>
+		<dynamic>
+			<isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="0">
+		        	<![CDATA[ AND ( MGR_ID LIKE CONCAT('%',#searchKey#,'%') OR MGR_NM LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="1">
+		        	<![CDATA[ AND MGR_ID LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="2">
+		        	<![CDATA[ AND MGR_NM LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+        <![CDATA[
+        	ORDER BY RGST_DTM DESC
+        	LIMIT #rowStart#, #rowLimit#
+        ]]>
+	</select>
+
+	<!-- 
+		Query Name : managerDAO.selectInfo 
+		Description : 상세정보를 조회한다. 
+	 -->
+	<select id="managerDAO.selectInfo" parameterClass="authVO" resultClass="authVO">
+        <![CDATA[
+			/* ProgramID=managerDAO.selectInfo */
+            SELECT MGR_SN mgrSn
+                 , MGR_ID mgrId
+                 , MGR_NM mgrNm
+                 , MGR_PW mgrPw
+                 , MGR_EML mgrEml
+                 , MGR_TN mgrTn
+                 , MGR_OPS_NM mgrOpsNm
+                 , MGR_POA_NM mgrPoaNm
+                 , MGR_AUTH_CD mgrAuthCd
+                 , CNNC_PSBL_IP cnncPsblIp
+                 , ST_CD stCd
+                 , TMP_PW_YN tmpPwYn
+                 , PW_ERR_OFT pwErrOft
+                 , MENU menu
+				 , MENU_CD menuCd
+                 , DATE_FORMAT(FIN_CNNC_DTM, '%Y-%m-%d') finCnncDtm
+                 , DATE_FORMAT(FIN_PW_ALTR_DTM, '%Y-%m-%d') finPwAltrDtm
+                 , RGST_ID rgstId
+                 , DATE_FORMAT(RGST_DTM, '%Y-%m-%d') rgstDtm
+                 , MDFY_ID mdfyId
+                 , DATE_FORMAT(MDFY_DTM, '%Y-%m-%d') mdfyDtm
+              FROM VC_ADM_01
+             WHERE MGR_SN = #mgrSn#
+               AND ST_CD <> 'D'
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : managerDAO.insertInfo 
+		Description : 정보를 등록한다. 
+	 -->
+	<insert id="managerDAO.insertInfo" parameterClass="authVO">
+        <![CDATA[
+			/* ProgramID=managerDAO.insertInfo */
+			INSERT INTO VC_ADM_01
+			     (
+                   MGR_ID
+                 , MGR_NM
+                 , MGR_PW
+                 , MGR_EML
+                 , MGR_TN
+                 , MGR_OPS_NM
+                 , MGR_POA_NM
+                 , MENU
+                 , MENU_CD
+                 , FIN_CNNC_DTM
+                 , FIN_PW_ALTR_DTM
+                 , RGST_ID
+                 , RGST_DTM
+                 , MDFY_ID
+                 , MDFY_DTM
+                 )
+          VALUES ( 
+                   #mgrId#
+                 , #mgrNm#
+                 , #mgrPw#
+                 , #mgrEml#
+                 , #mgrTn#
+                 , #mgrOpsNm#
+                 , #mgrPoaNm#
+                 , #menu#
+                 , #menuCd#
+                 , NOW()
+                 , NOW()
+          		 , #rgstId#
+          		 , NOW()
+          		 , #mdfyId#
+          		 , NOW()
+                 )
+        ]]>
+		<selectKey resultClass="int" keyProperty="mgrSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+
+	<!-- 
+		Query Name : managerDAO.updateInfo 
+		Description : 정보를 수정한다.
+	-->
+	<update id="managerDAO.updateInfo" parameterClass="authVO">
+        <![CDATA[
+            /* ProgramID=managerDAO.updateInfo */ 
+            UPDATE VC_ADM_01
+               SET MGR_NM = #mgrNm#
+                 , MGR_TN = #mgrTn# 
+                 , MGR_OPS_NM = #mgrOpsNm#
+                 , MGR_POA_NM = #mgrPoaNm#
+                 , MGR_AUTH_CD = #mgrAuthCd#
+                 , MENU = #menu#
+				 , MENU_CD = #menuCd#
+                 , ST_CD = #stCd#
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM =  NOW()
+             WHERE MGR_SN = #mgrSn#
+        ]]>
+	</update>
+
+	<!-- 
+		Query Name : managerDAO.updateByStCd 
+		Description : 계정 상태값 변경 
+	-->
+	<update id="managerDAO.updateByStCd" parameterClass="authVO">
+        <![CDATA[
+            /* ProgramID=managerDAO.updateByStCd */ 
+            UPDATE VC_ADM_01
+               SET ST_CD = #stCd# 
+                 , FIN_CNNC_DTM =  NOW()
+                 , PW_ERR_OFT = 0
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM =  NOW()
+             WHERE MGR_SN = #mgrSn#
+        ]]>
+	</update>
+
+	<!-- 
+		Query Name : managerDAO.updateByPassword 
+		Description : 비밀번호를 수정한다.
+	-->
+	<update id="managerDAO.updateByPassword" parameterClass="authVO">
+        <![CDATA[
+			/* ProgramID=managerDAO.updateByPassword */ 
+            UPDATE VC_ADM_01
+               SET MGR_PW = #mgrPw#
+                 , TMP_PW_YN = "N"
+                 , FIN_PW_ALTR_DTM = NOW()
+                 , PW_ERR_OFT = 0
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE MGR_SN = #mgrSn#
+        ]]>
+	</update>
+
+
+	<!-- 
+		Query Name : managerDAO.selectInfoCheckDuplicate 
+		Description : 아이디 중복 체크 
+	 -->
+	<select id="managerDAO.selectInfoCheckDuplicate" parameterClass="authVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=managerDAO.selectInfoCheckDuplicate */
+            SELECT COUNT(1)
+              FROM VC_ADM_01
+             WHERE MGR_ID = #mgrId#
+        ]]>
+	</select>
+
+
+</sqlMap>

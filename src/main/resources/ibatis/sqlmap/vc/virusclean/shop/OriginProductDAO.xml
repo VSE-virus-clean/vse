@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : OriginProductDAO.xml 
+	Description : 제품 정품등록
+-->
+
+<sqlMap namespace="virus_clean_shop_OriginProductDAO">
+	<typeAlias alias="originProductVO" type="vc.virusclean.admin.shop.vo.OriginProductVO" />
+
+	<!-- 
+		Query Name : originProductDAO.selectProductCount 
+		Description : ROW의 수를 조회한다. 
+	-->
+	<select id="originProductDAO.selectProductCount" parameterClass="originProductVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=originProductDAO.selectProductCount */
+            SELECT COUNT(1)
+              FROM VC_SHOP_03 A
+             WHERE USE_YN = 'Y'
+             
+        ]]>
+        
+		<dynamic>
+			<isEqual property="isApi" compareValue="true">
+	        	<isEqual property="individual" compareValue="true">
+	        		<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+	        	</isEqual>
+	        </isEqual>
+        
+			<isNotEmpty property="searchGubunType">
+	      		<![CDATA[ AND A.MAK_CD = #searchGubunType# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchKey">
+            	<![CDATA[ AND (  A.PRD_TITL LIKE CONCAT('%',#searchKey#,'%') OR  A.SERIAL_NO LIKE CONCAT('%',#searchKey#,'%') )]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<!-- 
+		Query Name : originProductDAO.selectProductList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="originProductDAO.selectProductList" parameterClass="originProductVO" resultClass="originProductVO">
+        <![CDATA[
+			/* ProgramID=originProductDAO.selectProductList */
+            SELECT A.*
+            	 , IFNULL( (SELECT MBR_ID FROM VC_USR_01 WHERE MBR_SN = A.mbrSn LIMIT 1) , '') AS mbrId
+				 , IFNULL( (SELECT MBR_NM FROM VC_USR_01 WHERE MBR_SN = A.mbrSn LIMIT 1) , '') AS mbrNm
+				 , IFNULL( (SELECT MBR_NICK FROM VC_USR_01 WHERE MBR_SN = A.mbrSn LIMIT 1) , '') AS mbrNick
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.orgSn AND MENU_CD = 'ORG' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.orgSn AND MENU_CD = 'ORG' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+              FROM (
+                       SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+							, A.ORG_SN orgSn
+							, A.MBR_SN mbrSn
+							, A.PRD_SN prdSn
+							, A.PRD_TITL prdTitl
+							, A.SERIAL_NO serialNo
+							, A.MAK_CD makCd
+							, A.ORG_SBC orgSbc
+							, DATE_FORMAT(A.WRNT_STR_DTM, '%Y-%m-%d') AS wrntStrDtm
+							, DATE_FORMAT(A.WRNT_FNH_DTM, '%Y-%m-%d') AS wrntFnhDtm
+							, A.APLY_YN aplyYn
+							, A.APLY_SBC aplySbc
+							, DATE_FORMAT(A.APLY_DTM, '%Y-%m-%d') AS aplyDtm
+                            , DATE_FORMAT(A.MAK_DTM, '%Y-%m-%d') AS makDtm
+							, DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i') AS rgstDtm
+                            , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d') AS userViewDtm
+                         FROM VC_SHOP_03 A, (SELECT @ROWNUM := 0) B
+                        WHERE A.USE_YN = 'Y' 
+        ]]>
+        
+	        	<dynamic>
+					<isEqual property="isApi" compareValue="true">
+			        	<isEqual property="individual" compareValue="true">
+			        		<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+			        	</isEqual>
+			        </isEqual>
+		        
+					<isNotEmpty property="searchGubunType">
+			      		<![CDATA[ AND A.MAK_CD = #searchGubunType# ]]>
+					</isNotEmpty>
+					
+					<isNotEmpty property="searchKey">
+		            	<![CDATA[ AND (  A.PRD_TITL LIKE CONCAT('%',#searchKey#,'%') OR  A.SERIAL_NO LIKE CONCAT('%',#searchKey#,'%') )]]>
+					</isNotEmpty>
+				</dynamic>
+		
+        <![CDATA[
+					ORDER BY A.RGST_DTM DESC
+                   ) A
+			 LIMIT #rowStart#, #rowLimit#
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : originProductDAO.selectProduct 
+		Description : 상세정보를 조회한다. 
+	-->
+	<select id="originProductDAO.selectProduct" parameterClass="originProductVO" resultClass="originProductVO">
+        <![CDATA[
+			/* ProgramID=originProductDAO.selectProduct */
+            SELECT A.ORG_SN orgSn
+				 , A.MBR_SN mbrSn
+				 , IFNULL( (SELECT MBR_ID FROM VC_USR_01 WHERE MBR_SN = A.MBR_SN LIMIT 1) , '') AS mbrId
+				 , IFNULL( (SELECT MBR_NM FROM VC_USR_01 WHERE MBR_SN = A.MBR_SN LIMIT 1) , '') AS mbrNm
+				 , IFNULL( (SELECT MBR_NICK FROM VC_USR_01 WHERE MBR_SN = A.MBR_SN LIMIT 1) , '') AS mbrNick
+				 , A.PRD_SN prdSn
+				 , A.PRD_TITL prdTitl
+				 , A.SERIAL_NO serialNo
+				 , A.MAK_CD makCd
+				 , A.ORG_SBC orgSbc
+				 , DATE_FORMAT(A.WRNT_STR_DTM, '%Y-%m-%d') AS wrntStrDtm
+				 , DATE_FORMAT(A.WRNT_FNH_DTM, '%Y-%m-%d') AS wrntFnhDtm
+				 , A.APLY_YN aplyYn
+				 , A.APLY_SBC aplySbc
+				 , DATE_FORMAT(A.APLY_DTM, '%Y-%m-%d') AS aplyDtm
+                 , DATE_FORMAT(A.MAK_DTM, '%Y-%m-%d')  AS makDtm
+				 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS userViewDtm  
+              FROM VC_SHOP_03 A
+             WHERE A.ORG_SN = #orgSn#
+               AND A.USE_YN = 'Y' 
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : originProductDAO.insertProduct 
+		Description : 정보를 등록한다. 
+	-->
+	<insert id="originProductDAO.insertProduct" parameterClass="originProductVO">
+        <![CDATA[
+			/* ProgramID=originProductDAO.insertProduct */ 
+            INSERT INTO VC_SHOP_03
+                   (
+					  MBR_SN
+					, PRD_SN
+					, PRD_TITL
+					, SERIAL_NO
+					, MAK_CD
+					, ORG_SBC
+					, MAK_DTM
+					, RGST_DTM
+				   )
+            VALUES ( 
+					  #mbrSn#
+					, #prdSn#
+					, #prdTitl#
+					, #serialNo#
+					, #makCd#
+					, #orgSbc#
+					, NOW()
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="orgSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+
+	<!-- 
+		Query Name : originProductDAO.updateProduct 
+		Description : 정보를 수정한다.
+	-->
+	<update id="originProductDAO.updateProduct" parameterClass="originProductVO">
+        <![CDATA[
+			/* ProgramID=originProductDAO.updateProduct */ 
+            UPDATE VC_SHOP_03
+               SET SERIAL_NO = #serialNo#
+             WHERE ORG_SN = #orgSn#
+        ]]>
+	</update>
+	
+	<!-- 
+		Query Name : originProductDAO.updateProductByAplyYn 
+		Description : 관리자가 승인/반려한다.
+	-->
+	<update id="originProductDAO.updateProductByAplyYn" parameterClass="originProductVO">
+        <![CDATA[
+			/* ProgramID=originProductDAO.updateProductByAplyYn */ 
+            UPDATE VC_SHOP_03
+               SET APLY_YN = #aplyYn#
+                 , APLY_SBC = #aplySbc#
+                 , APLY_DTM = NOW()
+       	]]>
+
+		<dynamic>
+			<isEqual property="aplyYn" compareValue="Y">
+				<![CDATA[ 
+					, WRNT_STR_DTM = DATE_FORMAT(NOW(), '%Y-%m-%d 00:00:00')
+					, WRNT_FNH_DTM = DATE_ADD(DATE_FORMAT(NOW(), '%Y-%m-%d 00:00:00'), INTERVAL 1 YEAR)
+				]]>
+			</isEqual>
+		</dynamic>
+       
+       	<![CDATA[
+             WHERE ORG_SN = #orgSn#
+        ]]>
+	</update>
+
+	<!-- 
+		Query Name : originProductDAO.deleteProduct 
+		Description : 정보를 삭제한다. 
+	-->
+	<update id="originProductDAO.deleteProduct" parameterClass="originProductVO">
+        <![CDATA[
+			/* ProgramID=originProductDAO.deleteProduct */
+            UPDATE VC_SHOP_03
+               SET USE_YN = 'D'
+                 , MDFY_SN = #mdfySn#
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE 1 = 1
+        ]]>
+        
+        <isNotEqual property="prdSn" compareValue="0">
+        	<![CDATA[ AND ORG_SN = #orgSn#  ]]>
+		</isNotEqual>
+		
+	    <isNotEmpty property="delSeq">
+			<iterate property="delSeq" prepend=" AND ORG_SN IN " open="(" close=")" conjunction=",">
+				#delSeq[]#
+			</iterate>
+		</isNotEmpty>
+	</update>
+
+</sqlMap>

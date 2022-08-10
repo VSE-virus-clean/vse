@@ -1,0 +1,1023 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+    SQL File Name  : MemberDAO.xml
+    Description    : 회원정보 관련
+-->
+
+<sqlMap namespace="virus_clean_member_MemberDAO">
+    <typeAlias alias="memberVO" type="vc.virusclean.admin.member.vo.MemberVO"/>
+    <typeAlias alias="memberLoginVO" type="vc.virusclean.user.vo.LoginVO"/>
+
+	<!--
+        Query Name  : memberDAO.selectMemberMaxNo
+        Description : Max No 조회 :  사용하지 않음.
+    --> 
+    <select id="memberDAO.selectMemberMaxNo" resultClass="int">
+        <![CDATA[
+            /* ProgramID=memberDAO.selectMemberMaxNo */
+            SELECT CASE 
+						WHEN MAX_NO < 77001 THEN 77001
+						ELSE MAX_NO
+				   END AS NO
+		      FROM (        
+		     		SELECT COALESCE(MAX(MBR_NO), 0) + 1 as MAX_NO          
+		              FROM VC_USR_01
+		            ) A
+        ]]>
+    </select>
+
+	<!--
+        Query Name  : memberDAO.selectMemberCount
+        Description : 회원 수
+    --> 
+    <select id="memberDAO.selectMemberCount" parameterClass="memberVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberCount */
+            SELECT COUNT(1)
+              FROM VC_USR_01
+             WHERE 1 = 1
+       ]]>  
+             
+       <dynamic>
+    		<isEqual property="isUse" compareValue="true">
+	        	<![CDATA[ AND ST_CD = 'Y' ]]>
+	        </isEqual>
+       		<isNotEmpty property="searchKey">
+            	<isEqual property="searchType" compareValue="id">
+	            	<![CDATA[ AND MBR_ID LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="name">
+            		<![CDATA[ AND MBR_NM LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="nick">
+	            	<![CDATA[ AND MBR_NICK LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="email">
+	            	<![CDATA[ AND MBR_EML LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="phone">
+	            	<![CDATA[ AND MBR_HP LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEmpty property="searchType">
+	            	<![CDATA[ 
+	            		AND ( MBR_ID LIKE CONCAT('%',#searchKey#,'%') 
+            					OR MBR_NM LIKE CONCAT('%',#searchKey#,'%') 
+            					OR MBR_NICK LIKE CONCAT('%',#searchKey#,'%')
+            					OR MBR_EML LIKE CONCAT('%',#searchKey#,'%')
+            					OR MBR_HP LIKE CONCAT('%',#searchKey#,'%') ) 
+            		]]>
+	            </isEmpty>
+            </isNotEmpty>
+            
+            <isNotEmpty property="searchGubunType">
+                <![CDATA[ AND MBR_GRADE = #searchGubunType# ]]>
+			</isNotEmpty>
+       </dynamic>
+    </select>
+    
+    <!--
+        Query Name  : memberDAO.selectMemberList
+        Description : 목록을 조회한다.
+        				- , COALESCE(DATEDIFF(RENEW_DTM, NOW()), -1) diffGold    
+    --> 
+    <select id="memberDAO.selectMemberList" parameterClass="memberVO" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberList */
+            SELECT A.MBR_SN mbrSn
+				 , A.MBR_ID mbrId
+				 , A.MBR_NICK mbrNick
+				 , A.MBR_GRADE mbrGrade
+				 , A.MBR_NM mbrNm
+				 , A.MBR_TN mbrTn
+				 , A.MBR_HP mbrHp
+				 , A.MBR_EML mbrEml
+				 , A.GENDER_CD genderCd
+				 , DATE_FORMAT(A.MBR_BDAY, '%Y-%m-%d') mbrBday
+				 , A.MBR_AGE mbrAge
+				 , A.ZIP_CD zipCd
+				 , A.ADR_SBC1 adrSbc1
+				 , A.ADR_SBC2 adrSbc2
+				 , A.POINT point
+				 , A.ST_CD stCd
+				 , A.BBS_YN bbsYn
+				 , A.SMS_YN smsYn
+				 , DATE_FORMAT(A.SMS_DTM, '%Y-%m-%d') smsDtm
+				 , A.EML_YN emlYn
+				 , DATE_FORMAT(A.EML_DTM, '%Y-%m-%d') emlDtm
+				 , A.PUSH_YN pushYn
+				 , DATE_FORMAT(A.PUSH_DTM, '%Y-%m-%d') pushDtm
+				 , A.CERT_YN certYn
+				 , A.CERT_MET certMet
+				 , DATE_FORMAT(A.CERT_DTM, '%Y-%m-%d') certDtm
+				 , A.SNS_CD snsCd
+				 , A.APP_OS appOs
+				 , A.APP_TOKEN appToken
+				 , DATE_FORMAT(A.APP_TOKEN_ALTR_DTM, '%Y-%m-%d') appTokenAltrDtm
+				 , A.APP_MAC appMac
+				 , A.APP_BOOT_URL appBootUrl
+				 , A.APP_FIRM_URL appFirmUrl
+				 , A.SCSS_RSON scssRson
+				 , A.SCSS_MBR_ID scssMbrId
+				 , A.TMP_PW_YN tmpPwYn
+				 , A.PW_ERR_OFT pwErrOft
+				 , DATE_FORMAT(A.FIN_CNNC_DTM, '%Y-%m-%d') finCnncDtm
+                 , DATE_FORMAT(A.FIN_PW_ALTR_DTM, '%Y-%m-%d') finPwAltrDtm
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d') rgstDtm
+                 , DATE_FORMAT(A.MDFT_DTM, '%Y-%m-%d') mdftDtm  
+              FROM VC_USR_01 A
+             WHERE 1 = 1
+        ]]>
+        
+        <dynamic>
+        	<isEqual property="isUse" compareValue="true">
+	        	<![CDATA[ AND A.ST_CD = 'Y' ]]>
+	        </isEqual>
+       		<isNotEmpty property="searchKey">
+            	<isEqual property="searchType" compareValue="id">
+	            	<![CDATA[ AND A.MBR_ID LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="name">
+            		<![CDATA[ AND A.MBR_NM LIKE CONCAT('%',#searchKey#,'%')]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="nick">
+	            	<![CDATA[ AND A.MBR_NICK LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="email">
+	            	<![CDATA[ AND A.MBR_EML LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="phone">
+	            	<![CDATA[ AND A.MBR_HP LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEmpty property="searchType">
+	            	<![CDATA[ 
+	            		AND ( A.MBR_ID LIKE CONCAT('%',#searchKey#,'%') 
+            					OR A.MBR_NM LIKE CONCAT('%',#searchKey#,'%') 
+            					OR A.MBR_NICK LIKE CONCAT('%',#searchKey#,'%')
+            					OR A.MBR_EML LIKE CONCAT('%',#searchKey#,'%')
+            					OR A.MBR_HP LIKE CONCAT('%',#searchKey#,'%') ) 
+            		]]>
+	            </isEmpty>
+            </isNotEmpty>
+            
+            <isNotEmpty property="searchGubunType">
+                <![CDATA[ AND A.MBR_GRADE = #searchGubunType# ]]>
+			</isNotEmpty>
+       </dynamic>
+       
+       <![CDATA[
+             ORDER BY A.MBR_SN DESC
+             LIMIT #rowStart#, #rowLimit#
+       ]]>
+    </select>
+
+
+    <!--
+        Query Name  : memberDAO.selectMember
+        Description : 상세정보를 조회한다.
+    --> 
+    <select id="memberDAO.selectMember" parameterClass="memberVO" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMember */
+            SELECT A.MBR_SN mbrSn
+				 , A.MBR_ID mbrId
+				 , A.MBR_PW mbrPw
+				 , A.MBR_NM mbrNm
+				 , A.MBR_HP mbrHp
+				 , A.MBR_EML mbrEml
+				 , A.MBR_TN mbrTn
+				 , A.MBR_NICK mbrNick
+				 , A.MBR_GRADE mbrGrade
+				 , A.GENDER_CD genderCd
+				 , DATE_FORMAT(A.MBR_BDAY, '%Y-%m-%d') mbrBday
+				 , A.MBR_AGE mbrAge
+				 , A.ZIP_CD zipCd
+				 , A.ADR_SBC1 adrSbc1
+				 , A.ADR_SBC2 adrSbc2
+				 , A.POINT point
+				 , A.ST_CD stCd
+				 , A.BBS_YN bbsYn
+				 , A.SMS_YN smsYn
+				 , DATE_FORMAT(A.SMS_DTM, '%Y-%m-%d') smsDtm
+				 , A.EML_YN emlYn
+				 , DATE_FORMAT(A.EML_DTM, '%Y-%m-%d') emlDtm
+				 , A.PUSH_YN pushYn
+				 , DATE_FORMAT(A.PUSH_DTM, '%Y-%m-%d') pushDtm
+				 , A.CERT_YN certYn
+				 , A.CERT_MET certMet
+				 , DATE_FORMAT(A.CERT_DTM, '%Y-%m-%d') certDtm
+				 , A.SNS_CD snsCd
+				 , A.APP_OS appOs
+				 , A.APP_TOKEN appToken
+				 , DATE_FORMAT(A.APP_TOKEN_ALTR_DTM, '%Y-%m-%d') appTokenAltrDtm
+				 , A.APP_MAC appMac
+				 , A.APP_BOOT_URL appBootUrl
+				 , A.APP_FIRM_URL appFirmUrl
+				 , A.SCSS_RSON scssRson
+				 , A.SCSS_MBR_ID scssMbrId
+				 , A.TMP_PW_YN tmpPwYn
+				 , A.PW_ERR_OFT pwErrOft
+				 , DATE_FORMAT(A.FIN_CNNC_DTM, '%Y-%m-%d') finCnncDtm
+                 , DATE_FORMAT(A.FIN_PW_ALTR_DTM, '%Y-%m-%d') finPwAltrDtm
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d') rgstDtm
+                 , DATE_FORMAT(A.MDFT_DTM, '%Y-%m-%d') mdftDtm
+                 , A.RMK rmk                 
+              FROM VC_USR_01 A
+             WHERE A.MBR_SN = #mbrSn#
+       ]]>      
+       
+       <isEqual property="isAdmin" compareValue="false">
+        	<![CDATA[ 
+        		AND A.ST_CD <> 'D' 
+        	]]>
+       </isEqual>      
+    </select>
+    
+    
+    <!--
+        Query Name  : memberDAO.selectMemberApiMod
+        Description : 상세정보를 조회한다.
+    --> 
+    <select id="memberDAO.selectMemberApiMod" parameterClass="memberVO" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberApiMod */
+            SELECT A.MBR_SN mbrSn
+				 , A.MBR_ID mbrId
+				 , A.MBR_PW mbrPw
+				 , A.MBR_NM mbrNm
+				 , A.MBR_HP mbrHp
+				 , A.MBR_EML mbrEml
+				 , A.MBR_TN mbrTn
+				 , A.MBR_NICK mbrNick
+				 , A.MBR_GRADE mbrGrade
+				 , A.GENDER_CD genderCd
+				 , DATE_FORMAT(A.MBR_BDAY, '%Y-%m-%d') mbrBday
+				 , A.MBR_AGE mbrAge
+				 , A.ZIP_CD zipCd
+				 , A.ADR_SBC1 adrSbc1
+				 , A.ADR_SBC2 adrSbc2
+				 , A.POINT point
+				 , A.ST_CD stCd
+				 , A.BBS_YN bbsYn
+				 , A.SMS_YN smsYn
+				 , DATE_FORMAT(A.SMS_DTM, '%Y-%m-%d') smsDtm
+				 , A.EML_YN emlYn
+				 , DATE_FORMAT(A.EML_DTM, '%Y-%m-%d') emlDtm
+				 , A.PUSH_YN pushYn
+				 , DATE_FORMAT(A.PUSH_DTM, '%Y-%m-%d') pushDtm
+				 , A.CERT_YN certYn
+				 , A.CERT_MET certMet
+				 , DATE_FORMAT(A.CERT_DTM, '%Y-%m-%d') certDtm
+				 , A.SNS_CD snsCd
+				 , A.APP_OS appOs
+				 , A.APP_TOKEN appToken
+				 , DATE_FORMAT(A.APP_TOKEN_ALTR_DTM, '%Y-%m-%d') appTokenAltrDtm
+				 , A.APP_MAC appMac
+				 , A.APP_BOOT_URL appBootUrl
+				 , A.APP_FIRM_URL appFirmUrl
+				 , A.SCSS_RSON scssRson
+				 , A.SCSS_MBR_ID scssMbrId
+				 , A.TMP_PW_YN tmpPwYn
+				 , A.PW_ERR_OFT pwErrOft
+				 , DATE_FORMAT(A.FIN_CNNC_DTM, '%Y-%m-%d') finCnncDtm
+                 , DATE_FORMAT(A.FIN_PW_ALTR_DTM, '%Y-%m-%d') finPwAltrDtm
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d') rgstDtm
+                 , DATE_FORMAT(A.MDFT_DTM, '%Y-%m-%d') mdftDtm
+                 , A.RMK rmk                 
+              FROM VC_USR_01 A
+             WHERE A.ST_CD <> 'D' 
+               AND A.MBR_SN = #mbrSn#
+               AND A.APP_TOKEN = #appToken#
+               AND A.APP_OS = #appOs#
+       ]]>      
+    </select>
+    
+    
+    
+    <!--
+        Query Name  : memberDAO.selectMemberFind
+        Description : 상세정보를 조회한다.
+    --> 
+    <select id="memberDAO.selectMemberFind" parameterClass="memberVO" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberFind */
+            SELECT A.MBR_SN mbrSn
+				 , A.MBR_ID mbrId
+				 , A.MBR_PW mbrPw
+				 , A.MBR_NM mbrNm
+				 , A.MBR_HP mbrHp
+				 , A.SNS_CD snsCd
+              FROM VC_USR_01 A
+             WHERE A.ST_CD <> 'D' 
+       ]]>      
+       <dynamic>
+	   	   <isEqual property="searchType" compareValue="findID">
+	              <![CDATA[ 
+	               AND A.MBR_NM = #mbrNm# 
+	               AND A.MBR_HP = #mbrHp#
+	              ]]>
+	       </isEqual>
+	       <isEqual property="searchType" compareValue="findPassword">
+	              <![CDATA[ 
+	               AND BINARY A.MBR_ID = #mbrId# 
+	               AND A.MBR_NM = #mbrNm# 
+	               AND A.MBR_HP = #mbrHp#
+	              ]]>
+	       </isEqual>
+       </dynamic>
+       
+       <![CDATA[
+       		ORDER BY A.MBR_SN DESC
+            LIMIT 0, 1
+       ]]>
+    </select>
+    
+    
+    
+    <!--
+        Query Name  : memberDAO.selectGoldExtendList
+        Description : 골드회원 연장 메일  안내 대상 => 개인정보 동의 메일로 대상자 선정
+    --> 
+    <select id="memberDAO.selectGoldExtendList" parameterClass="memberVO" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectGoldExtendList */
+            SELECT MBR_SN mbrSn
+                 , MBR_ID mbrId
+                 , MBR_NO mbrNo
+                 , MBR_NICK mbrNick
+                 , MBR_NM mbrNm
+                 , MBR_EML mbrEml
+                 , CT_CD ctCd
+                 , ST_CD stCd
+                 , MBR_GRADE spCd
+                 , DATE_FORMAT(MBR_DTM, '%Y-%m-%d') mbrDtm 
+                 , DATE_FORMAT(RENEW_DTM, '%Y-%m-%d') renewDtm  
+              FROM VC_USR_01
+             WHERE ST_CD <> 'D'
+               AND MBR_GRADE = 'Y'
+               AND DATE_FORMAT(RENEW_DTM, '%Y-%m-%d') = DATE_FORMAT(ADDDATE(NOW(), INTERVAL 30 DAY) , '%Y-%m-%d')
+        ]]>
+    </select>
+    
+    <!--
+        Query Name  : memberDAO.selectGoldExtendAllList
+        Description : 골드회원 연장 메일  안내 대상 => 개인정보 동의 메일로 대상자 선정
+    --> 
+    <select id="memberDAO.selectGoldExtendAllList" parameterClass="memberVO" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectGoldExtendAllList */
+            SELECT MBR_SN mbrSn
+                 , MBR_ID mbrId
+                 , MBR_NO mbrNo
+                 , MBR_NICK mbrNick
+                 , MBR_NM mbrNm
+                 , MBR_EML mbrEml
+                 , CT_CD ctCd
+                 , ST_CD stCd
+                 , MBR_GRADE spCd
+                 , DATE_FORMAT(MBR_DTM, '%Y-%m-%d') mbrDtm 
+                 , DATE_FORMAT(RENEW_DTM, '%Y-%m-%d') renewDtm  
+              FROM VC_USR_01
+             WHERE ST_CD <> 'D' 
+               AND MBR_GRADE = 'Y' 
+               AND DATE_FORMAT(RENEW_DTM, '%Y-%m-%d') <= DATE_FORMAT(ADDDATE(NOW(), INTERVAL 30 DAY) , '%Y-%m-%d')
+        ]]>
+    </select>
+
+
+    <!--
+        Query Name  : memberDAO.selectAuth
+        Description : 사용자 로그인 정보 조회
+    --> 
+    <select id="memberDAO.selectAuth" parameterClass="memberLoginVO" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectAuth */
+            SELECT A.MBR_SN mbrSn
+				 , A.MBR_ID mbrId
+				 , A.MBR_PW mbrPw
+				 , A.MBR_NICK mbrNick
+				 , A.MBR_GRADE mbrGrade
+				 , A.MBR_NM mbrNm
+				 , A.MBR_TN mbrTn
+				 , A.MBR_HP mbrHp
+				 , A.MBR_EML mbrEml
+				 , A.GENDER_CD genderCd
+				 , DATE_FORMAT(A.MBR_BDAY, '%Y-%m-%d') mbrBday
+				 , A.MBR_AGE mbrAge
+				 , A.ZIP_CD zipCd
+				 , A.ADR_SBC1 adrSbc1
+				 , A.ADR_SBC2 adrSbc2
+				 , A.POINT point
+				 , A.ST_CD stCd
+				 , A.BBS_YN bbsYn
+				 , A.SMS_YN smsYn
+				 , DATE_FORMAT(A.SMS_DTM, '%Y-%m-%d') smsDtm
+				 , A.EML_YN emlYn
+				 , DATE_FORMAT(A.EML_DTM, '%Y-%m-%d') emlDtm
+				 , A.PUSH_YN pushYn
+				 , DATE_FORMAT(A.PUSH_DTM, '%Y-%m-%d') pushDtm
+				 , A.CERT_YN certYn
+				 , A.CERT_MET certMet
+				 , DATE_FORMAT(A.CERT_DTM, '%Y-%m-%d') certDtm
+				 , A.SNS_CD snsCd
+				 , A.APP_OS appOs
+				 , A.APP_TOKEN appToken
+				 , DATE_FORMAT(A.APP_TOKEN_ALTR_DTM, '%Y-%m-%d') appTokenAltrDtm
+				 , A.APP_MAC appMac
+				 , A.APP_BOOT_URL appBootUrl
+				 , A.APP_FIRM_URL appFirmUrl
+				 , A.SCSS_RSON scssRson
+				 , A.SCSS_MBR_ID scssMbrId
+				 , A.TMP_PW_YN tmpPwYn
+				 , A.PW_ERR_OFT pwErrOft
+				 , DATE_FORMAT(A.FIN_CNNC_DTM, '%Y-%m-%d') finCnncDtm
+                 , DATE_FORMAT(A.FIN_PW_ALTR_DTM, '%Y-%m-%d') finPwAltrDtm
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d') rgstDtm
+                 , DATE_FORMAT(A.MDFT_DTM, '%Y-%m-%d') mdftDtm                   
+              FROM VC_USR_01 A      
+             WHERE BINARY A.MBR_ID = #mbrId#
+               AND A.SNS_CD = #snsCd#
+               AND A.ST_CD <> 'D'
+       ]]>      
+    </select>
+    
+    <!--
+        Query Name  : memberDAO.updateMember
+        Description : 정보를 수정한다. - 회원
+    -->    
+    <update id="memberDAO.updateMember" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateMember */ 
+            UPDATE VC_USR_01
+               SET MBR_NICK = #mbrNick#
+                 , MBR_TN = #mbrTn#
+				 , MBR_HP = #mbrHp#
+				 , MBR_EML = #mbrEml#
+				 , GENDER_CD = #genderCd#
+		]]>
+			 <isNotEmpty property="mbrBday">
+			 	<![CDATA[	, MBR_BDAY = DATE_FORMAT(#mbrBday#, '%Y-%m-%d 00:00:00')	]]>
+			 </isNotEmpty>
+		<![CDATA[
+				 , MBR_AGE = #mbrAge#
+				 , ZIP_CD = #zipCd#
+				 , ADR_SBC1 = #adrSbc1#
+				 , ADR_SBC2 = #adrSbc2#
+                 , MDFT_DTM = NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    <!--
+        Query Name  : memberDAO.updateMemberCert
+        Description : APP으로 가입한 회원 본인인증 및 기본정보 수정
+    -->    
+    <update id="memberDAO.updateMemberCert" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateMemberCert */ 
+            UPDATE VC_USR_01
+               SET MBR_NM = #mbrNm#
+                 , MBR_TN = #mbrTn#
+				 , MBR_HP = #mbrHp#
+				 , MBR_EML = #mbrEml#
+				 , GENDER_CD = #genderCd#
+				 , MBR_BDAY = DATE_FORMAT(#mbrBday#, '%Y-%m-%d 00:00:00')
+				 , MBR_AGE = #mbrAge#
+				 , ZIP_CD = #zipCd#
+				 , ADR_SBC1 = #adrSbc1#
+				 , ADR_SBC2 = #adrSbc2#
+				 , CERT_YN = 'Y'
+				 , CERT_MET = #certMet#
+				 , CI = #ci#
+				 , DI = #di#
+				 , CERT_DTM = NOW()
+                 , MDFT_DTM = NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    
+    <!--
+        Query Name  : memberDAO.updateMemberAdm
+        Description : 정보를 수정한다. - 관리자
+    -->    
+    <update id="memberDAO.updateMemberAdm" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateMemberAdm */ 
+            UPDATE VC_USR_01
+               SET MBR_NM = #mbrNm#
+				 , MBR_TN = #mbrTn#
+				 , MBR_HP = #mbrHp#
+				 , MBR_EML = #mbrEml#
+				 , MBR_GRADE = #mbrGrade#
+				 , GENDER_CD = #genderCd#
+				 , ZIP_CD = #zipCd#
+				 , ADR_SBC1 = #adrSbc1#
+				 , ADR_SBC2 = #adrSbc2#
+				 , RMK = #rmk#
+				 , BBS_YN = #bbsYn#
+                 , MDFT_DTM = NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    <!--
+        Query Name  : memberDAO.updateBySmsYn
+        Description : SMS/이메일 동의여부
+    -->    
+    <update id="memberDAO.updateBySmsYn" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateBySmsYn */ 
+            UPDATE VC_USR_01
+               SET SMS_YN = #smsYn#
+                 , SMS_DTM =  NOW()
+                 , EML_YN = #emlYn#
+                 , EML_DTM =  NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    <!--
+        Query Name  : memberDAO.updateByPushYn
+        Description : APP PUSH 동의여부
+    -->    
+    <update id="memberDAO.updateByPushYn" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateByPushYn */ 
+            UPDATE VC_USR_01
+               SET PUSH_YN = #pushYn#
+                 , PUSH_DTM =  NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    
+    <!--
+        Query Name  : memberDAO.updateByBbsYn
+        Description : 커뮤니티 사용 가능여부
+        				
+    -->    
+    <update id="memberDAO.updateByBbsYn" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateByBbsYn */ 
+            UPDATE VC_USR_01
+               SET BBS_YN = #bbsYn#
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+
+	<!--
+        Query Name  : memberDAO.updateByStCd
+        Description : 계정 상태값 변경
+                        - 마지막 접속일(st_cd가 Y이고 비밀번호 오류 횟수가 0일때)
+                        - 비밀번호 오류 횟수
+    -->    
+    <update id="memberDAO.updateByStCd" parameterClass="memberVO">
+        <![CDATA[
+            /* ProgramID=memberDAO.updateByStCd */ 
+            UPDATE VC_USR_01
+               SET ST_CD = #stCd# 
+        ]]>        
+          
+        <isEqual property="stCd" compareValue="Y">   
+            <isEqual property="pwErrOft" compareValue="0">        
+                <![CDATA[  , FIN_CNNC_DTM =  NOW() ]]>
+            </isEqual>
+        </isEqual>
+        
+        <![CDATA[       
+                 , PW_ERR_OFT = #pwErrOft#
+                 , MDFT_DTM =  NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    <!--
+        Query Name  : memberDAO.updateByPassword
+        Description : 비밀번호를 수정한다.
+    -->    
+    <update id="memberDAO.updateByPassword" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateByPassword */ 
+            UPDATE VC_USR_01
+               SET MBR_PW = #mbrPw#
+                 , TMP_PW_YN = #tmpPwYn#
+                 , ST_CD = 'Y'
+                 , FIN_PW_ALTR_DTM = NOW()
+                 , PW_ERR_OFT = 0
+                 , MDFT_DTM = NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    
+    <!--
+        Query Name  : memberDAO.updateByCertInfo
+        Description : 본인인증 값 수정
+    -->    
+    <update id="memberDAO.updateByCertInfo" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateByCertInfo */ 
+            UPDATE VC_USR_01
+               SET CERT_YN = 'Y'
+				 , CERT_MET = #certMet#
+				 , CERT_DTM =  NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    
+    <!--
+        Query Name  : memberDAO.updateByAppInfo
+        Description : APP 정보 수정
+    -->    
+    <update id="memberDAO.updateByAppInfo" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateByAppInfo */ 
+            UPDATE VC_USR_01
+               SET APP_OS = #appOs#
+				 , APP_TOKEN = #appToken#
+				 , APP_TOKEN_ALTR_DTM = NOW()
+                 , APP_MAC = #appMac#
+				 , APP_BOOT_URL = #appBootUrl#
+				 , APP_FIRM_URL = #appFirmUrl#
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    
+    <!--
+        Query Name  : memberDAO.updateByGrade
+        Description : 회원등급 변경
+        				- 구매갯수에 따라서
+        				 브론즈 : 디바이스 3개 이상 구매
+						 실버 : 디바이스 10개 이상 구매
+						 골드 : 디바이스 30개 이상 구매 
+        				
+    -->    
+    <update id="memberDAO.updateByGrade" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateByGrade */ 
+            UPDATE VC_USR_01
+               SET MBR_GRADE = #mbrGrade#
+                 , MBR_DTM = NOW()
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    
+    
+    <!--
+        Query Name  : memberDAO.selectSpecialMemberExpireList
+        Description : 기간만료 GOLD회원 처리 : 30일이상 지난회원
+    --> 
+    <select id="memberDAO.selectSpecialMemberExpireList" parameterClass="memberVO" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectSpecialMemberExpireList */
+            SELECT MBR_SN mbrSn
+                 , MBR_ID mbrId
+                 , MBR_NO mbrNo
+                 , MBR_NICK mbrNick
+                 , MBR_NM mbrNm
+                 , MBR_EML mbrEml
+                 , CT_CD ctCd
+                 , ST_CD stCd
+                 , MBR_GRADE spCd
+                 , DATE_FORMAT(MBR_DTM, '%Y-%m-%d') mbrDtm 
+                 , DATE_FORMAT(RENEW_DTM, '%Y-%m-%d') renewDtm  
+              FROM VC_USR_01
+             WHERE ST_CD <> 'D'
+               AND MBR_GRADE = 'Y'
+               AND DATE_FORMAT(NOW(), '%Y-%m-%d') > DATE_FORMAT(ADDDATE(RENEW_DTM, INTERVAL 30 DAY), '%Y-%m-%d');
+        ]]>
+    </select>
+    
+    
+    <!--
+        Query Name  : memberDAO.selectMemberCheckDuplicateById
+        Description : 회원 정보 중복 체크 : 탈퇴해도 ID재사용 못함
+    --> 
+    <select id="memberDAO.selectMemberCheckDuplicateById" parameterClass="memberVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberCheckDuplicateById */
+            SELECT COUNT(1)
+              FROM VC_USR_01
+             WHERE BINARY MBR_ID = #mbrId#
+       ]]>        
+    </select>
+    
+    <!--
+        Query Name  : memberDAO.selectMemberCheckDuplicateByHP
+        Description : 회원 정보 중복 체크
+    --> 
+    <select id="memberDAO.selectMemberCheckDuplicateByHP" parameterClass="memberVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberCheckDuplicateByHP*/
+            SELECT COUNT(1)
+              FROM VC_USR_01
+             WHERE ST_CD <> 'D'
+               AND MBR_HP = #mbrHp#
+       ]]>        
+    </select>
+    
+    <!--
+        Query Name  : memberDAO.selectMemberCheckDuplicateByDI
+        Description : 본인인증값 CI 중복체크
+    --> 
+    <select id="memberDAO.selectMemberCheckDuplicateByDI" parameterClass="memberVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberCheckDuplicateByDI */
+            SELECT COUNT(1)
+              FROM VC_USR_01
+             WHERE ST_CD <> 'D'
+               AND DI = #di#
+       ]]>        
+    </select>
+    
+    <!--
+        Query Name  : memberDAO.selectMemberCheckDuplicate
+        Description : 회원 정보 중복 체크
+    --> 
+    <select id="memberDAO.selectMemberCheckDuplicate" parameterClass="memberVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberCheckDuplicate */
+            SELECT COUNT(1)
+              FROM VC_USR_01
+             WHERE 1 = 1
+       ]]>        
+       <dynamic>
+       		<isNotEmpty property="mbrId">
+       			<![CDATA[	AND BINARY MBR_ID = #mbrId#	]]>
+			</isNotEmpty>
+			<isNotEmpty property="mbrNick">
+       			<![CDATA[	AND ST_CD <> 'D'
+       			            AND MBR_NICK = #mbrNick#	]]>
+			</isNotEmpty>
+			<isNotEmpty property="mbrEml">
+       			<![CDATA[	AND ST_CD <> 'D'
+       			            AND MBR_EML = #mbrEml#	]]>
+			</isNotEmpty>
+       </dynamic>
+    </select>
+    
+    
+    <!--
+        Query Name  : memberDAO.insertMember
+        Description : 정보를 등록한다.
+    -->
+    <insert id="memberDAO.insertMember" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.insertMember */ 
+            INSERT INTO VC_USR_01
+                   (
+					  MBR_ID
+					, MBR_PW
+					, MBR_NICK
+					, MBR_GRADE
+					, MBR_NM
+					, MBR_TN
+					, MBR_HP
+					, MBR_EML
+					, GENDER_CD
+		]]>
+            <isNotEmpty property="mbrBday">
+				<![CDATA[	
+					, MBR_BDAY
+					, MBR_AGE
+				]]>
+			</isNotEmpty>
+		<![CDATA[			
+					, ZIP_CD
+					, ADR_SBC1
+					, ADR_SBC2
+					, POINT
+					, ST_CD
+					, BBS_YN
+					, SMS_YN
+					, SMS_DTM
+					, EML_YN
+					, EML_DTM
+					, CERT_YN
+					, CERT_MET
+					, CERT_DTM
+					, SNS_CD
+					, APP_OS
+					, CI
+					, DI
+		          	, FIN_CNNC_DTM
+		          	, FIN_PW_ALTR_DTM
+		          	, RGST_DTM
+		          	, MDFT_DTM
+				   )
+            VALUES ( 
+					  #mbrId#
+					, #mbrPw#
+					, #mbrNick#
+					, #mbrGrade#
+					, #mbrNm#
+					, #mbrTn#
+					, #mbrHp#
+					, #mbrEml#
+					, #genderCd#
+		]]>
+            <isNotEmpty property="mbrBday">
+				<![CDATA[	
+					, DATE_FORMAT(#mbrBday#, '%Y-%m-%d 00:00:00')
+					, #mbrAge#
+				]]>
+			</isNotEmpty>
+		<![CDATA[
+					, #zipCd#
+					, #adrSbc1#
+					, #adrSbc2#
+					, #point#
+					, #stCd#
+					, #bbsYn#
+					, 'Y'
+					, NOW()
+					, 'Y'
+					, NOW()
+					, #certYn#
+					, #certMet#
+					, NOW()
+					, #snsCd#
+					, #appOs#
+					, #ci#
+					, #di#
+		          	, NOW()
+		          	, NOW()
+		          	, NOW()
+		          	, NOW()
+				   )
+        ]]>
+
+        <selectKey resultClass="int" keyProperty="mbrSn"> 
+            SELECT LAST_INSERT_ID();   
+        </selectKey> 
+    </insert>
+    
+    
+    <!--
+        Query Name  : memberDAO.deleteMemberRegiste
+        Description : 회원탈퇴 -> 관리자
+    -->   
+    <update id="memberDAO.deleteMemberRegiste" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.deleteMemberRegiste */
+            UPDATE VC_USR_01
+               SET ST_CD = 'D'
+                 , MBR_NICK = ''                                  
+                 , MBR_NM = ''
+				 , MBR_TN = ''
+				 , MBR_HP = ''
+				 , MBR_EML = ''
+				 , ZIP_CD = ''
+				 , ADR_SBC1 = ''
+				 , ADR_SBC2 = ''		
+				 , PW_ERR_OFT = 0			
+                 , SCSS_RSON = #scssRson#
+				 , SCSS_MBR_ID = #mbrId#
+				 , MDFT_DTM = NOW()
+             WHERE MBR_SN = #mbrSn#
+               AND MBR_ID = #mbrId#
+        ]]>
+    </update>
+    
+    
+    <!--
+        Query Name  : memberDAO.deleteMemberWithdraw
+        Description : 회원탈퇴 -> 사용자
+        				- 비밀번호도 확인
+    -->   
+    <update id="memberDAO.deleteMemberWithdraw" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.deleteMemberWithdraw */
+            UPDATE VC_USR_01
+               SET ST_CD = 'D'
+                 , MBR_NICK = ''                 
+                 , MBR_NM = ''
+				 , MBR_TN = ''
+				 , MBR_HP = ''
+				 , MBR_EML = ''
+				 , ZIP_CD = ''
+				 , ADR_SBC1 = ''
+				 , ADR_SBC2 = ''		
+				 , PW_ERR_OFT = 0		 
+                 , SCSS_RSON = #scssRson#
+				 , SCSS_MBR_ID = #mbrId#
+				 , MDFT_DTM = NOW()
+             WHERE MBR_SN = #mbrSn#
+               AND MBR_PW = #mbrPw#
+               AND MBR_ID = #mbrId#
+        ]]>
+    </update>
+    
+    
+    <!--
+        Query Name  : memberDAO.selectMemberAllList
+        Description : 회원 전체 목록을 조회한다.
+    --> 
+    <select id="memberDAO.selectMemberAllList" parameterClass="memberVO" resultClass="xMap">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberAllList */
+            SELECT A.MBR_ID mbrId				
+								 , A.MBR_NM mbrNm
+								 , A.MBR_NICK mbrNick
+								 , A.MBR_GRADE mbrGrade
+								 , A.MBR_HP mbrHp
+								 , A.MBR_EML mbrEml
+								 , A.GENDER_CD genderCd
+								 , DATE_FORMAT(A.MBR_BDAY, '%Y-%m-%d') mbrBday
+								 , A.MBR_AGE mbrAge
+								 , A.ZIP_CD zipCd
+								 , CONCAT(A.ADR_SBC1, ' ', A.ADR_SBC2) adrSbc2				
+								 , A.BBS_YN bbsYn				 			 
+								 , A.EML_YN
+								 , A.SNS_CD snsCd		          
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d') rgstDtm                        
+              FROM VC_USR_01 A      
+             WHERE A.ST_CD <> 'D'        
+       ]]>
+       
+       <dynamic>
+       		<isNotEmpty property="searchKey">
+            	<isEqual property="searchType" compareValue="id">
+	            	<![CDATA[ AND A.MBR_ID LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="name">
+            		<![CDATA[ AND A.MBR_NM LIKE CONCAT('%',#searchKey#,'%')]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="nick">
+	            	<![CDATA[ AND A.MBR_NICK LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="email">
+	            	<![CDATA[ AND A.MBR_EML LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="phone">
+	            	<![CDATA[ AND A.MBR_HP LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEmpty property="searchType">
+	            	<![CDATA[ 
+	            		AND ( A.MBR_ID LIKE CONCAT('%',#searchKey#,'%') 
+            					OR A.MBR_NM LIKE CONCAT('%',#searchKey#,'%') 
+            					OR A.MBR_NICK LIKE CONCAT('%',#searchKey#,'%')
+            					OR A.MBR_EML LIKE CONCAT('%',#searchKey#,'%')
+            					OR A.MBR_HP LIKE CONCAT('%',#searchKey#,'%') ) 
+            		]]>
+	            </isEmpty>
+            </isNotEmpty>
+            
+            <isNotEmpty property="searchGubunType">
+                <![CDATA[ AND A.MBR_GRADE = #searchGubunType# ]]>
+			</isNotEmpty>
+       </dynamic>
+    </select>
+    
+    <!--
+        Query Name  : memberDAO.updateMemberDeviceInfo
+        Description : 디바이스토큰 변경
+        				- MAC주소는 빈값이면 빈갓으로 업데이트 처리(APP개발자 요청사항)
+    -->    
+    <update id="memberDAO.updateMemberDeviceInfo" parameterClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.updateMemberDeviceInfo */ 
+            UPDATE VC_USR_01
+               SET APP_OS = #appOs#
+        ]]>
+        
+        <isNotEmpty property="appToken">
+			<![CDATA[	
+				, APP_TOKEN = #appToken# 
+				, APP_TOKEN_ALTR_DTM = NOW()
+			]]>
+		</isNotEmpty>
+			
+		<![CDATA[	
+				 , APP_MAC = #appMac#	 
+             WHERE MBR_SN = #mbrSn#
+        ]]>
+    </update>
+    
+    
+    <!--
+        Query Name  : memberDAO.selectMemberPushList
+        Description : PUSH 대상 목록을 조회한다.
+    --> 
+    <select id="memberDAO.selectMemberPushList" resultClass="memberVO">
+        <![CDATA[
+			/* ProgramID=memberDAO.selectMemberPushList */
+            SELECT A.MBR_SN mbrSn
+				 , A.MBR_ID mbrId
+				 , A.MBR_NICK mbrNick
+				 , A.MBR_NM mbrNm
+				 , A.APP_TOKEN appToken
+              FROM VC_USR_01 A
+             WHERE A.ST_CD = 'Y'
+               AND A.PUSH_YN = 'Y'
+			   AND A.APP_TOKEN IS NOT NULL 
+               AND A.APP_TOKEN <> ''
+       ]]>
+    </select>
+
+</sqlMap>

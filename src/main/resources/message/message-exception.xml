@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<!-- XML File Name : message-exception.xml Description : 서비스 에러 로그용 Message 
+	Resource Properties author Jeong.hyoungjea since 2013. 7. 30. version 1.0 
+	Modification Information since author description =========== ============= 
+	=========================== 2013. 7. 30. Jeong.hyoungjea 최초 생성 -->
+
+<properties>
+	<comment>서비스 에러 로그용 Message Resource Properties</comment>
+
+	<entry key="exception.idDuplicate">사용중인 아이디가 있습니다.</entry>
+	
+	<entry key="exception.nopage">요청하신 페이지가 없습니다.</entry>
+	<entry key="exception.nodata">요청하신 데이터가 없습니다.</entry>
+	<entry key="exception.error">작업중 에러가 발생했습니다.</entry>
+	<entry key="exception.binding">입력값이 올바르지 않습니다.</entry>
+	<entry key="exception.failedLog">보안로그 입력 실패</entry>
+	<entry key="exception.fileNot">첨부가 불가능한 파일을 업로드 하셨습니다.</entry>
+	<entry key="exception.fileNot2">영문 및 숫자로 된 파일명으로 업로드 해 주십시오.</entry>
+	<entry key="exception.fileNot3">업로드 파일 허용 용량을 초과했습니다.\n10MB 이하의 파일을 업로드 해 주십시오.</entry>
+
+	<entry key="errors.login.access.ipaddress">접속가능 IP주소가 아닙니다.</entry>
+</properties>

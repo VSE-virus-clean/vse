@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+    SQL File Name  : MemberBoardDAO.xml
+    Description    : 회원 일반 게시판
+    author         : Jeong.Hyoung.Jae
+    since          : 2017.1.25
+    version        : 1.0
+    Modification Information
+    since          author           description
+    ===========    =============    ===========================
+    2017.1.25      Jeong.Hyoung.Jae         최초 생성
+-->
+
+<sqlMap namespace="virus_clean_member_MemberBoardDAO">
+    <typeAlias alias="memberBoardVO" type="vc.virusclean.admin.member.vo.MemberBoardVO"/>
+
+
+    <!--
+        Query Name  : memberBoardDAO.selectBoardCount
+        Description : ROW의 수를 조회한다.
+        since          author           description
+        ===========    =============    ===========================
+        2017.1.25      Jeong.Hyoung.Jae         최초 생성
+    --> 
+    <select id="memberBoardDAO.selectBoardCount" parameterClass="memberBoardVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=memberBoardDAO.selectBoardCount */
+            SELECT COUNT(1)
+              FROM EM_COM_03
+             WHERE USE_YN <> 'D'
+               AND NOTI_YN = 'N'
+               AND LGRP_CD  = #lgrpCd#
+        ]]>
+        <dynamic>
+            <isNotEmpty property="searchKey">
+            	<isEqual property="searchType" compareValue="0">
+	            	<![CDATA[ 
+                    	AND ( BLC_TITL LIKE CONCAT('%',#searchKey#,'%') 
+                    			OR BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') 
+                    			OR MBR_NICK LIKE CONCAT('%',#searchKey#,'%') )
+                    ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="1">
+	            	<![CDATA[ AND BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="2">
+	            	<![CDATA[ AND BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+	            <isEqual property="searchType" compareValue="3">
+	            	<![CDATA[ AND MBR_NICK LIKE CONCAT('%',#searchKey#,'%') ]]>
+	            </isEqual>
+            </isNotEmpty>
+            <isNotEmpty property="searchGubunType">
+            	<![CDATA[ AND MGRP_CD LIKE CONCAT('%',#searchGubunType#,'%') ]]>
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+
+    <!--
+        Query Name  : memberBoardDAO.selectBoardList
+        Description : 목록을 조회한다.(페이징 처리.)
+        since          author           description
+        ===========    =============    ===========================
+        2017.1.25      Jeong.Hyoung.Jae         최초 생성
+    --> 
+    <select id="memberBoardDAO.selectBoardList" parameterClass="memberBoardVO" resultClass="memberBoardVO">
+        <![CDATA[
+			/* ProgramID=memberBoardDAO.selectBoardList */
+            
+            SELECT A.BLC_SN blcSn
+                 , A.LGRP_CD lgrpCd
+                 , A.MGRP_CD mgrpCd
+                 , A.SGRP_CD sgrpCd
+                 , A.BLC_TITL blcTitl
+                 , A.RLTD_LK rltdLk
+                 , A.BLC_RCT blcRct
+                 , A.NOTI_YN notiYn
+                 , A.USE_YN useYn
+                 , A.MBR_NICK mbrNick
+                 , A.RGST_ID rgstId
+                 , ( SELECT COUNT(1) 
+                       FROM EM_COM_04 
+                      WHERE USE_YN = 'Y'
+                        AND BLC_SN = A.BLC_SN
+                   ) replyRct   
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS rgstDtm
+              FROM EM_COM_03 A
+             WHERE A.USE_YN <> 'D'
+               AND A.NOTI_YN = 'N'
+               AND A.LGRP_CD = #lgrpCd#
+        ]]>
+                <dynamic>
+                    <isNotEmpty property="searchKey">
+	                	<isEqual property="searchType" compareValue="0">
+                            <![CDATA[ 
+                            	AND ( A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') 
+                            			OR A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') 
+                            			OR A.MBR_NICK LIKE CONCAT('%',#searchKey#,'%') )
+                            ]]>
+                        </isEqual>
+                        <isEqual property="searchType" compareValue="1">
+                            <![CDATA[ AND A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+                        </isEqual>
+		                <isEqual property="searchType" compareValue="2">
+		                    <![CDATA[ AND A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+		                </isEqual>
+		                <isEqual property="searchType" compareValue="3">
+			            	<![CDATA[ AND A.MBR_NICK LIKE CONCAT('%',#searchKey#,'%') ]]>
+			            </isEqual>
+                    </isNotEmpty>
+                    <isNotEmpty property="searchGubunType">
+		            	<![CDATA[ AND A.MGRP_CD LIKE CONCAT('%',#searchGubunType#,'%') ]]>
+		            </isNotEmpty>
+                </dynamic>
+        <![CDATA[
+             ORDER BY A.RGST_DTM DESC, A.BLC_SN DESC
+             LIMIT #rowStart#, #rowLimit#
+        ]]>
+    </select>
+    
+    
+    <!--
+        Query Name  : memberBoardDAO.selectBoard
+        Description : 상세정보를 조회한다.
+        since          author           description
+        ===========    =============    ===========================
+        2017.1.25      Jeong.Hyoung.Jae         최초 생성
+    --> 
+    <select id="memberBoardDAO.selectBoard" parameterClass="memberBoardVO" resultClass="memberBoardVO">
+        <![CDATA[
+			/* ProgramID=memberBoardDAO.selectBoard */
+            SELECT A.BLC_SN blcSn
+                 , A.LGRP_CD lgrpCd
+                 , A.MGRP_CD mgrpCd
+                 , A.SGRP_CD sgrpCd
+                 , A.BLC_TITL blcTitl
+                 , A.BLC_SBC1 blcSbc1
+                 , A.BLC_SBC2 blcSbc2
+                 , A.RLTD_LK rltdLk
+                 , A.BLC_RCT blcRct
+                 , A.USE_YN useYn
+                 , A.NOTI_YN notiYn
+                 , A.MBR_NICK mbrNick
+                 , A.RGST_ID rgstId
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS rgstDtm
+              FROM EM_COM_03 A
+             WHERE A.BLC_SN = #blcSn#
+               AND A.USE_YN <> 'D'
+               AND A.LGRP_CD  = #lgrpCd#
+        ]]>
+    </select>
+    
+
+    <!--
+        Query Name  : memberBoardDAO.deleteBoard
+        Description : 정보를 삭제한다.
+        since          author           description
+        ===========    =============    ===========================
+        2017.1.25      Jeong.Hyoung.Jae         최초 생성
+    -->   
+    <update id="memberBoardDAO.deleteBoard" parameterClass="memberBoardVO">
+        <![CDATA[
+			/* ProgramID=memberBoardDAO.deleteBoard */
+            UPDATE EM_COM_03
+               SET USE_YN = 'N'
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE BLC_SN = #blcSn#
+               AND USE_YN = 'Y'
+               AND LGRP_CD = #lgrpCd#
+        ]]>
+    </update>
+    
+</sqlMap>

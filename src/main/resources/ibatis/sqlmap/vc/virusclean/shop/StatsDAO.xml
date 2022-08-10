@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="virus_clean_shop_StatsDAO">
+	
+	<!-- 
+		Query Name : statsDAO.selectDashboard
+		Description : 대쉬보드
+	-->
+	<select id="statsDAO.selectDashboard" resultClass="xMap">
+        <![CDATA[
+			/* ProgramID=statsDAO.selectDashboard */
+            SELECT
+				   ( 
+				   	 SELECT COUNT(1) 
+				   	   FROM VC_USR_01 
+				   	  WHERE ST_CD <> 'D'
+				   ) AS "USER_01"
+				 , ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_USR_01 
+				 	  WHERE ST_CD <> 'D' 
+				 	    AND DATE_FORMAT(RGST_DTM, "%Y-%m-%d") = CURDATE()
+				   ) AS "USER_02"
+				 , ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_04 
+				 	  WHERE NOW_ORDER_CD = '결제완료'
+				 	    AND DATE_FORMAT(RGST_DTM, "%Y-%m-%d") = CURDATE()
+				   ) AS "DAY_01"
+				 , ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_04 
+				 	  WHERE NOW_ORDER_CD = '배송준비중'
+				 	    AND DATE_FORMAT(RGST_DTM, "%Y-%m-%d") = CURDATE()
+				   ) AS "DAY_02"
+				 , ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_04 
+				 	  WHERE NOW_ORDER_CD IN ('반품승인', '반품완료', '교환승인', '교환완료')
+				 	    AND DATE_FORMAT(RGST_DTM, "%Y-%m-%d") = CURDATE()
+				   ) AS "DAY_03"
+				 , ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '입금대기'
+				   ) AS "SALE_01"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '결제완료'
+				   ) AS "SALE_02"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '배송준비중'
+				   ) AS "SALE_03"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '배송중'
+				   ) AS "SALE_04"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '배송완료'
+				   ) AS "SALE_05"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '주문취소신청'
+				   ) AS "SALE_06"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD IN ('주문취소', '주문취소완료')
+				   ) AS "SALE_07"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '교환신청'
+				   ) AS "SALE_08"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD in ( '교환승인', '교환완료' )
+				   ) AS "SALE_09"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '반품신청'
+				   ) AS "SALE_10"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD in ( '반품승인', '반품완료' )
+				   ) AS "SALE_11"
+				, ( 
+				 	 SELECT COUNT(1) 
+				 	   FROM VC_PAY_01 
+				 	  WHERE ORDER_CD = '구매확정'
+				   ) AS "SALE_12"
+			  FROM DUAL
+        ]]>
+	</select>
+	
+	
+	<!-- 
+		Query Name : statsDAO.selectStatsSales
+		Description : 매출 통계
+	-->
+	<select id="statsDAO.selectStatsSales" resultClass="xMap">
+        <![CDATA[
+			/* ProgramID=statsDAO.selectStatsSales */
+			SELECT RGST_DTM
+			     , SUM(ORDER_QUANTITY) AS ORDER_QUANTITY
+			     , SUM(PRODUCT_PRICE) AS PRODUCT_PRICE
+			     , SUM(DELIVERY_FEE) AS DELIVERY_FEE
+			     , SUM(DISCOUNT_PRICE) AS DISCOUNT_PRICE
+			     , SUM(ORDER_PRICE) AS ORDER_PRICE
+			     , SUM(REFUND_PRICE) AS REFUND_PRICE
+			     , SUM(ORDER_PRICE) - SUM(REFUND_PRICE) AS TOTAL_PRICE
+  			  FROM (
+		]]>
+		<isEqual property="searchType" compareValue="day">
+			<![CDATA[
+				SELECT A.ORDER_NO, DATE_FORMAT(A.RGST_DTM, "%Y-%m-%d") RGST_DTM
+					 , B.ORDER_QUANTITY, B.PRODUCT_PRICE, B.DISCOUNT_PRICE, B.DELIVERY_FEE, B.ORDER_PRICE, 0 AS REFUND_PRICE
+				  FROM VC_PAY_04 A INNER JOIN VC_PAY_01 B ON B.ORDER_NO = A.ORDER_NO
+				 WHERE A.NOW_ORDER_CD = '결제완료'
+				   AND A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+		 		   AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59')
+				UNION  
+				SELECT A.ORDER_NO, DATE_FORMAT(A.RGST_DTM, "%Y-%m-%d") RGST_DTM
+					 , B.ORDER_QUANTITY, 0 AS PRODUCT_PRICE, 0 AS DISCOUNT_PRICE, 0 AS DELIVERY_FEE, 0 AS ORDER_PRICE, B.ORDER_PRICE AS REFUND_PRICE
+				  FROM VC_PAY_04 A INNER JOIN VC_PAY_01 B ON B.ORDER_NO = A.ORDER_NO
+				 WHERE A.NOW_ORDER_CD IN ( '반품승인', '반품완료')
+		           AND A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+		 		   AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59')
+			]]>
+		</isEqual>
+		<isEqual property="searchType" compareValue="month">
+			<![CDATA[
+				 SELECT A.ORDER_NO, DATE_FORMAT(A.RGST_DTM, "%Y-%m") RGST_DTM
+					 , B.ORDER_QUANTITY, B.PRODUCT_PRICE, B.DISCOUNT_PRICE, B.DELIVERY_FEE, B.ORDER_PRICE, 0 AS REFUND_PRICE
+				  FROM VC_PAY_04 A INNER JOIN VC_PAY_01 B ON B.ORDER_NO = A.ORDER_NO
+				 WHERE A.NOW_ORDER_CD = '결제완료'
+				   AND A.RGST_DTM >= DATE_FORMAT(CONCAT(#searchStartDate#, '-01'), '%Y-%m-%d 00:00:00') 
+		 		   AND A.RGST_DTM <= DATE_FORMAT(LAST_DAY(CONCAT(#searchEndDate#, '-01')), '%Y-%m-%d 23:59:59')
+				UNION  
+				SELECT A.ORDER_NO, DATE_FORMAT(A.RGST_DTM, "%Y-%m") RGST_DTM
+					 , B.ORDER_QUANTITY, 0 AS PRODUCT_PRICE, 0 AS DISCOUNT_PRICE, 0 AS DELIVERY_FEE, 0 AS ORDER_PRICE, B.ORDER_PRICE AS REFUND_PRICE
+				  FROM VC_PAY_04 A INNER JOIN VC_PAY_01 B ON B.ORDER_NO = A.ORDER_NO
+				 WHERE A.NOW_ORDER_CD IN ( '반품승인', '반품완료')
+		           AND A.RGST_DTM >= DATE_FORMAT(CONCAT(#searchStartDate#, '-01'), '%Y-%m-%d 00:00:00') 
+		 		   AND A.RGST_DTM <= DATE_FORMAT(LAST_DAY(CONCAT(#searchEndDate#, '-01')), '%Y-%m-%d 23:59:59')
+			]]>
+		</isEqual>
+		<isEqual property="searchType" compareValue="year">
+			<![CDATA[
+				SELECT A.ORDER_NO, DATE_FORMAT(A.RGST_DTM, "%Y") RGST_DTM
+					 , B.ORDER_QUANTITY, B.PRODUCT_PRICE, B.DISCOUNT_PRICE, B.DELIVERY_FEE, B.ORDER_PRICE, 0 AS REFUND_PRICE
+				  FROM VC_PAY_04 A INNER JOIN VC_PAY_01 B ON B.ORDER_NO = A.ORDER_NO
+				 WHERE A.NOW_ORDER_CD = '결제완료'
+				   AND A.RGST_DTM >= DATE_FORMAT(CONCAT(#searchStartDate#, '-01-01'), '%Y-%m-%d 00:00:00') 
+		 		   AND A.RGST_DTM <= DATE_FORMAT(CONCAT(#searchEndDate#, '-12-31'), '%Y-%m-%d 23:59:59')
+				UNION  
+				SELECT A.ORDER_NO, DATE_FORMAT(A.RGST_DTM, "%Y") RGST_DTM
+					 , B.ORDER_QUANTITY, 0 AS PRODUCT_PRICE, 0 AS DISCOUNT_PRICE, 0 AS DELIVERY_FEE, 0 AS ORDER_PRICE, B.ORDER_PRICE AS REFUND_PRICE
+				  FROM VC_PAY_04 A INNER JOIN VC_PAY_01 B ON B.ORDER_NO = A.ORDER_NO
+				 WHERE A.NOW_ORDER_CD IN ( '반품승인', '반품완료')
+		           AND A.RGST_DTM >= DATE_FORMAT(CONCAT(#searchStartDate#, '-01-01'), '%Y-%m-%d 00:00:00') 
+		 		   AND A.RGST_DTM <= DATE_FORMAT(CONCAT(#searchEndDate#, '-12-31'), '%Y-%m-%d 23:59:59')
+			]]>
+		</isEqual>
+		
+		<![CDATA[
+				) A
+			GROUP BY A.RGST_DTM
+ 			ORDER BY A.RGST_DTM
+			
+		]]>
+	</select>
+	
+
+	<!-- 
+		Query Name : statsDAO.selectStatsAccounts
+		Description : 정산 통계
+	-->
+	<select id="statsDAO.selectStatsAccounts" resultClass="xMap">
+        <![CDATA[
+			/* ProgramID=statsDAO.selectStatsAccounts */
+			SELECT RGST_DTM,  ORDER_PRICE, PRE_MONTH_PRICE, CUR_MONTH_PRICE, (CUR_MONTH_PRICE - PRE_MONTH_PRICE) AS TOTAL_PRICE
+  			  FROM (
+					SELECT CONCAT(RGST_DTM, '') RGST_DTM
+					     , SUM(ORDER_PRICE) AS ORDER_PRICE
+					     , SUM(ORDER_PRICE) - SUM(REFUND_PRICE) AS CUR_MONTH_PRICE
+					     , IFNULL ((		
+								SELECT SUM(PAY_AMT) 
+					              FROM VC_PAY_04
+								 WHERE ORDER_NO IN (
+											SELECT ORDER_NO 
+											  FROM VC_PAY_01 
+											 WHERE DATE_FORMAT(PAY_DTM, "%Y-%m") = DATE_FORMAT(DATE_SUB(DATE_FORMAT(CONCAT(A.RGST_DTM, '-01'), '%Y-%m-%d'), INTERVAL 1 MONTH), '%Y-%m')
+									   )
+								   AND NOW_ORDER_CD IN ('주문취소', '주문취소승인', '주문취소완료', '반품승인', '반품완료')
+					               AND DATE_FORMAT(RGST_DTM, "%Y-%m") = A.RGST_DTM
+					       ), 0) AS PRE_MONTH_PRICE
+		  			  FROM (
+						SELECT DATE_FORMAT(A.RGST_DTM, "%Y-%m") RGST_DTM, B.ORDER_PRICE, 0 AS REFUND_PRICE
+						  FROM VC_PAY_04 A INNER JOIN VC_PAY_01 B ON B.ORDER_NO = A.ORDER_NO
+						 WHERE A.NOW_ORDER_CD = '결제완료'
+						   AND A.RGST_DTM >= DATE_FORMAT(CONCAT(#searchStartDate#, '-01-01'), '%Y-%m-%d 00:00:00') 
+				 		   AND A.RGST_DTM <= DATE_FORMAT(CONCAT(#searchStartDate#, '-12-31'), '%Y-%m-%d 23:59:59')
+						UNION ALL
+						SELECT DATE_FORMAT(A.RGST_DTM, "%Y-%m") RGST_DTM, 0 AS ORDER_PRICE, B.ORDER_PRICE AS REFUND_PRICE
+						  FROM VC_PAY_04 A INNER JOIN VC_PAY_01 B ON B.ORDER_NO = A.ORDER_NO
+						 WHERE A.NOW_ORDER_CD IN ( '반품승인', '반품완료')
+				           AND A.RGST_DTM >= DATE_FORMAT(CONCAT(#searchStartDate#, '-01-01'), '%Y-%m-%d 00:00:00') 
+				 		   AND A.RGST_DTM <= DATE_FORMAT(CONCAT(#searchStartDate#, '-12-31'), '%Y-%m-%d 23:59:59')
+						) A
+					GROUP BY A.RGST_DTM
+		 			ORDER BY A.RGST_DTM
+		 		 ) A
+		]]>
+	</select>
+	
+	<!-- 
+		Query Name : statsDAO.selectStatsAccountsSummary
+		Description : 정산 통계 - 요약
+	-->
+	<select id="statsDAO.selectStatsAccountsSummary" resultClass="xMap">
+        <![CDATA[
+			/* ProgramID=statsDAO.selectStatsAccountsSummary */
+			SELECT
+				  ( 
+					 SELECT IFNULL(SUM(ORDER_PRICE), 0)
+					   FROM VC_PAY_01 
+					  WHERE ORDER_CD IN ('입금대기')
+			            AND DATE_FORMAT(RGST_DTM, "%Y") = #searchStartDate#
+				   ) AS SALE_01
+				, ( 
+					 SELECT IFNULL(SUM(ORDER_PRICE), 0)
+					   FROM VC_PAY_01 
+					  WHERE ORDER_CD NOT IN ('결제요청','입금대기', '주문취소', '주문취소완료', '반품승인', '반품완료')
+			           AND DATE_FORMAT(PAY_DTM, "%Y") = #searchStartDate#
+				   ) AS SALE_02
+				, ( 
+					 SELECT IFNULL(SUM(ORDER_PRICE), 0)
+					   FROM VC_PAY_01 
+					  WHERE ORDER_CD IN ('주문취소', '주문취소완료', '반품승인', '반품완료')
+			          AND DATE_FORMAT(PAY_DTM, "%Y") = #searchStartDate#
+				   ) AS SALE_03
+				, ( 
+					 SELECT IFNULL(SUM(ORDER_PRICE), 0)
+					   FROM VC_PAY_01 
+					  WHERE ORDER_CD NOT IN ('구매확정', '배송완료')
+			          AND DATE_FORMAT(PAY_DTM, "%Y") = #searchStartDate#
+				   ) AS SALE_04
+			  FROM DUAL
+		]]>
+	</select>
+	
+	
+	<!-- 
+		Query Name : statsDAO.selectStatsProducts
+		Description : 상품관리 통계
+	-->
+	<select id="statsDAO.selectStatsProducts" resultClass="xMap">
+        <![CDATA[
+			/* ProgramID=statsDAO.selectStatsProducts */
+			SELECT @ROWNUM := @ROWNUM+1 AS NUM
+			     , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.PRD_SN AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS FILE_SN
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.PRD_SN AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS FIL_NM
+			     , A.PRD_TITL
+			     , A.SALE_PRICE 
+			     , A.CNT1
+			     , A.CNT2
+			     , A.CNT3
+			     , A.SUM3
+			  FROM (
+					SELECT A.ORDER_SN, A.PRD_SN, B.PRD_TITL, B.SALE_PRICE, SUM(CNT1) AS CNT1, SUM(CNT2) CNT2, SUM(SUM3) AS SUM3, SUM(CNT3) AS CNT3
+					  FROM (
+							SELECT A.ORDER_SN, B.PRD_SN, A.ORDER_CD, SUM(B.ORDER_PRICE) AS SUM1, SUM(B.ORDER_CNT) AS CNT1, 0 AS SUM2, 0 AS CNT2, 0 AS SUM3, 0 AS CNT3
+							  FROM VC_PAY_01 A 
+							       INNER JOIN VC_PAY_03 B ON B.ORDER_SN = A.ORDER_SN
+							 WHERE A.ORDER_CD NOT IN ('결제요청', '입금대기')
+							   AND A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+							   AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59')
+							GROUP BY PRD_SN
+							UNION
+							SELECT A.ORDER_SN, B.PRD_SN, A.ORDER_CD, 0 AS SUM1, 0 AS CNT1, SUM(B.ORDER_PRICE) AS SUM2, SUM(B.ORDER_CNT) AS CNT2, 0 AS SUM3, 0 AS CNT2
+							  FROM VC_PAY_01 A 
+							       INNER JOIN VC_PAY_03 B ON B.ORDER_SN = A.ORDER_SN
+							 WHERE A.ORDER_CD IN ('주문취소', '주문취소완료', '반품승인', '반품완료')
+							   AND A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+							   AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59')
+							GROUP BY PRD_SN
+							UNION
+							SELECT A.ORDER_SN, B.PRD_SN, A.ORDER_CD, 0 AS SUM1, 0 AS CNT1, 0 AS SUM2, 0 AS CNT2, SUM(B.ORDER_PRICE) AS SUM3, SUM(B.ORDER_CNT) AS CNT3
+							  FROM VC_PAY_01 A 
+							       INNER JOIN VC_PAY_03 B ON B.ORDER_SN = A.ORDER_SN
+							 WHERE A.ORDER_CD IN ('구매확정', '배송완료')
+							   AND A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+							   AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59')
+							GROUP BY PRD_SN
+					      ) A
+					      INNER JOIN VC_SHOP_01 B ON B.PRD_SN = A.PRD_SN
+					WHERE 1 = 1
+	    ]]>
+	   		
+	   		<isNotEmpty property="searchKey">
+          		<![CDATA[ AND B.PRD_TITL LIKE CONCAT('%' , #searchKey#, '%')  ]]>
+			</isNotEmpty>
+			
+	    <![CDATA[
+					GROUP BY PRD_SN
+			  	   ) A, (SELECT @ROWNUM := 0) B
+			 ORDER BY SUM3 DESC
+		]]>
+	</select>
+			
+	<!-- 
+		Query Name : statsDAO.selectStatsProductsSummary
+		Description : 상품관리 통계
+	-->
+	<select id="statsDAO.selectStatsProductsSummary" resultClass="xMap">
+        <![CDATA[
+			/* ProgramID=statsDAO.selectStatsProductsSummary */
+			SELECT SUM(ORDER_PRICE) AS SALE_01, SUM(ORDER_QUANTITY) AS SALE_02, COUNT(1) AS SALE_03
+			  FROM VC_PAY_01 A  
+			 WHERE A.ORDER_CD IN ('배송완료', '구매확정')
+			   AND A.PAY_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+	 		   AND A.PAY_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59')
+		]]>
+	</select>
+</sqlMap>

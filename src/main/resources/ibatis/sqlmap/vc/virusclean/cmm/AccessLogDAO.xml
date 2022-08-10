@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+    SQL File Name  : AccessLogDAO.xml
+    Description    : 보안로그 관리
+-->
+
+<sqlMap namespace="virus_clean_cmm_AccessLogDAO">
+    <typeAlias alias="accesslogVO" type="jksoft.com.web.vo.AccessLogVO"/>
+
+
+    <!--
+        Query Name  : accessLogDAO.selectAccessLogCount
+        Description : ROW의 수를 조회한다.
+    --> 
+    <select id="accessLogDAO.selectAccessLogCount" parameterClass="accesslogVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=accessLogDAO.selectAccessLogCount */
+            SELECT COUNT(1)
+              FROM VC_ADM_03
+             WHERE MENU_CD = #menuCd#
+               AND COTN_SN = #cotnSn#  
+               AND WK_SCN_CD IN ('DC', 'DU', 'DD', 'MS')
+        ]]>
+    </select>
+
+
+    <!--
+        Query Name  : accessLogDAO.selectAccessLogList
+        Description : 목록을 조회한다.
+    --> 
+    <select id="accessLogDAO.selectAccessLogList" parameterClass="accesslogVO" resultClass="accesslogVO">
+        <![CDATA[
+			/* ProgramID=accessLogDAO.selectAccessLogList */
+            SELECT A.MGR_SN mgrSn
+                 , B.MGR_NM mgrNm
+                 , (SELECT COM_CD_EXPL FROM TECH_TRADE_01 WHERE PREN_COM_CD = 'SYS' AND COM_CD = A.WK_SCN_CD) AS wkScnExpl
+                 , CONVERT(VARCHAR, A.RGST_DTM, 23)  AS rgstDtm
+              FROM VC_ADM_03 A 
+                   LEFT OUTER JOIN VC_ADM_01 B ON  A.MGR_SN = B.MGR_SN
+             WHERE A.MENU_CD = #menuCd#
+               AND A.COTN_SN = #cotnSn#
+               AND A.WK_SCN_CD IN ('DC', 'DU', 'DD', 'MS')
+             ORDER BY A.RGST_DTM DESC
+        ]]>
+    </select>
+    
+    
+    <!--
+        Query Name  : accessLogDAO.insertAccessLog
+        Description : 정보를 등록한다.
+    -->
+    <insert id="accessLogDAO.insertAccessLog" parameterClass="accesslogVO">
+        <![CDATA[
+			/* ProgramID=accessLogDAO.insertAccessLog */ 
+            INSERT INTO VC_ADM_03
+                   (
+					 MGR_SN
+                   , CNNC_IP
+                   , CNNC_MENU_URL
+                   , MENU_CD
+                   , COTN_SN
+                   , FIL_NM
+                   , FIL_CPC
+                   , WK_SCN_CD
+				   )
+            VALUES ( 
+					 #mgrSn#
+                   , #cnncIp#
+                   , #cnncMenuUrl#
+                   , #menuCd#
+                   , #cotnSn#
+                   , #filNm#
+                   , #filCpc#
+                   , #wkScnCd#
+				   )
+        ]]>
+    </insert>
+    
+    
+    <!--
+        Query Name  : accessLogDAO.selectUserAccessLogList
+        Description : 관리자의 접속 로그를 조회한다.
+    --> 
+    <select id="accessLogDAO.selectUserAccessLogList" parameterClass="accesslogVO" resultClass="accesslogVO">
+        <![CDATA[
+            /* ProgramID=accessLogDAO.selectUserAccessLogList */
+            SELECT A.COTN_SN cotnSn
+                 , A.CNNC_MENU_URL cnncMenuUrl
+                 , A.CNNC_IP cnncIp
+                 , A.WK_SCN_CD wkScnCd
+                 , (SELECT COM_CD_EXPL FROM TECH_TRADE_01 WHERE PREN_COM_CD = 'SYS' AND COM_CD = A.WK_SCN_CD) AS wkScnExpl
+                 , A.MENU_CD AS menuCd       
+                 , TO_CHAR(A.RGST_DTM, 'YYYY-MM-DD') AS rgstDtm
+              FROM VC_ADM_03 A 
+                   LEFT OUTER JOIN VC_ADM_01 B ON A.MGR_SN = B.MGR_SN
+             WHERE B.MGR_SN = #mgrSn#
+             ORDER BY A.RGST_DTM DESC
+        ]]>
+    </select>
+
+</sqlMap>

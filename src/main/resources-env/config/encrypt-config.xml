@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<!-- XML File Name : encrypt-config.xml Description : Spring Properties 암호화<br/> 
+	Ref.) <entry key="propertie.name">ENC(암호화값)</entry> author Jeong.Hyoung.Jae 
+	since 2017.12.15. version 1.0 Modification Information since author description 
+	=========== ============= =========================== 2017.12.15. Jeong.Hyoung.Jae 
+	최초 생성 -->
+
+<properties>
+	<comment>Spring Properties 암호화 정보</comment>
+	<entry key="jdbcs.database.class">com.mysql.jdbc.Driver</entry>
+	<entry key="jdbcs.database.url">jdbc:mysql://viruscleanlab.co6jad5ex5nn.ap-northeast-2.rds.amazonaws.com:3306/virusclean?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;autoReconnectForPools=true&amp;zeroDateTimeBehavior=convertToNull</entry>
+	<entry key="jdbcs.database.user">vclab</entry>
+	<entry key="jdbcs.database.pwd">vclab12!#</entry>
+	<entry key="jdbcs.database.jndiName">XXXX</entry>
+</properties>

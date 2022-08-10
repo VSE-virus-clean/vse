@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- ============================================================================================= -->
+	<!-- [ DEFINITION :: TEMPLATE ] -->
+	<!-- ============================================================================================= -->
+	<!-- 일반 화면 -->
+	<definition name="vse-default-tiles" template="/WEB-INF/jsp/user/normal/vse/common/layout/layout_default.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/user/normal/vse/common/include/inc_commonHead.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/user/normal/vse/common/include/inc_header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/user/normal/vse/common/include/inc_footer.jsp" />
+	</definition>
+	
+
+	<!-- ============================================================================================= -->
+	<!-- [ DEFINITION :: EXTENDS ] -->
+	<!-- ============================================================================================= -->
+	<definition name="user/vse/*" extends="vse-default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/vse/{1}.jsp" />
+	</definition>
+
+	<definition name="user/vse/*/*" extends="vse-default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/vse/{1}/{2}.jsp" />
+	</definition>
+
+	<definition name="user/vse/*/*/*" extends="vse-default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/vse/{1}/{2}/{3}.jsp" />
+	</definition>
+
+	<definition name="user/vse/*/*/*/*" extends="vse-default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/vse/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+</tiles-definitions>

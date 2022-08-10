@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : AttachFileDAO.xml 
+	Description : 첨부파일 관리 
+-->
+
+<sqlMap namespace="virus_clean_cmm_AttachFileDAO">
+	<typeAlias alias="attachfileVO" type="jksoft.com.web.vo.AttachFileVO" />
+
+	<!-- 
+		Query Name : attachFileDAO.selectAttachFileSeq 
+		Description : Sequence 조회
+	-->
+	<select id="attachFileDAO.selectAttachFileMax" resultClass="int">
+        <![CDATA[
+            /* ProgramID=attachFileDAO.selectAttachFileMax */
+            SELECT COALESCE(MAX(ATTC_FIL_SN), 0) + 1
+              FROM VC_COM_02
+        ]]>
+	</select>
+
+	<!-- 
+		Query Name : attachFileDAO.selectAttachFileCount 
+		Description : ROW의 수를 조회한다
+	-->
+	<select id="attachFileDAO.selectAttachFileCount" parameterClass="attachfileVO" resultClass="int">
+        <![CDATA[
+            /* ProgramID=attachFileDAO.selectAttachFileCount */
+            SELECT COUNT(1)
+              FROM VC_COM_02
+             WHERE MENU_CD = UPPER(#menuCd#)
+               AND COTN_SN = #cotnSn#
+               AND USE_YN = 'Y'
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : attachFileDAO.selectAttachFile
+		Description : 상세정보를 조회한다.
+	-->
+	<select id="attachFileDAO.selectAttachFile" parameterClass="attachfileVO" resultClass="attachfileVO">
+        <![CDATA[
+            /* ProgramID=attachFileDAO.selectAttachFile */
+            SELECT ATTC_FIL_SN attcFilSn
+                 , MENU_CD menuCd
+                 , COTN_SN cotnSn
+                 , FIL_NM filNm
+                 , OGC_FIL_NM ogcFilNm
+                 , FIL_CPC filCpc
+                 , FIL_SCN_CD filScnCd
+                 , FIL_ST_NO filStNo                 
+                 , DNL_OFT dnlOft                 
+              FROM VC_COM_02
+             WHERE ATTC_FIL_SN = #attcFilSn#
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : attachFileDAO.selectAttachFileList
+		Description : 목록을 조회한다.
+	-->
+	<select id="attachFileDAO.selectAttachFileList" parameterClass="attachfileVO" resultClass="attachfileVO">
+        <![CDATA[
+            /* ProgramID=attachFileDAO.selectAttachFileList */
+            SELECT ATTC_FIL_SN attcFilSn
+                 , MENU_CD menuCd
+                 , COTN_SN cotnSn
+                 , FIL_NM filNm
+                 , OGC_FIL_NM ogcFilNm
+                 , FIL_CPC filCpc
+                 , FIL_SCN_CD filScnCd
+                 , FIL_ST_NO filStNo
+                 , FIL_EXPL filExpl
+                 , DNL_OFT dnlOft                                   
+              FROM VC_COM_02
+             WHERE MENU_CD  = UPPER(#menuCd#)
+               AND COTN_SN  = #cotnSn#    
+               AND USE_YN   = 'Y'
+           ]]>
+
+		<isNotEmpty property="filScnCd">
+               <![CDATA[  AND FIL_SCN_CD = #filScnCd# ]]>
+		</isNotEmpty>
+
+		<isNotEmpty property="delSeq">
+			<iterate property="delSeq" prepend="AND ATTC_FIL_SN NOT IN"
+				open="(" close=")" conjunction=",">
+				#delSeq[]#
+			</iterate>
+		</isNotEmpty>
+               
+           <![CDATA[ORDER BY FIL_SCN_CD, FIL_ST_NO, ATTC_FIL_SN]]>
+	</select>
+
+
+	<!-- 
+		Query Name : attachFileDAO.insertAttachFile
+		Description : 정보를 등록한다.
+	-->
+	<insert id="attachFileDAO.insertAttachFile" parameterClass="attachfileVO">
+        <![CDATA[
+            /* ProgramID=attachFileDAO.insertAttachFile */ 
+            INSERT INTO VC_COM_02
+                   (
+                     MENU_CD
+                   , COTN_SN
+                   , FIL_NM
+                   , OGC_FIL_NM
+                   , FIL_CPC
+                   , FIL_SCN_CD
+                   , FIL_ST_NO
+                   , FIL_EXPL
+                   , RGST_ID
+                   , RGST_DTM 
+                   , MDFY_ID
+                   , MDFY_DTM 
+                   )
+            VALUES ( 
+                     UPPER(#menuCd#)
+                   , #cotnSn#
+                   , #filNm#
+                   , #ogcFilNm#
+                   , #filCpc#
+                   , #filScnCd#
+                   , #filStNo#
+                   , #filExpl#
+                   , #rgstId#
+                   , NOW()
+                   , #rgstId#
+                   , NOW()
+                   )
+        ]]>
+
+		<selectKey resultClass="int" keyProperty="attcFilSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+
+	<!-- 
+		Query Name : attachFileDAO.updateAttachFile 
+		Description : 파일 연결정보를 변경한다. 
+	-->
+	<update id="attachFileDAO.updateAttachFile" parameterClass="attachfileVO">
+        <![CDATA[
+            /* ProgramID=attachFileDAO.updateAttachFile */
+        ]]>
+		<isNotEmpty property="updateFileSeq">
+            <![CDATA[
+                /* ProgramID=attachFileDAO.updateAttachFile */ 
+                UPDATE VC_COM_02
+                   SET COTN_SN = #cotnSn#
+                     , FIL_EXPL = #filExpl#
+                     , MDFY_DTM = NOW()
+            ]]>
+
+			<isNotEmpty property="filScnCd">
+                <![CDATA[   , FIL_SCN_CD = #filScnCd#   ]]>
+			</isNotEmpty>
+                   
+            <![CDATA[       
+                 WHERE RGST_ID = #rgstId#
+                   AND MENU_CD = UPPER(#menuCd#)
+                   AND USE_YN = 'Y'
+            ]]>
+
+			<iterate property="updateFileSeq" prepend="AND ATTC_FIL_SN IN"
+				open="(" close=")" conjunction=",">
+				#updateFileSeq[]#
+			</iterate>
+		</isNotEmpty>
+	</update>
+
+
+	<!-- 
+		Query Name : attachFileDAO.deleteAttachFile
+		Description : 정보를 삭제한다.
+	-->
+	<delete id="attachFileDAO.deleteAttachFile" parameterClass="attachfileVO">
+        <![CDATA[
+            /* ProgramID=attachFileDAO.deleteAttachFile */
+            UPDATE VC_COM_02
+               SET USE_YN = 'D'
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE MENU_CD = UPPER(#menuCd#)
+               AND COTN_SN = #cotnSn#
+        ]]>
+
+		<isNotEqual property="attcFilSn" compareValue="0">
+            <![CDATA[  AND ATTC_FIL_SN = #attcFilSn#  ]]>
+		</isNotEqual>
+
+		<isNotEmpty property="delSeq">
+			<iterate property="delSeq" prepend="AND ATTC_FIL_SN IN" open="("
+				close=")" conjunction=",">
+				#delSeq[]#
+			</iterate>
+		</isNotEmpty>
+
+	</delete>
+
+	<!-- 
+		Query Name : attachFileDAO.updateAttachFileByDnlOft 
+		Description : 다운로드 횟수를 증가 한다.
+	 -->
+	<update id="attachFileDAO.updateAttachFileByDnlOft"	parameterClass="attachfileVO">
+        <![CDATA[
+            /* ProgramID=attachFileDAO.updateAttachFileByDnlOft */ 
+            UPDATE VC_COM_02
+               SET DNL_OFT = DNL_OFT + 1
+             WHERE ATTC_FIL_SN = #attcFilSn#
+        ]]>
+	</update>
+
+</sqlMap>

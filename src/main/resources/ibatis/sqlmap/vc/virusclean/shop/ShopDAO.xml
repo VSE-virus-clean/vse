@@ -1,0 +1,1108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : ShopDAO.xml 
+	Description : Shop 게시판
+-->
+
+<sqlMap namespace="virus_clean_shop_ShopDAO">
+	<typeAlias alias="shopVO" type="vc.virusclean.admin.shop.vo.ShopVO" />
+	<typeAlias alias="orderVO" type="vc.virusclean.admin.shop.vo.OrderVO" />
+	<typeAlias alias="paymentVO" type="vc.virusclean.admin.shop.vo.PaymentVO" />
+	<typeAlias alias="orderProductVO" type="vc.virusclean.admin.shop.vo.OrderProductVO" />
+	<typeAlias alias="orderHistoryVO" type="vc.virusclean.admin.shop.vo.OrderHistoryVO" />
+
+	<!-- 
+		Query Name : shopDAO.selectShopCount 
+		Description : ROW의 수를 조회한다. 
+	-->
+	<select id="shopDAO.selectShopCount" parameterClass="shopVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectShopCount */
+            SELECT COUNT(1)
+              FROM EM_USR_02
+             WHERE 1 = 1
+        ]]>
+		<dynamic>
+			<isNotEmpty property="orderId">
+	               <![CDATA[ AND ORDER_ID  = #orderId# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderPw">
+	               <![CDATA[ AND ORDER_PW  = #orderPw# ]]>
+			</isNotEmpty>
+			
+			<isNotEqual property="cotnSn" compareValue="0">
+	               <![CDATA[ AND COTN_SN  = #cotnSn# ]]>
+			</isNotEqual>
+			<isNotEqual property="mbrSn" compareValue="0">
+	               <![CDATA[ AND MBR_SN  = #mbrSn# ]]>
+			</isNotEqual>
+			
+			<isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="0">
+                       <![CDATA[ AND ORDER_ID LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="1">
+                       <![CDATA[ AND ( BUYER_EML LIKE CONCAT('%',#searchKey#,'%') OR RECEIVER_EML LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<!-- 
+		Query Name : shopDAO.selectShopList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="shopDAO.selectShopList" parameterClass="shopVO"	resultClass="shopVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectShopList */
+            SELECT B.BLC_TITL itemNm
+             	 , A.*
+              FROM (
+                      SELECT  A.ORDER_SN orderSn
+							, A.MBR_SN mbrSn
+							, A.COTN_SN cotnSn
+							, A.ORDER_PW orderPw
+							, A.ORDER_ID orderId
+							, A.BUYER_NM buyerNm
+							, A.BUYER_NM_PN buyerNmPn
+							, A.BUYER_TN buyerTn
+							, A.BUYER_EML buyerEml
+							, A.ORDER_OPTION orderOption
+							, A.ORDER_QUANTITY orderQuantity
+							, A.ORDER_COST orderCost
+							, A.ORDER_AMOUNT orderAmount
+							, A.ORDER_MEMO orderMemo
+							, A.PAY_TYPE payType
+							, A.PAY_YN payYn
+							, A.DELIVERY_YN deliveryYn
+							, A.USE_YN useYn
+							, A.PG_TID pgTid
+							, DATE_FORMAT(A.PG_DTM, '%Y-%m-%d %H:%i') pgDtm
+							, DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i') rgstDtm
+							, DATE_FORMAT(A.MDFT_DTM, '%Y-%m-%d %H:%i') mdftDtm
+							, A.RGST_ADM_SN rgstAdmSn
+							, A.RGST_ADM_ID rgstAdmId
+                        FROM EM_USR_02 A
+                       WHERE 1 = 1
+        ]]>
+		<dynamic>
+			<isNotEmpty property="orderId">
+	               <![CDATA[ AND A.ORDER_ID  = #orderId# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderPw">
+	               <![CDATA[ AND A.ORDER_PW  = #orderPw# ]]>
+			</isNotEmpty>
+			
+			<isNotEqual property="cotnSn" compareValue="0">
+	               <![CDATA[ AND A.COTN_SN  = #cotnSn# ]]>
+			</isNotEqual>
+			<isNotEqual property="mbrSn" compareValue="0">
+	               <![CDATA[ AND A.MBR_SN  = #mbrSn# ]]>
+			</isNotEqual>
+			
+			<isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="0">
+                       <![CDATA[ AND ORDER_ID LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="1">
+                       <![CDATA[ AND ( BUYER_EML LIKE CONCAT('%',#searchKey#,'%') OR RECEIVER_EML LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+        <![CDATA[
+						ORDER BY A.ORDER_SN DESC
+						LIMIT #rowStart#, #rowLimit#
+                   ) A
+                   INNER JOIN EM_COM_03 B ON B.BLC_SN = A.cotnSn
+        ]]>
+	</select>
+
+	<!-- 
+		Query Name : shopDAO.selectShop 
+		Description : 상세정보를 조회한다. 
+	-->
+	<select id="shopDAO.selectShop" parameterClass="shopVO"	resultClass="shopVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectShop */
+            SELECT A.ORDER_SN orderSn
+            	, B.BLC_TITL itemNm
+                , A.MBR_SN mbrSn
+				, A.COTN_SN cotnSn
+				, A.ORDER_PW orderPw
+				, A.ORDER_ID orderId
+				, A.BUYER_NM buyerNm
+				, A.BUYER_NM_PN buyerNmPn
+				, A.BUYER_TN buyerTn
+				, A.BUYER_EML buyerEml
+				, A.RECEIVER_NM receiverNm
+				, A.RECEIVER_NM_PN receiverNmPn
+				, A.RECEIVER_TN receiverTn
+				, A.RECEIVER_EML receiverEml
+				, A.ZIP_CD zipCd
+				, A.ADR_PREF adrPref
+				, A.ADR_CITY adrCity
+				, A.ADR_SBC1 adrSbc1
+				, A.ADR_SBC2 adrSbc2
+				, A.ORDER_OPTION orderOption
+				, A.ORDER_QUANTITY orderQuantity
+				, A.ORDER_COST orderCost
+				, A.ORDER_AMOUNT orderAmount
+				, A.ORDER_MEMO orderMemo
+				, A.PAY_TYPE payType
+				, A.PAY_YN payYn
+				, A.DELIVERY_YN deliveryYn
+				, A.USE_YN useYn
+				, A.PG_TID pgTid
+				, DATE_FORMAT(A.PG_DTM, '%Y-%m-%d %H:%i') pgDtm
+				, DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i') rgstDtm
+				, DATE_FORMAT(A.MDFT_DTM, '%Y-%m-%d %H:%i') mdftDtm
+				, A.RGST_ADM_SN rgstAdmSn
+				, A.RGST_ADM_ID rgstAdmId
+              FROM EM_USR_02 A
+              	   INNER JOIN EM_COM_03 B ON B.BLC_SN = A.COTN_SN
+             WHERE 1 = 1
+        ]]>
+		<dynamic>
+			<isNotEqual property="orderSn" compareValue="0">
+	               <![CDATA[ AND A.ORDER_SN  = #orderSn# ]]>
+			</isNotEqual>
+			<isNotEmpty property="orderId">
+	               <![CDATA[ AND A.ORDER_ID  = #orderId# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="orderPw">
+	               <![CDATA[ AND A.ORDER_PW  = #orderPw# ]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+
+	<!-- 
+		Query Name : shopDAO.updateShop 
+		Description : 구매자 / 배송자 /결제방법 정보만 수정이 가능
+	-->
+	<update id="shopDAO.updateShop" parameterClass="shopVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.updateShop */ 
+            UPDATE EM_USR_02
+               SET BUYER_NM = #buyerNm#
+				 , BUYER_NM_PN = #buyerNmPn#
+				 , BUYER_TN = #buyerNmPn#
+				 , BUYER_EML = #buyerEml#
+				 , RECEIVER_NM = #receiverNm#
+				 , RECEIVER_NM_PN = #receiverNmPn#
+				 , RECEIVER_TN = #receiverTn#
+				 , RECEIVER_EML = #receiverEml#
+				 , ZIP_CD = #zipCd#
+				 , ADR_PREF = #adrPref#
+				 , ADR_CITY = #adrCity#
+				 , ADR_SBC1 = #adrSbc1#
+				 , ADR_SBC2 = #adrSbc2#
+                 , MDFT_DTM = NOW()
+             WHERE ORDER_SN =  #orderSn#
+               AND DELIVERY_YN = 'N'
+        ]]>
+	</update>
+
+
+	<!-- 
+		Query Name : shopDAO.updateShopPayComp 
+		Description : 결제완료  - 관리자 처리
+	-->
+	<update id="shopDAO.updateShopPayComp" parameterClass="shopVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.updateShopPayComp */ 
+            UPDATE VC_PAY_01
+               SET PAY_YN = 'Y'	
+                 , PG_TID = #pgTid#	
+				 , PG_DTM = NOW()
+				 , RGST_ADM_SN = #rgstAdmSn#	
+				 , RGST_ADM_ID = #rgstAdmId#	
+             WHERE ORDER_SN =  #orderSn#
+               AND DELIVERY_YN = 'N'
+        ]]>
+	</update>
+	
+	
+	<!-- 
+		Query Name : shopDAO.updateShopDeliveryComp 
+		Description : 배송 처리
+						- 결제가 완료된것만.
+	-->
+	<update id="shopDAO.updateShopDeliveryComp" parameterClass="shopVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.updateShopDeliveryComp */ 
+            UPDATE EM_USR_02
+               SET DELIVERY_YN = 'Y'
+				 , MDFT_DTM = NOW()
+             WHERE ORDER_SN =  #orderSn#
+               AND DELIVERY_YN = 'N'
+               AND PAY_YN = 'Y'
+        ]]>
+	</update>
+
+
+	<!-- 
+		Query Name : shopDAO.deleteShop 
+		Description : 주문취소
+						- 배송이 안된것만.
+						- 배송후 취소는 차후에 확인/수정
+	-->
+	<update id="shopDAO.deleteShop" parameterClass="shopVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.deleteShop */
+            UPDATE EM_USR_02
+               SET USE_YN = 'N'
+                 , MDFT_DTM = NOW()
+                 , RGST_ADM_SN = #rgstAdmSn#	
+				 , RGST_ADM_ID = #rgstAdmId#	
+             WHERE ORDER_SN =  #orderSn#
+               AND DELIVERY_YN = 'N'
+        ]]>
+	</update>
+	
+	
+	<!-- 
+		Query Name : shopDAO.deleteShopUser
+		Description : 사용자 주문취소
+						- 배송이 안된것만.
+						- 결제 완료된 경우는 결제 취소해야한다.
+	-->
+	<update id="shopDAO.deleteShopUser" parameterClass="shopVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.deleteShopUser */
+            UPDATE EM_USR_02
+               SET USE_YN = 'N'
+                 , MDFT_DTM = NOW()
+             WHERE DELIVERY_YN = 'N'
+	           AND ORDER_ID = #orderId#
+        ]]>
+	        <isNotEqual property="mbrSn" compareValue="0">
+	               <![CDATA[ AND MBR_SN = #mbrSn# ]]>
+			</isNotEqual>
+			<isEqual property="mbrSn" compareValue="0">
+	               <![CDATA[ AND ORDER_PW = #orderPw# ]]>
+			</isEqual>
+	</update>
+	
+	
+	
+	
+	
+	<!-- 
+		Query Name : shopDAO.insertOrder 
+		Description : 주문정보 등록
+	-->
+	<insert id="shopDAO.insertOrder" parameterClass="orderVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.insertOrder */ 
+            INSERT INTO VC_PAY_01
+                   (
+                      MBR_SN
+					, BUYER_NM
+					, BUYER_TN
+					, BUYER_HP
+					, BUYER_EML
+					, BUYER_ZIP_CD
+					, BUYER_ADR_SBC1
+					, BUYER_ADR_SBC2
+					, RECEIVER_NM
+					, RECEIVER_TN
+					, RECEIVER_HP
+					, RECEIVER_EML
+					, RECEIVER_ZIP_CD
+					, RECEIVER_ADR_CITY
+					, RECEIVER_ADR_SBC1
+					, RECEIVER_ADR_SBC2
+					, ORDER_MEMO
+					, ORDER_OPTION
+					, GIFT_SBC
+					, ORDER_PWD
+					, ORDER_QUANTITY
+					, PRODUCT_PRICE
+					, DISCOUNT_PRICE
+					, DELIVERY_FEE
+					, ORDER_PRICE
+					, ORDER_NO
+					, ORDER_CD
+					, GOOD_NM
+					, RGST_DTM
+				   )
+            VALUES ( 
+                      #mbrSn#
+					, #buyerNm#
+					, #buyerTn#
+					, #buyerHp#
+					, #buyerEml#
+					, #buyerZipCd#
+					, #buyerAdrSbc1#
+					, #buyerAdrSbc2#
+					, #receiverNm#
+					, #receiverTn#
+					, #receiverHp#
+					, #receiverEml#
+					, #receiverZipCd#
+					, #receiverAdrCity#
+					, #receiverAdrSbc1#
+					, #receiverAdrSbc2#
+					, #orderMemo#
+					, #orderOption#
+					, #giftSbc#
+					, #orderPwd#
+					, #orderQuantity#
+					, #productPrice#
+					, #discountPrice#
+					, #deliveryFee#
+					, #orderPrice#
+					, #orderNo#
+					, #orderCd#
+					, #goodNm#
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="orderSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	
+	<!-- 
+		Query Name : shopDAO.insertOrderProductInfo
+		Description : 주문상품 정보 등록
+	-->
+	<insert id="shopDAO.insertOrderProductInfo" parameterClass="orderProductVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.insertOrderProductInfo */ 
+            INSERT INTO VC_PAY_03
+                   (
+                      ORDER_SN
+					, PRD_SN
+					, PRD_TITL
+					, ORDER_OPT
+					, GIFT_SBC
+					, ORDER_COST
+					, ORDER_CNT
+					, CUP_CD
+					, CUP_TITL
+					, PRODUCT_PRICE
+					, DISCOUNT_PRICE
+					, ORDER_PRICE
+					, RGST_DTM
+
+				   )
+            VALUES ( 
+                      #orderSn#
+					, #prdSn#
+					, #prdTitl#
+					, #orderOpt#
+					, #giftSbc#
+					, #orderCost#
+					, #orderCnt#
+					, #cupCd#
+					, #cupTitl#
+					, #productPrice#
+					, #discountPrice#
+					, #orderPrice#
+                    , NOW()
+				   )
+        ]]>
+	</insert>
+	
+	
+	<!-- 
+		Query Name : shopDAO.insertOrderPayment 
+		Description : 주문의 결제 정보를 등록
+	-->
+	<insert id="shopDAO.insertOrderPayment" parameterClass="paymentVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.insertOrderPayment */ 
+            INSERT INTO VC_PAY_02
+                   (
+                      MBR_SN
+					, PAY_CD
+					, PAY_TYPE
+					, PRICE
+					, BUSI_CD
+					, ORDER_SN
+					, ORDER_NO
+					, TID_NO
+					, APPL_NO
+		]]>
+			<isEqual property="payType" compareValue="VBANK">
+               <![CDATA[ 
+	               	, VBANK_CD
+					, VBANK_NM
+					, VBANK_NUM
+					, VBANK_FNH_DTM
+               ]]>
+			</isEqual>
+		<![CDATA[
+					, RES_CD
+					, RES_MSG
+					, RES_DTM
+					, RGST_DTM
+				   )
+            VALUES ( 
+                      0
+					, #payCd#
+					, #payType#
+					, #price#
+					, #busiCd#
+					, #orderSn#
+					, #orderNo#
+					, #tidNo#
+					, #applNo#
+		]]>
+			<isEqual property="payType" compareValue="VBANK">
+               <![CDATA[ 
+	               	, #vbankCd#
+					, #vbankNm#
+					, #vbankNum#
+					, #vbankFnhDtm#
+               ]]>
+			</isEqual>
+		<![CDATA[					
+					, #resCd#
+					, #resMsg#
+					, NOW()
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="paySn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	<!-- 
+		Query Name : shopDAO.updateOrderPaymentComp 
+		Description : 결제완료
+	-->
+	<update id="shopDAO.updateOrderPaymentComp" parameterClass="orderVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.updateOrderPaymentComp */ 
+            UPDATE VC_PAY_01
+               SET ORDER_CD = #orderCd#
+                 , PAY_DTM = NOW()
+             WHERE ORDER_NO = #orderNo#
+               AND DELIVERY_YN = 'N'
+        ]]>
+	</update>
+	
+	<!-- 
+		Query Name : shopDAO.updateOrderByOrderCd 
+		Description : 주문진행상태변경
+	-->
+	<update id="shopDAO.updateOrderByOrderCd" parameterClass="orderHistoryVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.updateOrderByOrderCd */ 
+            UPDATE VC_PAY_01
+               SET ORDER_CD = #nowOrderCd#
+        ]]>
+        
+	        <isEqual property="nowOrderCd" compareValue="배송중">
+               <![CDATA[ , DELIVERY_STR_DTM = NOW() ]]>
+	        </isEqual>
+	        
+        	<isEqual property="nowOrderCd" compareValue="배송완료">
+               <![CDATA[ 
+               		, DELIVERY_FNH_DTM = NOW() 
+               		, DELIVERY_YN = 'Y'
+               ]]>
+	        </isEqual>
+	        
+        <![CDATA[
+             WHERE ORDER_NO = #orderNo#
+        ]]>
+	</update>
+	
+	<!-- 
+		Query Name : shopDAO.updateOrderByDeliveryInfo
+		Description : 배송정보 등록 -> 배송중
+	-->
+	<update id="shopDAO.updateOrderByDeliveryInfo" parameterClass="orderVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.updateOrderByDeliveryInfo */ 
+            UPDATE VC_PAY_01
+               SET ORDER_CD = #orderCd#
+                 , DELIVERY_CORP = #deliveryCorp#
+                 , DELIVERY_NUM = #deliveryNum#
+                 , DELIVERY_STR_DTM = #deliveryStrDtm#
+                 , DELIVERY_YN = 'N'
+             WHERE ORDER_NO = #orderNo#
+        ]]>
+	</update>
+	
+	
+	<!-- 
+		Query Name : shopDAO.selectOrderCount 
+		Description : ROW의 수를 조회한다. 
+	-->
+	<select id="shopDAO.selectOrderCount" parameterClass="orderVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectOrderCount */
+            SELECT COUNT(1)
+              FROM VC_PAY_01 A
+             WHERE A.ORDER_CD NOT IN ('결제요청', '결제실패')
+        ]]>
+        
+		<dynamic>
+			<isNotEqual property="mbrSn" compareValue="0">
+	               <![CDATA[ AND A.MBR_SN  = #mbrSn# ]]>
+			</isNotEqual>
+			
+			<isEmpty property="searchGubunType">
+				<isEqual property="searchSubType" compareValue="active">
+		               <![CDATA[ AND A.ORDER_CD IN ('입금대기', '결제완료', '배송준비중', '배송중', '배송완료', '구매확정') ]]>
+				</isEqual>
+				
+				<isEqual property="searchSubType" compareValue="inactive">
+		               <![CDATA[ AND A.ORDER_CD IN ('주문취소', '주문취소신청', '주문취소승인', '주문취소완료', '반품신청', '반품승인', '반품완료', '교환신청', '교환승인', '교환완료') ]]>
+				</isEqual>
+			</isEmpty>
+			
+			<isNotEmpty property="searchGubunType">
+				 <isNotEmpty property="delSeq">
+					<iterate property="delSeq" prepend=" AND A.ORDER_CD IN " open="(" close=")" conjunction=",">
+						#delSeq[]#
+					</iterate>
+				</isNotEmpty>
+				
+				<isEmpty property="delSeq">
+					<![CDATA[ AND A.ORDER_CD = #searchGubunType# ]]>
+				</isEmpty>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+	        
+			<isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="orderNo">
+                       <![CDATA[ 
+                       		AND A.ORDER_NO LIKE CONCAT('%',#searchKey#,'%')
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="userName">
+                        <![CDATA[ 
+                       		AND ( A.BUYER_NM LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_NM LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="email">
+                       <![CDATA[ 
+                       		AND ( A.BUYER_EML LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_EML LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="phone">
+                        <![CDATA[ 
+                       		AND ( A.BUYER_HP LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_HP LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEmpty property="searchType">
+                       <![CDATA[ 
+                       		AND ( 
+                       				A.ORDER_NO LIKE CONCAT('%',#searchKey#,'%') 
+                       					OR A.BUYER_NM LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_NM LIKE CONCAT('%',#searchKey#,'%')
+                       					OR A.BUYER_EML LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_EML LIKE CONCAT('%',#searchKey#,'%')
+                       					OR A.BUYER_HP LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_HP LIKE CONCAT('%',#searchKey#,'%')
+                       		    )
+                       ]]>
+				</isEmpty>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<!-- 
+		Query Name : shopDAO.selectOrderList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="shopDAO.selectOrderList" parameterClass="orderVO" resultClass="orderVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectOrderList */
+            SELECT A.*
+              FROM (
+		            SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+		                 , A.ORDER_SN orderSn
+						 , A.MBR_SN mbrSn
+						 , A.BUYER_NM buyerNm
+						 , A.BUYER_TN buyerTn
+						 , A.BUYER_HP buyerHp
+						 , A.BUYER_EML buyerEml
+						 , A.BUYER_ZIP_CD buyerZipCd
+						 , A.BUYER_ADR_SBC1 buyerAdrSbc1
+						 , A.BUYER_ADR_SBC2 buyerAdrSbc2
+						 , A.RECEIVER_NM receiverNm
+						 , A.RECEIVER_TN receiverTn
+						 , A.RECEIVER_HP receiverHp
+						 , A.RECEIVER_EML receiverEml
+						 , A.RECEIVER_ZIP_CD receiverZipCd
+						 , A.RECEIVER_ADR_CITY receiverAdrCity
+						 , A.RECEIVER_ADR_SBC1 receiverAdrSbc1
+						 , A.RECEIVER_ADR_SBC2 receiverAdrSbc2
+						 , A.ORDER_MEMO orderMemo
+						 , A.ORDER_OPTION orderOption
+						 , A.GIFT_SBC giftSbc
+						 , A.ORDER_PWD orderPwd
+						 , A.ORDER_QUANTITY orderQuantity
+						 , A.PRODUCT_PRICE productPrice
+						 , A.DISCOUNT_PRICE discountPrice
+						 , A.DELIVERY_FEE deliveryFee
+						 , A.ORDER_PRICE orderPrice
+						 
+						 , A.GOOD_NM goodNm
+						 , A.ORDER_NO orderNo
+						 , IFNULL( (SELECT NOW_ORDER_CD FROM VC_PAY_04 WHERE ORDER_NO = A.ORDER_NO ORDER BY ORDER_HIS_SN DESC LIMIT 0) , A.ORDER_CD) AS orderCd
+						 , A.DELIVERY_CORP deliveryCorp
+						 , A.DELIVERY_NUM deliveryNum
+						 , A.DELIVERY_YN deliveryYn
+						 , DATE_FORMAT(A.DELIVERY_STR_DTM, '%Y-%m-%d %H:%i') deliveryStrDtm
+						 , DATE_FORMAT(A.DELIVERY_FNH_DTM, '%Y-%m-%d %H:%i') deliveryFnhDtm
+						 , DATE_FORMAT(A.PAY_DTM, '%Y-%m-%d %H:%i:%s') payDtm
+						 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i:%s') rgstDtm
+						 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d') userViewDtm
+						 
+						 , IFNULL(B.PAY_SN, 0) paySn
+						 , B.PAY_CD payCd
+						 , B.PAY_TYPE payType
+						 , IFNULL( (SELECT COM_CD_NM FROM VC_COM_01 WHERE PREN_COM_CD = 'PAYMETHOD' AND COM_CD = B.PAY_TYPE AND USE_YN = 'Y' LIMIT 1) , B.PAY_TYPE) AS payTypeTxt
+						 , B.BUSI_CD busiCd
+						 , B.TID_NO tidNo
+						 , B.APPL_NO applNo
+						 , B.VBANK_CD vbankCd
+						 , B.VBANK_NM vbankNm
+						 , B.VBANK_NUM vbankNum
+						 , DATE_FORMAT(B.VBANK_FNH_DTM , '%Y-%m-%d %H:%i:%s') vbankFnhDtm
+						 , B.RES_CD resCd
+						 , B.RES_MSG resMsg
+						 
+                      FROM VC_PAY_01 A
+                           LEFT JOIN VC_PAY_02 B ON B.PAY_SN = (
+								SELECT B1.PAY_SN
+		                     	  FROM VC_PAY_02 B1
+		                     	 WHERE B1.ORDER_NO = A.ORDER_NO
+		                     	 ORDER BY B1.PAY_SN
+		                     	 LIMIT 1
+		                   )
+                           , (SELECT @ROWNUM := 0) C
+                     WHERE A.ORDER_CD NOT IN ('결제요청', '결제실패')
+        ]]>
+        
+		<dynamic>
+			<isNotEqual property="mbrSn" compareValue="0">
+	               <![CDATA[ AND A.MBR_SN  = #mbrSn# ]]>
+			</isNotEqual>
+			
+			<isEmpty property="searchGubunType">
+				<isEqual property="searchSubType" compareValue="active">
+		               <![CDATA[ AND A.ORDER_CD IN ('입금대기', '결제완료', '배송준비중', '배송중', '배송완료', '구매확정') ]]>
+				</isEqual>
+				
+				<isEqual property="searchSubType" compareValue="inactive">
+		               <![CDATA[ AND A.ORDER_CD IN ('주문취소', '주문취소신청', '주문취소승인', '주문취소완료', '반품신청', '반품승인', '반품완료', '교환신청', '교환승인', '교환완료') ]]>
+				</isEqual>
+			</isEmpty>
+			
+			<isNotEmpty property="searchGubunType">
+				 <isNotEmpty property="delSeq">
+					<iterate property="delSeq" prepend=" AND A.ORDER_CD IN " open="(" close=")" conjunction=",">
+						#delSeq[]#
+					</iterate>
+				</isNotEmpty>
+				
+				<isEmpty property="delSeq">
+					<![CDATA[ AND A.ORDER_CD = #searchGubunType# ]]>
+				</isEmpty>
+			</isNotEmpty>
+			
+			
+			<isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+	        
+			<isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="orderNo">
+                       <![CDATA[ 
+                       		AND A.ORDER_NO LIKE CONCAT('%',#searchKey#,'%')
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="userName">
+                        <![CDATA[ 
+                       		AND ( A.BUYER_NM LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_NM LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="email">
+                       <![CDATA[ 
+                       		AND ( A.BUYER_EML LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_EML LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="phone">
+                        <![CDATA[ 
+                       		AND ( A.BUYER_HP LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_HP LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEmpty property="searchType">
+                       <![CDATA[ 
+                       		AND ( 
+                       				A.ORDER_NO LIKE CONCAT('%',#searchKey#,'%') 
+                       					OR A.BUYER_NM LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_NM LIKE CONCAT('%',#searchKey#,'%')
+                       					OR A.BUYER_EML LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_EML LIKE CONCAT('%',#searchKey#,'%')
+                       					OR A.BUYER_HP LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_HP LIKE CONCAT('%',#searchKey#,'%')
+                       		    )
+                       ]]>
+				</isEmpty>
+			</isNotEmpty>
+		</dynamic>
+		
+        <![CDATA[
+        				 ORDER BY A.RGST_DTM DESC
+                   ) A
+        ]]>
+        <isEqual property="isApi" compareValue="false">
+        	<![CDATA[ 
+        		LIMIT #rowStart#, #rowLimit#
+        	]]>
+        </isEqual>
+	</select>
+	
+	<!-- 
+		Query Name : shopDAO.selectOrdeInfo
+		Description : 상세정보를 조회한다. 
+	-->
+	<select id="shopDAO.selectOrdeInfo" parameterClass="orderVO" resultClass="orderVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectOrdeInfo */
+            SELECT A.ORDER_SN orderSn
+				 , A.MBR_SN mbrSn
+				 , A.BUYER_NM buyerNm
+				 , A.BUYER_TN buyerTn
+				 , A.BUYER_HP buyerHp
+				 , A.BUYER_EML buyerEml
+				 , A.BUYER_ZIP_CD buyerZipCd
+				 , A.BUYER_ADR_SBC1 buyerAdrSbc1
+				 , A.BUYER_ADR_SBC2 buyerAdrSbc2
+				 , A.RECEIVER_NM receiverNm
+				 , A.RECEIVER_TN receiverTn
+				 , A.RECEIVER_HP receiverHp
+				 , A.RECEIVER_EML receiverEml
+				 , A.RECEIVER_ZIP_CD receiverZipCd
+				 , A.RECEIVER_ADR_CITY receiverAdrCity
+				 , A.RECEIVER_ADR_SBC1 receiverAdrSbc1
+				 , A.RECEIVER_ADR_SBC2 receiverAdrSbc2
+				 , A.ORDER_MEMO orderMemo
+				 , A.ORDER_OPTION orderOption
+				 , A.GIFT_SBC giftSbc
+				 , A.ORDER_PWD orderPwd
+				 , A.ORDER_QUANTITY orderQuantity
+				 , A.PRODUCT_PRICE productPrice
+				 , A.DISCOUNT_PRICE discountPrice
+				 , A.DELIVERY_FEE deliveryFee
+				 , A.ORDER_PRICE orderPrice
+				 , A.GOOD_NM goodNm
+				 , A.ORDER_NO orderNo
+				 , IFNULL( (SELECT NOW_ORDER_CD FROM VC_PAY_04 WHERE ORDER_NO = A.ORDER_NO ORDER BY ORDER_HIS_SN DESC LIMIT 1) , A.ORDER_CD) AS orderCd
+				 , A.DELIVERY_CORP deliveryCorp
+				 , A.DELIVERY_NUM deliveryNum
+				 , A.DELIVERY_YN deliveryYn
+				 , DATE_FORMAT(A.DELIVERY_STR_DTM, '%Y-%m-%d %H:%i') deliveryStrDtm
+				 , DATE_FORMAT(A.DELIVERY_FNH_DTM, '%Y-%m-%d %H:%i') deliveryFnhDtm
+				 , DATE_FORMAT(A.PAY_DTM, '%Y-%m-%d %H:%i:%s') payDtm
+				 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i:%s') rgstDtm
+				 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d') userViewDtm
+				 
+				 , IFNULL(B.PAY_SN, 0) paySn
+				 , B.PAY_CD payCd
+				 , B.PAY_TYPE payType
+				 , IFNULL( (SELECT COM_CD_NM FROM VC_COM_01 WHERE PREN_COM_CD = 'PAYMETHOD' AND COM_CD = B.PAY_TYPE AND USE_YN = 'Y' LIMIT 1) , B.PAY_TYPE) AS payTypeTxt
+				 , B.BUSI_CD busiCd
+				 , B.TID_NO tidNo
+				 , B.APPL_NO applNo
+				 , B.VBANK_CD vbankCd
+				 , B.VBANK_NM vbankNm
+				 , B.VBANK_NUM vbankNum
+				 , DATE_FORMAT(B.VBANK_FNH_DTM , '%Y-%m-%d %H:%i:%s') vbankFnhDtm
+				 , B.RES_CD resCd
+				 , B.RES_MSG resMsg
+              FROM VC_PAY_01 A
+                   LEFT JOIN VC_PAY_02 B ON B.PAY_SN = (
+						SELECT B1.PAY_SN
+                     	  FROM VC_PAY_02 B1
+                     	 WHERE B1.ORDER_NO = A.ORDER_NO
+                     	 ORDER BY B1.PAY_SN
+                     	 LIMIT 1
+                   )
+
+             WHERE A.ORDER_NO = #orderNo#
+        ]]>
+        
+        <dynamic>
+			<isNotEqual property="mbrSn" compareValue="0">
+               <![CDATA[ AND A.MBR_SN  = #mbrSn# ]]>
+			</isNotEqual>
+			<isNotEmpty property="buyerNm">
+               <![CDATA[ AND A.BUYER_NM  = #buyerNm# ]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	
+	<!-- 
+		Query Name : shopDAO.insertOrderHistory
+		Description : 주문 상태변경 이력
+	-->
+	<insert id="shopDAO.insertOrderHistory" parameterClass="orderHistoryVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.insertOrderHistory */ 
+            INSERT INTO VC_PAY_04
+                   (
+                      ORDER_NO
+					, OLD_ORDER_CD
+					, NOW_ORDER_CD
+					, EXC_SBC1
+					, EXC_SBC2
+					, PAY_AMT
+					, SUB_AMT
+					, REF_AMT
+					, REF_BANK_CD
+					, REF_BANK_NM
+					, REF_BANK_NUM
+					, REF_ACCT_NM
+					, MBR_SN
+					, RGST_SN
+					, RGST_ID
+					, RGST_DTM
+				   )
+            VALUES ( 
+                      #orderNo#
+					, #oldOrderCd#
+					, #nowOrderCd#
+					, #excSbc1#
+					, #excSbc2#
+					, #payAmt#
+					, #subAmt#
+					, #refAmt#
+					, #refBankCd#
+					, #refBankNm#
+					, #refBankNum#
+					, #refAcctNm#
+					, #mbrSn#
+					, #rgstSn#
+					, #rgstId#
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="orderHisSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	
+	<!-- 
+		Query Name : shopDAO.selectOrderHistoryList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="shopDAO.selectOrderHistoryList" parameterClass="orderVO" resultClass="orderHistoryVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectOrderHistoryList */
+            SELECT A.*
+              FROM (
+		            SELECT A.ORDER_HIS_SN orderHisSn
+						 , A.ORDER_NO orderNo
+						 , A.OLD_ORDER_CD oldOrderCd
+						 , A.NOW_ORDER_CD nowOrderCd
+						 , A.EXC_SBC1 excSbc1
+						 , A.EXC_SBC2 excSbc2
+						 , A.PAY_AMT payAmt
+						 , A.SUB_AMT subAmt
+						 , A.REF_AMT refAmt
+						 , A.REF_BANK_CD refBankCd
+						 , A.REF_BANK_NM refBankNm
+						 , A.REF_BANK_NUM refBankNum
+						 , A.REF_ACCT_NM refAcctNm
+						 , A.MBR_SN mbrSn
+						 , A.RGST_SN rgstSn
+						 , A.RGST_ID rgstId
+						 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i') rgstDtm
+						 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.ORDER_HIS_SN AND MENU_CD = 'ORDER_HIST' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 		 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.ORDER_HIS_SN AND MENU_CD = 'ORDER_HIST' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+                      FROM VC_PAY_04 A
+                     WHERE A.ORDER_NO = #orderNo#
+                   ) A
+             ORDER BY A.orderHisSn DESC
+        ]]>
+	</select>
+	
+	
+	
+	<!-- 
+		Query Name : shopDAO.selectOrderExcelList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="shopDAO.selectOrderExcelList" parameterClass="orderVO" resultClass="xMap">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectOrderExcelList */
+            SELECT A.*
+              FROM (
+		            SELECT A.ORDER_NO ORDER_NO
+		            	 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i:%s') RGST_DTM
+		            	 , IFNULL( (SELECT COM_CD_NM FROM VC_COM_01 WHERE PREN_COM_CD = 'PAYMETHOD' AND COM_CD = B.PAY_TYPE AND USE_YN = 'Y' LIMIT 1) , B.PAY_TYPE) AS PAY_TYPE
+		                 , A.GOOD_NM
+		                 , A.ORDER_OPTION
+		                 , A.ORDER_QUANTITY		
+		                 , A.RECEIVER_NM
+						 , A.RECEIVER_HP
+						 , CONCAT(A.RECEIVER_ZIP_CD , ' ' ,  A.RECEIVER_ADR_SBC1 , ' ', A.RECEIVER_ADR_SBC2) AS RECEIVER_ADR
+		                 , A.ORDER_MEMO			
+		                 , A.BUYER_NM
+		                 , A.BUYER_HP
+		                 , A.DELIVERY_CORP
+						 , A.DELIVERY_NUM
+						 , '' AS 변환상품명
+						 , A.GIFT_SBC
+						 , DATE_FORMAT(A.DELIVERY_STR_DTM, '%Y-%m-%d %H:%i:%s') AS 출고일자
+						 , A.ORDER_PRICE
+						 , A.DISCOUNT_PRICE
+						 , '0' AS 미수금
+						 , '' AS 시리얼번호
+						 , IFNULL( (SELECT NOW_ORDER_CD FROM VC_PAY_04 WHERE ORDER_NO = A.ORDER_NO ORDER BY ORDER_HIS_SN DESC LIMIT 0) , A.ORDER_CD) AS NOW_ORDER_CD
+						 , A.DELIVERY_FEE
+						 , DATE_FORMAT(A.DELIVERY_STR_DTM, '%Y-%m-%d %H:%i:%s') AS 배송시작시간
+						 , DATE_FORMAT(A.DELIVERY_FNH_DTM, '%Y-%m-%d %H:%i:%s') AS 배송완료시간				 
+                      FROM VC_PAY_01 A
+                           LEFT JOIN VC_PAY_02 B ON B.PAY_SN = (
+								SELECT B1.PAY_SN
+		                     	  FROM VC_PAY_02 B1
+		                     	 WHERE B1.ORDER_NO = A.ORDER_NO
+		                     	 ORDER BY B1.PAY_SN
+		                     	 LIMIT 1
+		                   )
+                     WHERE A.ORDER_CD NOT IN ('결제요청', '결제실패')
+        ]]>
+        
+		<dynamic>
+			
+			<isEmpty property="searchGubunType">
+				<isEqual property="searchSubType" compareValue="active">
+		               <![CDATA[ AND A.ORDER_CD IN ('입금대기', '결제완료', '배송준비중', '배송중', '배송완료', '구매확정') ]]>
+				</isEqual>
+				
+				<isEqual property="searchSubType" compareValue="inactive">
+		               <![CDATA[ AND A.ORDER_CD IN ('주문취소', '주문취소신청', '주문취소승인', '주문취소완료', '반품신청', '반품승인', '반품완료', '교환신청', '교환승인', '교환완료') ]]>
+				</isEqual>
+			</isEmpty>
+			
+			<isNotEmpty property="searchGubunType">
+				 <isNotEmpty property="delSeq">
+					<iterate property="delSeq" prepend=" AND A.ORDER_CD IN " open="(" close=")" conjunction=",">
+						#delSeq[]#
+					</iterate>
+				</isNotEmpty>
+				
+				<isEmpty property="delSeq">
+					<![CDATA[ AND A.ORDER_CD = #searchGubunType# ]]>
+				</isEmpty>
+			</isNotEmpty>
+			
+			
+			<isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+	        
+			<isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="orderNo">
+                       <![CDATA[ 
+                       		AND A.ORDER_NO LIKE CONCAT('%',#searchKey#,'%')
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="userName">
+                        <![CDATA[ 
+                       		AND ( A.BUYER_NM LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_NM LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="email">
+                       <![CDATA[ 
+                       		AND ( A.BUYER_EML LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_EML LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="phone">
+                        <![CDATA[ 
+                       		AND ( A.BUYER_HP LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_HP LIKE CONCAT('%',#searchKey#,'%') )
+                       ]]>
+				</isEqual>
+				<isEmpty property="searchType">
+                       <![CDATA[ 
+                       		AND ( 
+                       				A.ORDER_NO LIKE CONCAT('%',#searchKey#,'%') 
+                       					OR A.BUYER_NM LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_NM LIKE CONCAT('%',#searchKey#,'%')
+                       					OR A.BUYER_EML LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_EML LIKE CONCAT('%',#searchKey#,'%')
+                       					OR A.BUYER_HP LIKE CONCAT('%',#searchKey#,'%') OR A.RECEIVER_HP LIKE CONCAT('%',#searchKey#,'%')
+                       		    )
+                       ]]>
+				</isEmpty>
+			</isNotEmpty>
+		</dynamic>
+		
+        <![CDATA[
+                   ) A
+             ORDER BY A.RGST_DTM DESC
+        ]]>
+	</select>
+	
+	
+	<!-- 
+		Query Name : shopDAO.selectRefBankInfo
+		Description : 환불정보 조회
+	-->
+	<select id="shopDAO.selectRefBankInfo" parameterClass="orderVO" resultClass="orderHistoryVO">
+        <![CDATA[
+			/* ProgramID=shopDAO.selectRefBankInfo */
+            SELECT A.ORDER_HIS_SN orderHisSn
+				 , A.ORDER_NO orderNo
+				 , A.PAY_AMT payAmt
+				 , A.SUB_AMT subAmt
+				 , A.REF_AMT refAmt
+				 , A.REF_BANK_CD refBankCd
+				 , A.REF_BANK_NM refBankNm
+				 , A.REF_BANK_NUM refBankNum
+				 , A.REF_ACCT_NM refAcctNm
+              FROM VC_PAY_04 A
+             WHERE A.ORDER_NO = #orderNo#
+               AND A.REF_ACCT_NM <> ''
+             ORDER BY A.ORDER_HIS_SN DESC
+             LIMIT 1
+                    
+        ]]>
+	</select>
+	
+</sqlMap>

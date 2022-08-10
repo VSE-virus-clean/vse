@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<!-- 
+	XML File Name : message-common.xml 
+	Description : ALTER/CONFIRM 메세지 및 화면 공통 메세지처리용 Message Resource Properties<br/> 
+		ref : <spring:message code="title" arguments="?, ?" javaScriptEscape="true" /><br/>
+			  alert('<spring:message code="msg.A8" arguments="3"/>');<br/><br/> 
+		code : key값<br/> arguments : {0}로 처리된 곳에 들어가는 값, 여러값일 경우에는 ",(콤마)"로 구분함.<br/> 
+		javaScriptEscape : 특수문자를 자바스크립트 형식으로 변환해준다. .properties파일에서만 가능하고<br/> 	.xml파일은 \n도 알아서 변환이 된다..해서 사용안해도
+-->
+
+<properties>
+	<comment>ALTER/CONFIRM 메세지 및 화면 공통 메세지처리용 Message Resource Properties</comment>
+
+	<entry key="msg.A00">최소 {min}글자에서 최대 {max}글자로 입력해주세요.</entry>
+	<entry key="msg.A01">아이디를 입력해 주세요.</entry>
+	<entry key="msg.A02">비밀번호를 입력해 주세요.</entry>
+	<entry key="msg.A03">{0}일 이상 로그인 이력이 없어 휴면 계정으로 전환되었습니다.\n담당자 이메일로 문의해 주세요.</entry>
+	<entry key="msg.A04">비밀번호 사용기간이 {0}일을 경과하였습니다.\n보안을 위해 비밀번호를 변경해 주세요.\n확인 버튼 클릭 시 비밀번호 변경 페이지로 이동합니다.</entry>
+	<entry key="msg.A05">아이디와 비밀번호 정보가 올바르지 않습니다.</entry>
+	<entry key="msg.A06">{0}회 이상 비밀번호 입력 오류로 휴면 계정으로 전환되었습니다.\n담당자 이메일로 문의해	주세요.</entry>
+	<entry key="msg.A07">{0}회 비밀번호 입력 오류입니다.\n{1}회 이상 비밀번호 입력 오류 시 로그인이 불가하오니 유의하시기 바랍니다.</entry>
+	<entry key="msg.A08">비밀번호 확인을 입력해 주세요.</entry>
+	<entry key="msg.A09">비밀번호는 영문 대/소문자, 숫자를 조합하여 최소 12자리 이상 입력해 주세요.</entry>
+	<entry key="msg.A10">비밀번호가 일치하지 않습니다.\n다시 입력해 주세요.</entry>
+	<entry key="msg.A11">이름을 입력해 주세요.</entry>
+	<entry key="msg.A12">입력한 정보가 일치하지 않습니다.\n올바른 정보를 입력해 주세요.</entry>
+	<entry key="msg.A13">접근 권한이 없거나 사이트 이용을 하지 않은 시간이 {0}분을 경과하여 로그아웃 처리 되었습니다.\n재 로그인 후 이용해 주세요.</entry>
+	<entry key="msg.A14">검색어를 입력해 주세요.</entry>
+	<entry key="msg.A15">E-mail을 입력해 주세요.</entry>
+	<entry key="msg.A16">휴면 계정으로 로그인을 시도했습니다.\n담당자 이메일로 문의해 주십시오.</entry>
+	<entry key="msg.A17">현재 비밀번호를 입력해 주세요.</entry>
+	<entry key="msg.A18">.xls 파일만 등록 가능합니다.</entry>
+	<entry key="msg.A19">공개 여부를 선택해 주세요.</entry>
+	<entry key="msg.A20">제품 등록 구분을 선택해 주세요.</entry>
+	<entry key="msg.A21">파일을 등록해 주세요.</entry>
+	<entry key="msg.A22">엑셀 파일에 데이터가 입력되지 않았습니다. 다시 확인해 주세요.</entry>
+	<entry key="msg.A23">숫자만 입력 가능합니다.</entry>
+	<entry key="msg.A24">연도를 입력해 주세요.</entry>
+	<entry key="msg.A25">유동자산을 입력해 주세요.</entry>
+	<entry key="msg.A26">비유동자산을 입력해 주세요.</entry>
+	<entry key="msg.A27">유동부채를 입력해 주세요.</entry>
+	<entry key="msg.A28">비유동부채를 입력해 주세요.</entry>
+	<entry key="msg.A29">매출액을 입력해 주세요.</entry>
+	<entry key="msg.A30">영업이익을 입력해 주세요.</entry>
+	<entry key="msg.A31">법인세이용차감전 순이익을 입력해 주세요.</entry>
+	<entry key="msg.A32">당기순손익을 입력해 주세요.</entry>
+	<entry key="msg.A33">사업장 명을 입력해 주세요.</entry>
+	<entry key="msg.A34">사업장 설명을 입력해 주세요.</entry>
+	<entry key="msg.A35">썸네일 이미지를 등록해 주세요.</entry>
+	<entry key="msg.A36">이미지 파일만 등록 가능합니다.</entry>
+	<entry key="msg.A37">주소를 입력해 주세요.</entry>
+	<entry key="msg.A38">약도를 등록해 주세요.</entry>
+	<entry key="msg.A39">Google Map 정보를 등록해 주세요.</entry>
+	<entry key="msg.A40">제목을 입력해 주세요.</entry>
+	<entry key="msg.A41">공개 여부를 선택해 주세요.</entry>
+	<entry key="msg.A42">등록일을 선택해 주세요.</entry>
+	<entry key="msg.A43">금일 이전 날짜만 등록 가능합니다.</entry>
+	<entry key="msg.A44">내용을 입력해 주세요.</entry>
+	<entry key="msg.A45">등록할 수 없는 파일입니다.</entry>
+	<entry key="msg.A46">파일첨부 최대 용량은 200MB입니다.</entry>
+	<entry key="msg.A47">공지글은 최대 5개까지 설정 가능합니다.</entry>
+	<entry key="msg.A48">공지글은 공개 게시물만 설정 가능합니다.</entry>
+	<entry key="msg.A49">PDF 파일만 등록 가능합니다.</entry>
+	<entry key="msg.A50">구분을 선택해 주세요.</entry>
+	<entry key="msg.A51">지역을 입력해 주세요.</entry>
+	<entry key="msg.A52">전화번호를 입력해 주세요.</entry>
+	<entry key="msg.A53">인증서 명을 입력해 주세요.</entry>
+	<entry key="msg.A54">연혁을 입력해 주세요.</entry>
+	<entry key="msg.A55">기간을 확인해 주세요.</entry>
+	<entry key="msg.A56">채용구분을 입력해 주세요.</entry>
+	<entry key="msg.A57">모집부문을 입력해 주세요.</entry>
+	<entry key="msg.A58">접수기간을 선택해 주세요.</entry>
+	<entry key="msg.A59">현재년도까지 연혁을 추가할 수 있습니다.</entry>
+	<entry key="msg.A60">권한을 설정해 주세요.</entry>
+	<entry key="msg.A61">하위 분류 또는 데이터를 가지는 분류는 삭제할 수 없습니다.</entry>
+	<entry key="msg.A62">동일한 분류명이 존재합니다. 다시 확인해 주세요.</entry>
+	<entry key="msg.A63">동일한 코드가 존재합니다. 다시 확인해 주세요.</entry>
+	<entry key="msg.A64">분류명을 입력해 주세요.</entry>
+	<entry key="msg.A65">코드를 입력해 주세요.</entry>
+	<entry key="msg.A66">동일한 검색어가 존재합니다. 다시 확인해 주세요.</entry>
+	<entry key="msg.A67">문의 구분을 선택해 주세요.</entry>
+	<entry key="msg.A68">담당자를 선택해 주세요.</entry>
+	<entry key="msg.A69">동일한 데이터가 존재합니다. 다시 확인해 주세요.</entry>
+	<entry key="msg.A70">답변을 입력해 주세요.</entry>
+	<entry key="msg.A71">부품명을 입력해 주세요.</entry>
+	<entry key="msg.A72">부품번호를 입력해 주세요.</entry>
+	<entry key="msg.A73">카테고리코드를 입력해 주세요.</entry>
+	<entry key="msg.A74">동일한 부품번호가 존재합니다. 다시 확인해 주세요.</entry>
+	<entry key="msg.A75">존재하지 않는 카테고리코드입니다. 다시 확인해 주세요.</entry>
+	<entry key="msg.A76">대륙을 선택해 주세요.</entry>
+	<entry key="msg.A77">임시 비밀번호로 접속하셨습니다.\n보안을 위해 비밀번호를 변경해 주십시오.\n확인 버튼 클릭 시 비밀번호 변경 페이지로 이동합니다.</entry>
+	<entry key="msg.A78">발송되었습니다.</entry>
+
+	<entry key="msg.C01">수정하시겠습니까?</entry>
+	<entry key="msg.C02">삭제하시겠습니까?</entry>
+	<entry key="msg.C03">등록하시겠습니까?</entry>
+	<entry key="msg.C04">추가하시겠습니까?</entry>
+	<entry key="msg.C05">계정 상태를 변경하시겠습니까?</entry>
+	<entry key="msg.C06"><![CDATA[Q&A]]> 관리 권한을 삭제하시겠습니까?\n문의 담당자 목록에서도 삭제됩니다.</entry>
+	<entry key="msg.C07">반려하시겠습니까?</entry>
+	<entry key="msg.C08">비밀번호를 초기화 하시겠습니까?</entry>
+
+</properties>

@@ -1,0 +1,75 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="tag" uri="http://www.jksoft.com/taglib/tag"%>
+<%@ taglib prefix="function" uri="http://www.jksoft.com/taglib/function"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<c:set var="contextPath" value="" scope="session"/>
+<c:set var="cacheParam" value="<%=System.currentTimeMillis() %>" scope="session"/>
+
+<%-- 
+    JSP Name : inc_commonHead.jsp    
+    Description : 공통 Web Resource를 정의한다.
+--%>
+<title>VOICE CADDIE VSE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="ScreenOrientation" content="autoRotate:disabled"> 
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="shortcut icon" href="#">
+<link href="/resources/vse/css/fonts/font.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+<link href="/resources/vse/css/com/slick.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+<link href="/resources/vse/css/com/swiper-bundle.min.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+<link href="/resources/vse/css/com/selectric.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+<link href="/resources/vse/css/com/reset.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+<link href="/resources/vse/css/com/common.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+<link href="/resources/vse/css/com/style.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+
+
+<script type="text/javascript" src="/resources/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/resources/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/resources/js/jquery.ui.datepicker-ko.js"></script>
+<script type="text/javascript" src="/resources/js/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/resources/js/jquery-ajax-options.js"></script>
+<script type="text/javascript" src="/resources/js/jquery-submit.js?v=${cacheParam}"></script>
+<script type="text/javascript" src="/resources/js/jquery.form.js"></script>
+<script type="text/javascript" src="/resources/js/json2.js"></script>
+<script type="text/javascript" src="/resources/js/common-user.js?v=${cacheParam}"></script>
+
+<script src="/resources/vse/js/jquery/jquery.selectric.js" type="text/javascript"></script>
+<script src="/resources/vse/js/jquery/slick.min.js" type="text/javascript"></script>
+<script src="/resources/vse/js/jquery/swiper-bundle.js" type="text/javascript"></script>
+<script src="/resources/vse/js/com/common.js?v=${cacheParam}" type="text/javascript"></script>
+
+<script type="text/javascript">
+loginObj.contextPath = '';
+loginObj.init('N', 'N', 'N', 'N');
+
+function fn_moveScrollTop(iOffSet){
+	$('html, body').animate({scrollTop:iOffSet}, 300);
+}
+</script>
+<script type="text/javascript" src="/resources/js/common-util.js?v=${cacheParam}"></script>
+<script type="text/javascript" src="/resources/js/jquery-submit.js?v=${cacheParam}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
+
+
+<c:choose>
+	<c:when test="${pageMenuId eq 'VSEMA' }">
+		<link href="/resources/vse/css/main/main.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+		<script src="/resources/vse/js/jquery/instafeed.min.js?v=${cacheParam}" type="text/javascript"></script>
+		<script src="/resources/vse/js/main/main.js?v=${cacheParam}" type="text/javascript"></script>
+	</c:when>
+	<c:otherwise>
+		<link href="/resources/vse/css/subpage/sub.css?v=${cacheParam}" rel="stylesheet" type="text/css"/>
+		<script src="/resources/vse/js/subpage/sub.js?v=${cacheParam}" type="text/javascript"></script>
+	</c:otherwise>
+</c:choose>

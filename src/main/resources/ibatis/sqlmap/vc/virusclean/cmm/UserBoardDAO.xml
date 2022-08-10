@@ -1,0 +1,1029 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : BoardDAO.xml 
+	Description : 일반 게시판
+-->
+
+<sqlMap namespace="virus_clean_cmm_UserBoardDAO">
+	<typeAlias alias="userBoardVO" type="vc.virusclean.cmm.vo.UserBoardVO" />
+	<typeAlias alias="userBoardReplyVO" type="vc.virusclean.cmm.vo.UserBoardReplyVO" />
+	
+
+	<!-- 
+		Query Name : userBoardDAO.selectBoardNotiCount 
+		Description : 공지글의 ROW의 수를 조회한다. 
+	-->
+	<select id="userBoardDAO.selectBoardNotiCount" parameterClass="userBoardVO" resultClass="int">
+       	<![CDATA[
+            /* ProgramID=userBoardDAO.selectBoardNotiCount */
+            SELECT COUNT(1)
+              FROM VC_USR_02
+             WHERE USE_YN = 'Y'
+               AND NOTI_YN = 'Y'
+               AND LGRP_CD  = #lgrpCd#
+       	]]>
+       
+       	<isNotEqual property="prdSn" compareValue="0">
+       		<![CDATA[ AND PRD_SN = #prdSn# ]]>
+       	</isNotEqual>
+       
+       	<isNotEmpty property="mgrpCd">
+      		<![CDATA[ AND MGRP_CD = #mgrpCd# ]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="sgrpCd">
+      		<![CDATA[ AND SGRP_CD = #sgrpCd# ]]>
+		</isNotEmpty>
+	</select>
+
+	<!-- 
+		Query Name : userBoardDAO.selectBoardNotiList 
+		Description : 공지글의 목록을 조회한다. 
+	-->
+	<select id="userBoardDAO.selectBoardNotiList" parameterClass="userBoardVO" resultClass="userBoardVO">
+        <![CDATA[
+            /* ProgramID=userBoardDAO.selectBoardNotiList */
+              SELECT A.BLC_SN blcSn
+                   , A.PRD_SN prdSn
+				   , A.LGRP_CD lgrpCd
+				   , A.MGRP_CD mgrpCd
+				   , A.SGRP_CD sgrpCd
+				   , A.BLC_TITL blcTitl
+				   , A.BLC_SBC1 blcSbc1
+				   , A.BLC_SBC2 blcSbc2
+				   , A.GRADE grade
+				   , A.BLC_RCT blcRct
+				   , A.BLC_PW blcPw
+				   , A.AS_YN asYn
+				   , A.NOTI_YN notiYn
+				   , A.USE_YN useYn
+				   , A.SECRET_YN secretYn
+				   , A.MBR_SN mbrSn
+				   , A.MBR_ID mbrId
+				   , A.MBR_NICK mbrNick
+				   , A.MGR_RMK mgrRmk
+				   , A.MGR_SN mgrSn
+				   , A.MGR_ID mgrId
+				   , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+                   , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+				   , DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+				   , DATE_FORMAT(A.MGR_DEL_DTM, '%Y-%m-%d %H:%i')  AS mgrDelDtm
+                   , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.BLC_SN AND MENU_CD = A.LGRP_CD AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                   , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.BLC_SN AND MENU_CD = A.LGRP_CD AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+                FROM VC_USR_02 A
+               WHERE A.USE_YN = 'Y'
+                 AND A.NOTI_YN = 'Y'
+                 AND A.LGRP_CD  = #lgrpCd#
+        ]]>
+        
+        <isNotEqual property="prdSn" compareValue="0">
+       		<![CDATA[ AND A.PRD_SN = #prdSn# ]]>
+       	</isNotEqual>
+       	
+        <isNotEmpty property="mgrpCd">
+        	<![CDATA[ AND A.MGRP_CD = #mgrpCd# ]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="sgrpCd">
+      		<![CDATA[ AND A.SGRP_CD = #sgrpCd# ]]>
+		</isNotEmpty>
+        
+        <![CDATA[
+               ORDER BY A.RGST_DTM DESC, A.BLC_SN DESC
+        ]]>
+	</select>
+
+	<!-- 
+		Query Name : userBoardDAO.selectBoardCount 
+		Description : ROW의 수를 조회한다. 
+	-->
+	<select id="userBoardDAO.selectBoardCount" parameterClass="userBoardVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.selectBoardCount */
+            SELECT COUNT(1)
+              FROM VC_USR_02 A
+             WHERE A.LGRP_CD = #lgrpCd#
+               AND A.NOTI_YN = 'N'
+        ]]>
+        
+        <dynamic>
+	        <isNotEqual property="prdSn" compareValue="0">
+	       		<![CDATA[ AND A.PRD_SN = #prdSn# ]]>
+	       	</isNotEqual>
+       	
+	        <isNotEmpty property="mgrpCd">
+               <![CDATA[ AND A.MGRP_CD = #mgrpCd# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty property="sgrpCd">
+	      		<![CDATA[ AND A.SGRP_CD = #sgrpCd# ]]>
+			</isNotEmpty>
+			
+	      	<isEqual property="isApi" compareValue="false">
+	        	<![CDATA[ AND A.USE_YN <> 'D' ]]>
+	        </isEqual>
+	        <isEqual property="isApi" compareValue="true">
+	        	<![CDATA[ AND A.USE_YN = 'Y'  ]]>
+	        	
+	        	<isEqual property="individual" compareValue="true">
+	        		<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+	        	</isEqual>
+	        </isEqual>
+	        
+	        <isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+        
+			<isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="0">
+                	<![CDATA[ AND ( A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') OR A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="1">
+                    <![CDATA[ AND A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="2">
+		             <![CDATA[ AND A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchGubunType">
+               <![CDATA[ AND A.MGRP_CD = #searchGubunType# ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchGubunType2">
+               <![CDATA[ AND A.AS_YN = #searchGubunType2# ]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	
+	<!-- 
+		Query Name : userBoardDAO.selectBoardList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="userBoardDAO.selectBoardList" parameterClass="userBoardVO" resultClass="userBoardVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.selectBoardList */
+            SELECT A.*
+            	 , IFNULL( (SELECT MBR_NM FROM VC_USR_01 WHERE MBR_SN = A.mbrSn LIMIT 1) , '') AS mbrNm
+            	 , IFNULL( (SELECT PRD_TITL FROM VC_SHOP_01 WHERE PRD_SN = A.prdSn LIMIT 1) , '') AS prdTitl
+            	 , ( SELECT COUNT(1) FROM VC_USR_03 WHERE BLC_SN = A.blcSn AND USE_YN = 'Y' ) AS replyCnt
+        ]]>   
+        
+		<isNotEqual property="lgrpCd" compareValue="REVIEW">     
+			<![CDATA[      
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'ATTCH' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'ATTCH' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+        		 , 0 AS scrapCnt
+        		 , 0 AS myScrapCnt
+        	]]>  
+        </isNotEqual>
+        <isEqual property="lgrpCd" compareValue="REVIEW">     
+			<![CDATA[      
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+                 , ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE BLC_SN = A.blcSn AND USE_YN = 'Y' AND SCRAP_CD = 'REVIEW' ) AS scrapCnt
+                 , ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE BLC_SN = A.blcSn AND USE_YN = 'Y' AND SCRAP_CD = 'REVIEW' AND MBR_SN = #mbrSn# ) AS myScrapCnt
+        	]]>
+        </isEqual>
+        
+        <![CDATA[
+              FROM (
+                      SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+                           , A.BLC_SN blcSn
+                           , A.PRD_SN prdSn
+						   , A.LGRP_CD lgrpCd
+						   , A.MGRP_CD mgrpCd
+						   , A.SGRP_CD sgrpCd
+						   , A.BLC_TITL blcTitl
+						   , A.BLC_SBC1 blcSbc1
+						   , A.BLC_SBC2 blcSbc2
+						   , A.GRADE grade
+						   , A.BLC_RCT blcRct
+						   , A.BLC_PW blcPw
+						   , A.AS_YN asYn
+						   , A.NOTI_YN notiYn
+						   , A.USE_YN useYn
+						   , A.SECRET_YN secretYn
+						   , A.MBR_SN mbrSn
+						   , A.MBR_ID mbrId
+						   , A.MBR_NICK mbrNick
+						   , A.MGR_RMK mgrRmk
+						   , A.MGR_SN mgrSn
+						   , A.MGR_ID mgrId
+						   , A.DIST1 dist1
+						   , A.DIST2 dist2
+						   , A.EX_PAY exPay
+						   , A.WORK_TIME workTime
+						   , A.ITEM1 item1
+						   , A.ITEM2 item2
+						   , A.ITEM3 item3
+						   , A.RGST_NAME rgstName
+						   , A.RGST_GENDER_CD rgstGenderCd
+						   , A.RGST_HP rgstHp
+						   , A.RGST_EML rgstEml
+						   , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+		                   , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+						   , DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+						   , DATE_FORMAT(A.MGR_DEL_DTM, '%Y-%m-%d %H:%i')  AS mgrDelDtm
+                        FROM VC_USR_02 A, (SELECT @ROWNUM := 0) B
+                       WHERE A.LGRP_CD = #lgrpCd#
+                         AND A.NOTI_YN = 'N'
+        ]]>
+        
+			<dynamic>
+				<isNotEqual property="prdSn" compareValue="0">
+		       		<![CDATA[ AND A.PRD_SN = #prdSn# ]]>
+		       	</isNotEqual>
+		       	
+		        <isNotEmpty property="mgrpCd">
+	               <![CDATA[ AND A.MGRP_CD = #mgrpCd# ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="sgrpCd">
+		      		<![CDATA[ AND A.SGRP_CD = #sgrpCd# ]]>
+				</isNotEmpty>
+				
+		      	<isEqual property="isApi" compareValue="false">
+		        	<![CDATA[ AND A.USE_YN <> 'D' ]]>
+		        </isEqual>
+		        <isEqual property="isApi" compareValue="true">
+		        	<![CDATA[ AND A.USE_YN = 'Y'  ]]>
+		        	
+		        	<isEqual property="individual" compareValue="true">
+		        		<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+		        	</isEqual>
+		        </isEqual>
+		        
+		        <isNotEmpty property="searchStartDate" >
+		        	<isEmpty property="searchEndDate" >
+			        	<![CDATA[ 
+			             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+			   			]]>
+		   			</isEmpty>
+		   			<isNotEmpty property="searchEndDate" >
+			        	<![CDATA[ 
+			             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+	             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+			   			]]>
+		   			</isNotEmpty>
+		        </isNotEmpty>
+	        
+				<isNotEmpty property="searchKey">
+					<isEqual property="searchType" compareValue="0">
+	                	<![CDATA[ AND ( A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') OR A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+					</isEqual>
+					<isEqual property="searchType" compareValue="1">
+	                    <![CDATA[ AND A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+					</isEqual>
+					<isEqual property="searchType" compareValue="2">
+			             <![CDATA[ AND A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+					</isEqual>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType">
+	               <![CDATA[ AND A.MGRP_CD = #searchGubunType# ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType2">
+	               <![CDATA[ AND A.AS_YN = #searchGubunType2# ]]>
+				</isNotEmpty>
+			</dynamic>
+		
+        <![CDATA[
+					ORDER BY A.RGST_DTM DESC, A.BLC_SN DESC
+                   ) A
+			 LIMIT #rowStart#, #rowLimit#
+        ]]>
+	</select>
+	
+	
+	<!-- 
+		Query Name : userBoardDAO.selectBoardReviewList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="userBoardDAO.selectBoardReviewList" parameterClass="userBoardVO" resultClass="userBoardVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.selectBoardReviewList */
+            SELECT A.*
+            	 , IFNULL( (SELECT MBR_NM FROM VC_USR_01 WHERE MBR_SN = A.mbrSn LIMIT 1) , '') AS mbrNm
+            	 , IFNULL( (SELECT PRD_TITL FROM VC_SHOP_01 WHERE PRD_SN = A.prdSn LIMIT 1) , '') AS prdTitl
+            	 , ( SELECT COUNT(1) FROM VC_USR_03 WHERE BLC_SN = A.blcSn AND USE_YN = 'Y' ) AS replyCnt
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 0, 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 0, 1) , '') AS filNm
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1, 1) , 0) AS fileSn2
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1, 1) , '') AS filNm2
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 2, 1) , 0) AS fileSn3
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.blcSn AND MENU_CD = A.lgrpCd AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 2, 1) , '') AS filNm3
+                 , ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE BLC_SN = A.blcSn AND USE_YN = 'Y' AND SCRAP_CD = 'REVIEW' ) AS scrapCnt
+                 , ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE BLC_SN = A.blcSn AND USE_YN = 'Y' AND SCRAP_CD = 'REVIEW' AND MBR_SN = #mbrSn# ) AS myScrapCnt
+              FROM (
+                      SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+                           , A.BLC_SN blcSn
+                           , A.PRD_SN prdSn
+						   , A.LGRP_CD lgrpCd
+						   , A.MGRP_CD mgrpCd
+						   , A.SGRP_CD sgrpCd
+						   , A.BLC_TITL blcTitl
+						   , A.BLC_SBC1 blcSbc1
+						   , A.BLC_SBC2 blcSbc2
+						   , A.GRADE grade
+						   , A.BLC_RCT blcRct
+						   , A.BLC_PW blcPw
+						   , A.AS_YN asYn
+						   , A.NOTI_YN notiYn
+						   , A.USE_YN useYn
+						   , A.SECRET_YN secretYn
+						   , A.MBR_SN mbrSn
+						   , A.MBR_ID mbrId
+						   , A.MBR_NICK mbrNick
+						   , A.MGR_RMK mgrRmk
+						   , A.MGR_SN mgrSn
+						   , A.MGR_ID mgrId
+						   , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+		                   , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+						   , DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+						   , DATE_FORMAT(A.MGR_DEL_DTM, '%Y-%m-%d %H:%i')  AS mgrDelDtm
+                        FROM VC_USR_02 A, (SELECT @ROWNUM := 0) B
+                       WHERE A.LGRP_CD = #lgrpCd#
+                         AND A.NOTI_YN = 'N'
+        ]]>
+        
+			<dynamic>
+				<isNotEqual property="prdSn" compareValue="0">
+		       		<![CDATA[ AND A.PRD_SN = #prdSn# ]]>
+		       	</isNotEqual>
+		       	
+		        <isNotEmpty property="mgrpCd">
+	               <![CDATA[ AND A.MGRP_CD = #mgrpCd# ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="sgrpCd">
+		      		<![CDATA[ AND A.SGRP_CD = #sgrpCd# ]]>
+				</isNotEmpty>
+				
+		      	<isEqual property="isApi" compareValue="false">
+		        	<![CDATA[ AND A.USE_YN <> 'D' ]]>
+		        </isEqual>
+		        <isEqual property="isApi" compareValue="true">
+		        	<![CDATA[ AND A.USE_YN = 'Y'  ]]>
+		        	
+		        	<isEqual property="individual" compareValue="true">
+		        		<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+		        	</isEqual>
+		        </isEqual>
+	        
+				<isNotEmpty property="searchKey">
+					<isEqual property="searchType" compareValue="0">
+	                	<![CDATA[ AND ( A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') OR A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+					</isEqual>
+					<isEqual property="searchType" compareValue="1">
+	                    <![CDATA[ AND A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+					</isEqual>
+					<isEqual property="searchType" compareValue="2">
+			             <![CDATA[ AND A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+					</isEqual>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType">
+	               <![CDATA[ AND A.MGRP_CD = #searchGubunType# ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType2">
+	               <![CDATA[ AND A.AS_YN = #searchGubunType2# ]]>
+				</isNotEmpty>
+			</dynamic>
+		
+        <![CDATA[
+					ORDER BY A.RGST_DTM DESC, A.BLC_SN DESC
+                   ) A
+			 LIMIT #rowStart#, #rowLimit#
+        ]]>
+	</select>
+	
+
+	<!-- 
+		Query Name : userBoardDAO.selectBoardNextNPreInfo 
+		Description : 이전 다음글 
+	-->
+	<select id="userBoardDAO.selectBoardNextNPreInfo" parameterClass="userBoardVO" resultClass="userBoardVO">
+        <![CDATA[
+            /* ProgramID=userBoardDAO.selectBoardNextNPreInfo */
+            SELECT A.*
+              FROM (
+                      SELECT @ROWNUM := @ROWNUM+1 AS rowNum
+		                   , A.BLC_SN blcSn
+                           , A.LGRP_CD lgrpCd
+                           , A.MGRP_CD mgrpCd
+                           , A.SGRP_CD sgrpCd
+                           , A.BLC_TITL blcTitl
+                           , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+                           , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+                        FROM VC_USR_02 A, (SELECT @ROWNUM := 0) B
+                       WHERE A.NOTI_YN = 'N'
+                         AND A.LGRP_CD  = #lgrpCd#
+        ]]>
+			<dynamic>
+				<isNotEqual property="prdSn" compareValue="0">
+		       		<![CDATA[ AND A.PRD_SN = #prdSn# ]]>
+		       	</isNotEqual>
+		       	
+		        <isNotEmpty property="mgrpCd">
+	               <![CDATA[ AND A.MGRP_CD = #mgrpCd# ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="sgrpCd">
+		      		<![CDATA[ AND A.SGRP_CD = #sgrpCd# ]]>
+				</isNotEmpty>
+				
+		      	<isEqual property="isApi" compareValue="false">
+		        	<![CDATA[ AND A.USE_YN <> 'D' ]]>
+		        </isEqual>
+		        <isEqual property="isApi" compareValue="true">
+		        	<![CDATA[ AND A.USE_YN = 'Y' ]]>
+		        </isEqual>
+		        
+				<isNotEmpty property="searchKey">
+					<isEqual property="searchType" compareValue="0">
+	                	<![CDATA[ AND ( A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') OR A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+					</isEqual>
+					<isEqual property="searchType" compareValue="1">
+	                    <![CDATA[ AND A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+					</isEqual>
+					<isEqual property="searchType" compareValue="2">
+			             <![CDATA[ AND A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+					</isEqual>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType">
+	               <![CDATA[ AND A.MGRP_CD = #searchGubunType# ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType2">
+	               <![CDATA[ AND A.AS_YN = #searchGubunType2# ]]>
+				</isNotEmpty>
+			</dynamic>
+			
+        <![CDATA[
+                      ORDER BY A.RGST_DTM DESC, A.BLC_SN DESC
+                   ) A
+             WHERE A.ROWNUM = #rowNum# 
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : userBoardDAO.selectBoard 
+		Description : 상세정보를 조회한다. 
+	-->
+	<select id="userBoardDAO.selectBoard" parameterClass="userBoardVO" resultClass="userBoardVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.selectBoard */
+            SELECT A.BLC_SN blcSn
+                 , A.PRD_SN prdSn
+                 , IFNULL( (SELECT PRD_TITL FROM VC_SHOP_01 WHERE PRD_SN = A.PRD_SN LIMIT 1) , '') AS prdTitl
+                 , IFNULL( (SELECT MBR_NM FROM VC_USR_01 WHERE MBR_SN = A.MBR_SN LIMIT 1) , '') AS mbrNm
+			     , A.LGRP_CD lgrpCd
+			     , A.MGRP_CD mgrpCd
+			     , A.SGRP_CD sgrpCd
+			     , A.BLC_TITL blcTitl
+			     , A.BLC_SBC1 blcSbc1
+			     , A.BLC_SBC2 blcSbc2
+			     , A.GRADE grade
+			     , A.BLC_RCT blcRct
+			     , A.BLC_PW blcPw
+			     , A.AS_YN asYn
+			     , A.NOTI_YN notiYn
+			     , A.USE_YN useYn
+			     , A.SECRET_YN secretYn
+			     , A.MBR_SN mbrSn
+			     , A.MBR_ID mbrId
+			     , A.MBR_NICK mbrNick
+			     , A.MGR_RMK mgrRmk
+			     , A.MGR_SN mgrSn
+			     , A.MGR_ID mgrId
+			     , A.DIST1 dist1
+				 , A.DIST2 dist2
+				 , A.EX_PAY exPay
+				 , A.WORK_TIME workTime
+				 , A.ITEM1 item1
+				 , A.ITEM2 item2
+				 , A.ITEM3 item3
+				 , A.RGST_NAME rgstName
+				 , A.RGST_GENDER_CD rgstGenderCd
+				 , A.RGST_HP rgstHp
+				 , A.RGST_EML rgstEml
+			     , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+                 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+			     , DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+			     , DATE_FORMAT(A.MGR_DEL_DTM, '%Y-%m-%d %H:%i')  AS mgrDelDtm
+              FROM VC_USR_02 A
+             WHERE A.BLC_SN = #blcSn#
+        ]]>
+        
+		<dynamic>
+			<isNotEmpty property="lgrpCd">
+				<![CDATA[ 	AND A.LGRP_CD = #lgrpCd#	]]>
+			</isNotEmpty>
+		
+			<isEqual property="isApi" compareValue="false">
+	        	<![CDATA[ AND A.USE_YN <> 'D' ]]>
+	        </isEqual>
+	        <isEqual property="isApi" compareValue="true">
+	        	<![CDATA[ AND A.USE_YN = 'Y'  ]]>
+	        	
+	        	<isEqual property="individual" compareValue="true">
+	        		<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+	        	</isEqual>
+	        </isEqual>
+		</dynamic>
+	</select>
+
+
+	<!-- 
+		Query Name : userBoardDAO.insertBoard 
+		Description : 정보를 등록한다. 
+	-->
+	<insert id="userBoardDAO.insertBoard" parameterClass="userBoardVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.insertBoard */ 
+            INSERT INTO VC_USR_02
+                   (
+					  PRD_SN
+					, LGRP_CD
+					, MGRP_CD
+					, SGRP_CD
+					, BLC_TITL
+					, BLC_SBC1
+					, BLC_SBC2
+					, GRADE
+					, BLC_PW
+					, NOTI_YN
+					, USE_YN
+					, SECRET_YN
+					, MBR_SN
+					, MBR_ID
+					, MBR_NICK
+					, DIST1
+					, DIST2
+					, EX_PAY
+					, WORK_TIME
+					, ITEM1
+					, ITEM2
+					, ITEM3
+					, RGST_NAME
+					, RGST_GENDER_CD
+					, RGST_HP
+					, RGST_EML
+					, RGST_DTM
+				   )
+            VALUES ( 
+                      #prdSn#
+					, #lgrpCd#
+					, #mgrpCd#
+					, #sgrpCd#
+					, #blcTitl#
+					, #blcSbc1#
+					, #blcSbc2#
+					, #grade#
+					, #blcPw#
+					, #notiYn#
+					, #useYn#
+					, #secretYn#
+					, #mbrSn#
+					, #mbrId#
+					, #mbrNick#
+					, #dist1#
+					, #dist2#
+					, #exPay#
+					, #workTime#
+					, #item1#
+					, #item2#
+					, #item3#
+					, #rgstName#
+					, #rgstGenderCd#
+					, #rgstHp#
+					, #rgstEml#
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="blcSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+
+	<!-- 
+		Query Name : userBoardDAO.updateBoard 
+		Description : 정보를 수정한다.
+	-->
+	<update id="userBoardDAO.updateBoard" parameterClass="userBoardVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.updateBoard */ 
+            UPDATE VC_USR_02
+               SET MGRP_CD = #mgrpCd#
+                 , BLC_TITL = #blcTitl#
+                 , BLC_SBC1 = #blcSbc1#
+                 , BLC_SBC2 = #blcSbc2#
+                 , NOTI_YN = #notiYn#
+                 , SECRET_YN = #secretYn#
+                 , MDFY_DTM = NOW()
+             WHERE BLC_SN = #blcSn#
+               AND LGRP_CD  = #lgrpCd#
+        ]]>
+        
+        <isEqual property="isApi" compareValue="true">
+        	<![CDATA[ AND MBR_SN = #mbrSn# ]]>
+        </isEqual>
+	</update>
+	
+	
+	<!-- 
+		Query Name : userBoardDAO.updateBoardQna 
+		Description : Qna답변을 한다 
+	-->
+	<update id="userBoardDAO.updateBoardQna" parameterClass="userBoardVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.updateBoardQna */ 
+            UPDATE VC_USR_02
+               SET BLC_SBC2 = #blcSbc2#
+                 , AS_YN = 'Y'
+                 , MGR_SN = #mgrSn#
+				 , MGR_ID = #mgrId#
+                 , MDFY_DTM = NOW()
+             WHERE BLC_SN = #blcSn#
+               AND LGRP_CD = #lgrpCd#
+        ]]>
+	</update>
+	
+
+	<!-- 
+		Query Name : userBoardDAO.deleteBoard 
+		Description : 정보를 삭제한다. 
+	-->
+	<update id="userBoardDAO.deleteBoard" parameterClass="userBoardVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.deleteBoard */
+            UPDATE VC_USR_02
+               SET USE_YN = 'D'
+        ]]>
+        
+        <isEqual property="isApi" compareValue="false">
+            <![CDATA[ 
+            	, MGR_RMK = #mgrRmk#
+				, MGR_SN = #mgrSn#
+				, MGR_ID = #mgrId#
+				, MGR_DEL_DTM = NOW()
+            ]]>
+		</isEqual>
+		
+		<isEqual property="isApi" compareValue="true">
+            <![CDATA[ 
+            	, MDFY_DTM = NOW()
+            ]]>
+		</isEqual>
+        
+        <![CDATA[
+             WHERE LGRP_CD  = #lgrpCd#
+        ]]>
+        
+		<isEqual property="isApi" compareValue="true">
+            <![CDATA[ AND MBR_SN = #mbrSn#  ]]>
+		</isEqual>
+
+        <isNotEqual property="blcSn" compareValue="0">
+        	<![CDATA[ AND BLC_SN = #blcSn#  ]]>
+		</isNotEqual>
+		
+	    <isNotEmpty property="delSeq">
+			<iterate property="delSeq" prepend=" AND BLC_SN IN " open="(" close=")" conjunction=",">
+				#delSeq[]#
+			</iterate>
+		</isNotEmpty>
+	</update>
+	
+	<!--
+        Query Name  : userBoardDAO.updateByUseYn
+        Description : 노출 여부 변경
+    -->    
+    <update id="userBoardDAO.updateByUseYn" parameterClass="userBoardVO">
+        <![CDATA[
+            /* ProgramID=userBoardDAO.updateByUseYn */ 
+            UPDATE VC_USR_02
+               SET USE_YN = #useYn# 
+                 , MGR_SN = #mgrSn#
+				 , MGR_ID = #mgrId#
+                 , MGR_DEL_DTM = NOW()
+             WHERE LGRP_CD  = #lgrpCd#
+               AND BLC_SN = #blcSn#
+        ]]>
+    </update>
+	
+	
+	<!--
+        Query Name  : userBoardDAO.updateBoardByBlcRct
+        Description : 조회수 증가.
+    -->    
+    <update id="userBoardDAO.updateBoardByBlcRct" parameterClass="userBoardVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.updateBoardByBlcRct */ 
+            UPDATE VC_USR_02
+               SET BLC_RCT = BLC_RCT + 1
+             WHERE BLC_SN = #blcSn#
+               AND USE_YN = 'Y'
+        ]]>
+    </update>
+    
+    
+    <!-- 
+    	댓글 
+    -->
+    <!--
+        Query Name  : userBoardDAO.selectBoardReplyCount
+        Description : 댓글 ROW의 수를 조회한다.
+    --> 
+    <select id="userBoardDAO.selectBoardReplyCount" parameterClass="userBoardVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.selectBoardReplyCount */
+            SELECT COUNT(1)
+              FROM VC_USR_03
+             WHERE USE_YN = 'Y'
+               AND BLC_SN = #blcSn#
+        ]]>
+    </select>
+    
+    <!-- 
+		Query Name : userBoardDAO.selectBoardReplyList 
+		Description : 댓글 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="userBoardDAO.selectBoardReplyList" parameterClass="userBoardVO" resultClass="userBoardReplyVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.selectBoardReplyList */
+            SELECT A.*
+              FROM (
+                      SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+						   , A.BLC_CMD_SN blcCmdSn
+						   , A.PAR_BLC_CMD_SN parBlcCmdSn
+						   , A.BLC_SN blcSn
+						   , A.MBR_SN mbrSn
+						   , A.MBR_ID mbrId
+						   , A.MBR_NICK mbrNick
+						   , A.BLC_CMD_SBC blcCmdSbc
+						   , A.USE_YN useYn
+						   , A.MGR_RMK mgrRmk
+						   , A.MGR_SN mgrSn
+						   , A.MGR_ID mgrId
+						   , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+		                   , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+						   , DATE_FORMAT(A.MGR_DEL_DTM, '%Y-%m-%d %H:%i')  AS mgrDelDtm
+                        FROM VC_USR_03 A, (SELECT @ROWNUM := 0) B
+                       WHERE A.USE_YN = 'Y'
+                         AND A.BLC_SN = #blcSn#
+                   ) A
+        ]]>
+	</select>
+	
+	<!-- 
+		Query Name : userBoardDAO.insertBoardReply
+		Description : 정보를 등록한다. 
+	-->
+	<insert id="userBoardDAO.insertBoardReply" parameterClass="userBoardReplyVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.insertBoardReply */ 
+            INSERT INTO VC_USR_03
+                   (
+					  PAR_BLC_CMD_SN
+					, BLC_SN
+					, MBR_SN
+					, MBR_ID
+					, MBR_NICK
+					, BLC_CMD_SBC
+					, RGST_DTM
+				   )
+            VALUES ( 
+                      #parBlcCmdSn#
+					, #blcSn#
+					, #mbrSn#
+					, #mbrId#
+					, #mbrNick#
+					, #blcCmdSbc#
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="blcCmdSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	<!-- 
+		Query Name : userBoardDAO.updateBoardReply 
+		Description : 정보를 수정한다.
+	-->
+	<update id="userBoardDAO.updateBoardReply" parameterClass="userBoardReplyVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.updateBoardReply */ 
+            UPDATE VC_USR_03
+               SET BLC_CMD_SBC = #blcCmdSbc#
+             WHERE BLC_CMD_SN = #blcCmdSn#
+               AND USE_YN = 'Y'
+               AND MBR_SN = #mbrSn#
+        ]]>
+	</update>
+	
+	
+	<!-- 
+		Query Name : userBoardDAO.deleteBoardReply 
+		Description : 정보를 삭제한다. 
+	-->
+	<update id="userBoardDAO.deleteBoardReply" parameterClass="userBoardReplyVO">
+        <![CDATA[
+			/* ProgramID=userBoardDAO.deleteBoardReply */
+            UPDATE VC_USR_03
+               SET USE_YN = 'D'
+        ]]>
+        
+        <isEqual property="isApi" compareValue="false">
+            <![CDATA[ 
+            	, MGR_RMK = #mgrRmk#
+				, MGR_SN = #mgrSn#
+				, MGR_ID = #mgrId#
+				, MGR_DEL_DTM = NOW()
+            ]]>
+		</isEqual>
+        
+        <![CDATA[
+             WHERE BLC_CMD_SN = #blcCmdSn#
+               AND USE_YN = 'Y'
+        ]]>
+        
+        <isEqual property="isApi" compareValue="true">
+            <![CDATA[ 
+                AND MBR_SN = #mbrSn#
+            ]]>
+		</isEqual>
+	</update>
+	
+	
+	<!-- 
+		Query Name : userBoardDAO.selectExcelList1
+		Description : 창업상담
+	-->
+	<select id="userBoardDAO.selectExcelList1" parameterClass="userBoardVO" resultClass="xMap">
+         <![CDATA[
+			/* ProgramID=userBoardDAO.selectExcelList1 */
+            SELECT A.RGST_NAME
+				 , A.RGST_HP
+				 , A.ITEM1
+			     , CONCAT(A.DIST1, ' ', A.DIST2) AS DIST
+			     , A.BLC_SBC1
+			     , A.BLC_SBC2
+			     , A.ITEM3
+			     , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS RGST_DTM
+              FROM VC_USR_02 A
+             WHERE A.LGRP_CD = 'BUSINESS'
+               AND A.USE_YN <> 'D'
+        ]]>
+        
+        <dynamic>
+        	<isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+	        
+	        <isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="0">
+                	<![CDATA[ AND ( A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') OR A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="1">
+                    <![CDATA[ AND A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="2">
+		             <![CDATA[ AND A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	
+	<!-- 
+		Query Name : userBoardDAO.selectExcelList2
+		Description : 사업설명회
+	-->
+	<select id="userBoardDAO.selectExcelList2" parameterClass="userBoardVO" resultClass="xMap">
+         <![CDATA[
+			/* ProgramID=userBoardDAO.selectExcelList2 */
+            SELECT A.MGRP_CD
+				 , A.RGST_NAME
+				 , A.RGST_HP
+				 , A.ITEM1
+			     , CONCAT(A.DIST1, ' ', A.DIST2) AS DIST
+			     , A.BLC_SBC1
+			     , A.BLC_SBC2
+			     , A.ITEM3
+			     , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS RGST_DTM
+              FROM VC_USR_02 A
+             WHERE A.LGRP_CD = 'PRESENTATION'
+               AND A.USE_YN <> 'D'
+        ]]>
+        
+        <dynamic>
+        	<isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+	        
+	        <isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="0">
+                	<![CDATA[ AND ( A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') OR A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="1">
+                    <![CDATA[ AND A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="2">
+		             <![CDATA[ AND A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 
+		Query Name : userBoardDAO.selectExcelList3
+		Description : 프로지원
+	-->
+	<select id="userBoardDAO.selectExcelList3" parameterClass="userBoardVO" resultClass="xMap">
+         <![CDATA[
+			/* ProgramID=userBoardDAO.selectExcelList3 */
+            SELECT A.RGST_NAME
+				 , A.RGST_HP
+				 , A.RGST_GENDER_CD
+				 , A.ITEM1
+			     , A.BLC_SBC1 blcSbc1
+			     , CONCAT(A.DIST1, ' ', A.DIST2) AS DIST
+				 , A.WORK_TIME workTime
+			     , A.BLC_SBC2 blcSbc2
+			     , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i') AS RGST_DTM
+              FROM VC_USR_02 A
+             WHERE A.LGRP_CD = 'APPLICATION'
+               AND A.USE_YN <> 'D'
+        ]]>
+        
+        <dynamic>
+        	<isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+	        
+	        <isNotEmpty property="searchKey">
+				<isEqual property="searchType" compareValue="0">
+                	<![CDATA[ AND ( A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') OR A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="1">
+                    <![CDATA[ AND A.BLC_TITL LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+				<isEqual property="searchType" compareValue="2">
+		             <![CDATA[ AND A.BLC_SBC1 LIKE CONCAT('%',#searchKey#,'%') ]]>
+				</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+    
+
+</sqlMap>

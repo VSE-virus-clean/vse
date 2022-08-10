@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : ProductDAO.xml 
+	Description : 제품정보
+-->
+
+<sqlMap namespace="virus_clean_shop_ProductDAO">
+	<typeAlias alias="productVO" type="vc.virusclean.admin.shop.vo.ProductVO" />
+	<typeAlias alias="buyProductVO" type="vc.virusclean.admin.shop.vo.BuyProductVO" />
+
+	<!-- 
+		Query Name : productDAO.selectProductCount 
+		Description : ROW의 수를 조회한다. 
+	-->
+	<select id="productDAO.selectProductCount" parameterClass="productVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=productDAO.selectProductCount */
+            SELECT COUNT(1)
+              FROM VC_SHOP_01 A
+             WHERE A.USE_YN <> 'D'
+             
+        ]]>
+        
+       	<isNotEmpty property="lgrpCd">
+               <![CDATA[ AND  A.LGRP_CD = #lgrpCd#  ]]>
+		</isNotEmpty>
+		
+        <isEqual property="isApi" compareValue="false">
+        	<![CDATA[ 
+        		
+        	]]>
+        </isEqual>
+        <isEqual property="isApi" compareValue="true">
+        	<![CDATA[ 
+        		AND A.USE_YN = 'Y' 
+        		AND (  (A.EXPS_RGST_DTM IS NULL OR A.EXPS_RGST_DTM <= NOW()) AND (  A.EXPS_FNH_DTM IS NULL OR  A.EXPS_FNH_DTM >= NOW() ))
+        	]]>
+        </isEqual>
+        
+		<dynamic>
+			<isNotEmpty property="searchKey">
+            	<![CDATA[ AND (  A.PRD_TITL LIKE CONCAT('%',#searchKey#,'%') OR  A.PRD_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<!-- 
+		Query Name : productDAO.selectProductList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="productDAO.selectProductList" parameterClass="productVO" resultClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.selectProductList */
+            SELECT A.*
+        		 , ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE PRD_SN = A.prdSn AND USE_YN = 'Y' AND SCRAP_CD = 'PRODUCT' AND MBR_SN = #rgstSn# ) AS myScrapCnt
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.prdSn AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.prdSn AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+              FROM (
+                       SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+							, A.PRD_SN prdSn
+							, A.LANG_CD langCd
+							, A.LGRP_CD lgrpCd
+							, A.MGRP_CD mgrpCd
+							, A.SGRP_CD sgrpCd
+							, A.PRD_TITL prdTitl
+							, A.PRD_SBC1 prdSbc1
+							, A.PRD_SBC2 prdSbc2
+							, A.PRD_CD prdCd
+							, DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d %H:%i') AS expsRgstDtm
+                            , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d %H:%i')  AS expsFnhDtm
+                            , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+							, A.PRD_RCT prdRct
+							, A.SUPPLY_PRICE supplyPrice
+							, A.SALE_PRICE salePrice
+							, A.QUANTITY quantity
+							, A.ST_NO stNo
+							, A.SELL_YN sellYn
+							, A.USE_YN useYn
+							, A.RGST_SN rgstSn
+							, A.RGST_ID rgstId
+							, DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+							, A.MDFY_SN mdfySn
+							, A.MDFY_ID mdfyId
+							, DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+                         FROM VC_SHOP_01 A, (SELECT @ROWNUM := 0) B
+                        WHERE A.USE_YN <> 'D'
+        ]]>
+        
+	        	<isNotEmpty property="lgrpCd">
+		               <![CDATA[ AND A.LGRP_CD = #lgrpCd#  ]]>
+				</isNotEmpty>
+				
+		      	<isEqual property="isApi" compareValue="false">
+		        	<![CDATA[ 
+		        		
+		        	]]>
+		        </isEqual>
+		        <isEqual property="isApi" compareValue="true">
+		        	<![CDATA[ 
+		        		AND  A.USE_YN = 'Y' 
+		        		AND (  (A.EXPS_RGST_DTM IS NULL OR A.EXPS_RGST_DTM <= NOW()) AND (  A.EXPS_FNH_DTM IS NULL OR  A.EXPS_FNH_DTM >= NOW() ))
+		        	]]>
+		        </isEqual>
+		        
+				<dynamic>
+					<isNotEmpty property="searchKey">
+		            	<![CDATA[ AND (  A.PRD_TITL LIKE CONCAT('%',#searchKey#,'%') OR  A.PRD_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+					</isNotEmpty>
+				</dynamic>
+		
+        <![CDATA[
+					ORDER BY A.ST_NO, A.PRD_SN DESC
+                   ) A
+			 LIMIT #rowStart#, #rowLimit#
+        ]]>
+	</select>
+	
+	
+	<!-- 
+		Query Name : productDAO.selectProductOrderList 
+		Description : 구매페이지 상품 목록 조회
+	-->
+	<select id="productDAO.selectProductOrderList" parameterClass="buyProductVO" resultClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.selectProductOrderList */
+            SELECT A.*
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.prdSn AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.prdSn AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+              FROM (
+                       SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+							, A.PRD_SN prdSn
+							, A.LANG_CD langCd
+							, A.LGRP_CD lgrpCd
+							, A.MGRP_CD mgrpCd
+							, A.SGRP_CD sgrpCd
+							, A.PRD_TITL prdTitl
+							, A.PRD_SBC1 prdSbc1
+							, A.PRD_SBC2 prdSbc2
+							, A.PRD_CD prdCd
+							, DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d %H:%i') AS expsRgstDtm
+                            , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d %H:%i')  AS expsFnhDtm
+                            , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+							, A.PRD_RCT prdRct
+							, A.SUPPLY_PRICE supplyPrice
+							, A.SALE_PRICE salePrice
+							, A.QUANTITY quantity
+							, A.ST_NO stNo
+							, A.SELL_YN sellYn
+							, A.USE_YN useYn
+							, A.RGST_SN rgstSn
+							, A.RGST_ID rgstId
+							, DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+							, A.MDFY_SN mdfySn
+							, A.MDFY_ID mdfyId
+							, DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+                         FROM VC_SHOP_01 A, (SELECT @ROWNUM := 0) B
+                        WHERE A.USE_YN = 'Y' 
+                          AND A.SELL_YN = 'Y'
+                          AND ( (A.EXPS_RGST_DTM IS NULL OR A.EXPS_RGST_DTM <= NOW()) AND (  A.EXPS_FNH_DTM IS NULL OR  A.EXPS_FNH_DTM >= NOW() ))
+        ]]>
+
+		    <isNotEmpty property="prdSn">
+				<iterate property="prdSn" prepend=" AND A.PRD_SN IN " open="(" close=")" conjunction=",">
+					#prdSn[]#
+				</iterate>
+			</isNotEmpty>
+		
+        <![CDATA[
+					ORDER BY A.ST_NO, A.EXPS_RGST_DTM DESC, A.PRD_SN DESC
+                   ) A
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : productDAO.selectProduct 
+		Description : 상세정보를 조회한다. 
+	-->
+	<select id="productDAO.selectProduct" parameterClass="productVO" resultClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.selectProduct */
+            SELECT A.PRD_SN prdSn
+				 , A.LANG_CD langCd
+				 , A.LGRP_CD lgrpCd
+				 , A.MGRP_CD mgrpCd
+				 , A.SGRP_CD sgrpCd
+				 , A.PRD_TITL prdTitl
+				 , A.PRD_SBC1 prdSbc1
+				 , A.PRD_SBC2 prdSbc2
+				 , A.PRD_CD prdCd
+				 , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS expsRgstDay
+                 , DATE_FORMAT(A.EXPS_RGST_DTM, '%H')  AS expsRgstTime
+                 , DATE_FORMAT(A.EXPS_RGST_DTM, '%i')  AS expsRgstMinute
+                 , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d %H:%i')  AS expsRgstDtm
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d')  AS expsFnhDay
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%H')  AS expsFnhTime
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%i')  AS expsFnhMinute
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d %H:%i')  AS expsFnhDtm
+                 , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+				 , A.PRD_RCT prdRct
+				 , A.SUPPLY_PRICE supplyPrice
+				 , A.SALE_PRICE salePrice
+				 , A.QUANTITY quantity
+				 , A.ST_NO stNo
+				 , A.SELL_YN sellYn
+				 , A.USE_YN useYn
+				 , A.RGST_SN rgstSn
+				 , A.RGST_ID rgstId
+				 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+				 , A.MDFY_SN mdfySn
+				 , A.MDFY_ID mdfyId
+				 , DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm            
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND SGRP_CD <> 'PHOTO' ) AS reviewCnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND SGRP_CD = 'PHOTO' ) AS reviewPhotoCnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 5 ) AS grade5Cnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 4 )  AS grade4Cnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 3 )  AS grade3Cnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 2 )  AS grade2Cnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 1 )  AS grade1Cnt
+				 , ( SELECT IFNULL(CEIL(AVG(GRADE)), 0) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' )  AS gradeAvg
+				 , ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND SCRAP_CD = 'PRODUCT' ) AS scrapCnt
+		]]>
+		
+		<isEqual property="isApi" compareValue="true">
+        	<isNotEqual property="rgstSn" compareValue="0">
+        		<![CDATA[ 
+					, ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND SCRAP_CD = 'PRODUCT' AND MBR_SN = #rgstSn# ) AS myScrapCnt
+				]]>
+        	</isNotEqual>
+        	<isEqual property="rgstSn" compareValue="0">
+        		<![CDATA[ 
+					, 0 AS myScrapCnt
+				]]>
+        	</isEqual>
+        </isEqual>
+        <isNotEqual property="isApi" compareValue="true">
+        	<![CDATA[ 
+				, 0 AS myScrapCnt
+			]]>
+        </isNotEqual>
+	        
+		<![CDATA[
+              FROM VC_SHOP_01 A
+             WHERE 1 = 1
+        ]]>
+        
+       	<isNotEmpty property="lgrpCd">
+        	<![CDATA[ AND A.LGRP_CD = #lgrpCd#  ]]>
+		</isNotEmpty>
+
+        <isNotEqual property="prdSn" compareValue="0">
+        	<![CDATA[ AND A.PRD_SN = #prdSn#  ]]>
+		</isNotEqual>
+		
+		<isNotEmpty property="prdCd">
+        	<![CDATA[ AND A.PRD_CD = #prdCd#]]>
+		</isNotEmpty>
+		
+		<isEqual property="isApi" compareValue="false">
+        	<![CDATA[ AND A.USE_YN <> 'D'	]]>
+        </isEqual>
+        <isEqual property="isApi" compareValue="true">
+        	<![CDATA[ 
+        		AND  A.USE_YN = 'Y' 
+        		AND (  (A.EXPS_RGST_DTM IS NULL OR A.EXPS_RGST_DTM <= NOW()) AND (  A.EXPS_FNH_DTM IS NULL OR  A.EXPS_FNH_DTM >= NOW() ))
+        	]]>
+        </isEqual>
+	</select>
+
+
+	<!-- 
+		Query Name : productDAO.insertProduct 
+		Description : 정보를 등록한다. 
+	-->
+	<insert id="productDAO.insertProduct" parameterClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.insertProduct */ 
+            INSERT INTO VC_SHOP_01
+                   (
+					  LANG_CD
+					, LGRP_CD
+					, MGRP_CD
+					, SGRP_CD
+					, PRD_TITL
+					, PRD_SBC1
+					, PRD_SBC2
+					, PRD_CD
+					, PRD_RCT
+					, SUPPLY_PRICE
+					, SALE_PRICE
+					, QUANTITY
+					, ST_NO
+					, SELL_YN
+					, EXPS_RGST_DTM
+					, EXPS_FNH_DTM
+					, USE_YN
+					, RGST_SN
+					, RGST_ID
+					, RGST_DTM
+				   )
+            VALUES ( 
+					  #langCd#
+					, #lgrpCd#
+					, #mgrpCd#
+					, #sgrpCd#
+					, #prdTitl#
+					, #prdSbc1#
+					, #prdSbc2#
+					, #prdCd#
+					, #prdRct#
+					, #supplyPrice#
+					, #salePrice#
+					, #quantity#
+					, #stNo#
+					, #sellYn#
+
+        ]]>
+        
+		<isNotEmpty property="expsRgstDtm">
+        	<![CDATA[	, DATE_FORMAT(#expsRgstDtm#, '%Y-%m-%d %H:%i:%s')	]]>
+		</isNotEmpty>
+		<isEmpty property="expsRgstDtm">
+        	<![CDATA[	, NULL	]]>
+		</isEmpty>
+		
+		<isNotEmpty property="expsFnhDtm">
+        	<![CDATA[	, DATE_FORMAT(#expsFnhDtm#, '%Y-%m-%d %H:%i:%s')	]]>
+		</isNotEmpty>
+		<isEmpty property="expsFnhDtm">
+        	<![CDATA[	, NULL	]]>
+		</isEmpty>
+		
+        <![CDATA[
+                   , #useYn#
+                   , #rgstSn#
+                   , #rgstId#
+                   , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="prdSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+
+	<!-- 
+		Query Name : productDAO.updateProduct 
+		Description : 정보를 수정한다.
+	-->
+	<update id="productDAO.updateProduct" parameterClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.updateProduct */ 
+            UPDATE VC_SHOP_01
+               SET LANG_CD = #langCd#
+				 , LGRP_CD = #lgrpCd#
+				 , MGRP_CD = #mgrpCd#
+				 , SGRP_CD = #sgrpCd#
+				 , PRD_TITL = #prdTitl#
+				 , PRD_SBC1 = #prdSbc1#
+				 , PRD_SBC2 = #prdSbc2#
+				 , PRD_CD = #prdCd#
+				 , SUPPLY_PRICE = #supplyPrice#
+				 , SALE_PRICE = #salePrice#
+				 , QUANTITY = #quantity#
+				 , ST_NO = #stNo#
+				 , SELL_YN = #sellYn#
+
+       ]]>
+
+		<isNotEmpty property="expsRgstDtm">
+            <![CDATA[ , EXPS_RGST_DTM = DATE_FORMAT(#expsRgstDtm#, '%Y-%m-%d %H:%i:%s')  ]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="expsFnhDtm">
+            <![CDATA[ , EXPS_FNH_DTM = DATE_FORMAT(#expsFnhDtm#, '%Y-%m-%d %H:%i:%s')  ]]>
+		</isNotEmpty>
+       
+       <![CDATA[
+                 , USE_YN = #useYn#
+                 , MDFY_SN = #mdfySn#
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE PRD_SN = #prdSn#
+        ]]>
+	</update>
+
+	<!-- 
+		Query Name : productDAO.deleteProduct 
+		Description : 정보를 삭제한다. 
+	-->
+	<update id="productDAO.deleteProduct" parameterClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.deleteProduct */
+            UPDATE VC_SHOP_01
+               SET USE_YN = 'D'
+                 , MDFY_SN = #mdfySn#
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE 1 = 1
+        ]]>
+        
+        <isNotEqual property="prdSn" compareValue="0">
+        	<![CDATA[ AND PRD_SN = #prdSn#  ]]>
+		</isNotEqual>
+		
+	    <isNotEmpty property="delSeq">
+			<iterate property="delSeq" prepend=" AND PRD_SN IN " open="(" close=")" conjunction=",">
+				#delSeq[]#
+			</iterate>
+		</isNotEmpty>
+	</update>
+	
+	
+	<!--
+        Query Name  : productDAO.updateProductByBlcRct
+        Description : 조회수 증가.
+    -->    
+    <update id="productDAO.updateProductByBlcRct" parameterClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.updateProductByBlcRct */ 
+            UPDATE VC_SHOP_01
+               SET PRD_RCT = PRD_RCT + 1
+             WHERE PRD_SN = #prdSn#
+               AND USE_YN = 'Y'
+        ]]>
+    </update>
+    
+    
+    <!-- 
+		Query Name : productDAO.updateProductByStNo 
+		Description : 정렬순서 변경
+						- Service에서 For문으로 하나씩 던져줄것.
+	-->
+	<update id="productDAO.updateProductByStNo" parameterClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.updateProductByStNo */
+            UPDATE VC_SHOP_01
+               SET ST_NO = #stNo#
+             WHERE PRD_SN = #prdSn#
+        ]]>
+	</update>
+	
+	<!--
+        Query Name  : productDAO.updateProductBySellYn
+        Description : 품절처리
+    -->    
+    <update id="productDAO.updateProductBySellYn" parameterClass="productVO">
+        <![CDATA[
+			/* ProgramID=productDAO.updateProductBySellYn */
+            UPDATE VC_SHOP_01
+               SET SELL_YN = #sellYn#
+			 WHERE PRD_SN = #prdSn#
+        ]]>
+    </update>
+
+</sqlMap>

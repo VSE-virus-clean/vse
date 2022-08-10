@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : ScrapDAO.xml 
+	Description : 스크랩정보
+-->
+
+<sqlMap namespace="virus_clean_shop_ScrapDAO">
+	<typeAlias alias="scrapVO" type="vc.virusclean.admin.shop.vo.ScrapVO" />
+
+	<!-- 
+		Query Name : scrapDAO.selectScrapCount 
+		Description : ROW의 수를 조회한다. 
+	-->
+	<select id="scrapDAO.selectScrapCount" parameterClass="scrapVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=scrapDAO.selectScrapCount */
+            SELECT COUNT(1)
+              FROM VC_SHOP_02 A
+             WHERE MBR_SN = #mbrSn#
+               AND USE_YN = 'Y' 
+               AND SCRAP_CD = #scrapCd#
+        ]]>
+        
+        <isNotEqual property="prdSn" compareValue="0">
+            <![CDATA[ AND PRD_SN = #prdSn#  ]]>
+		</isNotEqual>
+		
+		<isNotEqual property="blcSn" compareValue="0">
+            <![CDATA[ AND BLC_SN = #blcSn#  ]]>
+		</isNotEqual>
+	</select>
+	
+	
+	<!-- 
+		Query Name : scrapDAO.insertScrap 
+		Description : 정보를 등록한다. 
+	-->
+	<insert id="scrapDAO.insertScrap" parameterClass="scrapVO">
+        <![CDATA[
+			/* ProgramID=scrapDAO.insertScrap */ 
+            INSERT INTO VC_SHOP_02
+                   ( 
+                      PRD_SN
+					, BLC_SN
+					, SCRAP_CD
+					, MBR_SN
+					, RGST_DTM
+				   )
+            VALUES ( 
+            		  #prdSn#
+           		    , #blcSn#
+					, #scrapCd#
+					, #mbrSn#
+                    , NOW()
+				   )
+        ]]>
+        <selectKey resultClass="int" keyProperty="scrapSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+	<!-- 
+		Query Name : scrapDAO.deleteScrap 
+		Description : 정보를 삭제한다. 
+	-->
+	<update id="scrapDAO.deleteScrap" parameterClass="scrapVO">
+        <![CDATA[
+			/* ProgramID=scrapDAO.deleteScrap */
+            DELETE FROM VC_SHOP_02
+             WHERE SCRAP_CD = #scrapCd#
+               AND MBR_SN = #mbrSn#
+        ]]>
+        
+		<isEqual property="scrapCd" compareValue="PRODUCT">
+			<isNotEqual property="prdSn" compareValue="0">
+            	<![CDATA[ AND PRD_SN = #prdSn#  ]]>
+            </isNotEqual>
+            
+            <isNotEmpty property="delSeq">
+				<iterate property="delSeq" prepend=" AND PRD_SN IN " open="(" close=")" conjunction=",">
+					#delSeq[]#
+				</iterate>
+			</isNotEmpty>
+		</isEqual>
+		
+		<isEqual property="scrapCd" compareValue="REVIEW">
+			<isNotEqual property="blcSn" compareValue="0">
+	            <![CDATA[ AND BLC_SN = #blcSn#  ]]>
+			</isNotEqual>
+            
+            <isNotEmpty property="delSeq">
+				<iterate property="delSeq" prepend=" AND BLC_SN IN " open="(" close=")" conjunction=",">
+					#delSeq[]#
+				</iterate>
+			</isNotEmpty>
+		</isEqual>
+	</update>
+
+</sqlMap>

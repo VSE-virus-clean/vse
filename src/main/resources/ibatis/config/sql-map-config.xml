@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+
+	<typeAlias alias="int" type="java.lang.Integer" />
+	<typeAlias alias="float" type="java.lang.Float" />
+	<typeAlias alias="string" type="java.lang.String" />
+	<typeAlias alias="xMap" type="jksoft.com.util.XMap" />
+	<typeAlias alias="hashMap" type="java.util.HashMap" />
+	<typeAlias alias="searchVO" type="jksoft.com.web.vo.SearchVO" />
+
+	<sqlMap resource="ibatis/sqlmap/comm/dummy.xml" />
+</sqlMapConfig>

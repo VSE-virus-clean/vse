@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"> 
+	<title>바이러스클린랩 관리자</title>
+	<link rel="stylesheet" href="ui_common/css/reset.css">	
+	<link rel="stylesheet" href="ui_common/css/fonts/fonts.css">	
+	<link rel="stylesheet" href="ui_common/css/ui_common.css">
+	<link rel="stylesheet" href="ui_common/css/popup.css">
+	<link rel="stylesheet" href="ui_common/css/paging.css">
+	<link rel="stylesheet" href="ui_common/css/dashboard.css">
+	<script src="ui_common/js/jquery.min.js"></script>
+	<script src="ui_common/js/ui_common.js"></script>
+</head>
+<body>
+	<div class="modal_window" style="">
+		<div class="modal_dialog">
+			<div class="modal_content">
+				<img src="images/common/alert.png" alt="삭제 확인">
+				<div class="modal_txt">
+					<h4>삭제 확인</h4>
+					<p>정말로 삭제하시겠습니까?</p>
+				</div>
+				<div class="btn_right_gorup">
+					<button type="button" class="btn btn_gray btn_cancel" >취소</button>
+					<button type="submit" class="btn btn_red btn_cancel" >삭제</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal_backdrop" ></div>
+	<header>
+		<div id="header">
+			<div class="header_inner"><a href="">로그아웃</a></div>
+		</div>
+	</header>
+	<div class="contaioner_wrap clearfix">
+		<div id="side">
+			<div class="side_top">
+				<img src="images/common/logo.png" alt="">
+			</div>
+			<div class="user">
+				<a href="" class="clearfix">
+					<img src="images/common/user_icon.png" alt="" class="user_icon">
+					<span class="id">홍길동(ID)</span>
+				</a>
+			</div>
+			<div id="lefrMenu">
+				<ul>
+					<li class="depth01">
+						<a href="javascript:;"><span>배너&팝업관리</span></a>
+						
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>상품관리</span></a>
+						
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>주문관리</span></a>
+						
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>쿠폰관리</span></a>
+						<ul class="depth02">
+							<li><a href=""><span>쿠폰관리</span></a></li>
+							<li><a href=""><span>쿠폰내역</span></a></li>
+						</ul>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>정품관리</span></a>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>게시판관리</span></a>
+						<ul class="depth02">
+							<li><a href=""><span>게시판관리</span></a></li>
+							<li><a href=""><span>게시물관리</span></a></li>
+						</ul>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>고객관리</span></a>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>환경설정</span></a>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>히스토리관리</span></a>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>통계관리</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="content">
+			<div id="container">
+				<div class="inner">
+					<div class="sec_top" id="" >
+						<h2 class="sec_tit">기술거래 코드관리</h2>
+						<ul class="top_tab">
+							<!-- <li ><a href="#"><img alt="home" src="/project/ofris/admin//images/egovframework/Common/icon_home.png"></a></li> -->
+							<li><a href="#">기술거래페이지</a></li>
+							<li><a href="#">기술거래관리</li></a></ul>
+					</div>
+					<div class="sec_cont dsbd_page">
+                        
+						<!-- 오늘의 현황 -->
+						<h4 class="cont_tit">오늘의 현황</h4>
+
+						<table class="cont_table" style="TABLE-layout:fixed">
+							<colgroup>
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">                                        
+							</colgroup>
+							<thead>
+								<tr style="height:58px;">
+									<th>
+										<div class="stat_icon_wrap">
+											<div class="tbl_icon">
+												<img src="/project/ofris/admin/images/egovframework/Common/stat_profile.png" alt="">
+											</div>
+											<p>방문자 수</p>
+										</div>
+									</th>
+									<th>
+										<div class="stat_icon_wrap">
+											<div class="tbl_icon">
+												<img src="/project/ofris/admin/images/egovframework/Common/stat_fileboard.png" alt="">
+											</div>
+											<p>판매 등록 수</p>
+										</div>
+									</th>
+									<th>
+										<div class="stat_icon_wrap">
+											<div class="tbl_icon">
+												<img src="/project/ofris/admin/images/egovframework/Common/stat_email.png" alt="">
+											</div>
+											<p>판매 승인요청 수</p>
+										</div>
+									</th>
+									<th>
+										<div class="stat_icon_wrap">
+											<div class="tbl_icon">
+												<img src="/project/ofris/admin/images/egovframework/Common/stat_done.png" alt="">
+											</div>
+											<p>판매 거래완료 수</p>
+										</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr style="height:58px;">
+									<td>
+										<p><span>154</span>건</p>
+									</td>
+									<td>
+										<p><span>02</span>건</p>
+									</td>
+									<td>
+										<p><span>67</span>건</p>
+									</td>
+									<td>
+										<p><span>67</span>건</p>
+									</td>
+								</tr>
+							</tbody>
+							<thead>
+								<tr style="height:58px;">
+									<th>
+										<div class="stat_icon_wrap">
+											<div class="tbl_icon">
+												<img src="/project/ofris/admin/images/egovframework/Common/stat_share.png" alt="">
+											</div>
+											<p>방문자 수</p>
+										</div>
+									</th>
+									<th>
+										<div class="stat_icon_wrap">
+											<div class="tbl_icon">
+												<img src="/project/ofris/admin/images/egovframework/Common/stat_cloud_down.png" alt="">
+											</div>
+											<p>판매 등록 수</p>
+										</div>
+									</th>
+									<th>
+										<div class="stat_icon_wrap">
+											<div class="tbl_icon">
+												<img src="/project/ofris/admin/images/egovframework/Common/stat_cloud_okcopy.png" alt="">
+											</div>
+											<p>판매 승인요청 수</p>
+										</div>
+									</th>
+									<th>
+										<div class="stat_icon_wrap">
+											<div class="tbl_icon">
+												<img src="/project/ofris/admin/images/egovframework/Common/stat_network.png" alt="">
+											</div>
+											<p>판매 거래완료 수</p>
+										</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr style="height:58px;">
+									<td>
+										<p><span>13</span>건</p>
+									</td>
+									<td>
+										<p><span>13</span>건</p>
+									</td>
+									<td>
+										<p><span>89</span>건</p>
+									</td>
+									<td>
+										<p><span>89</span>건</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="btn_right_gorup">
+							<button type="button" class="btn btn_red" onclick="searchList(1);return false;">바로가기</button>
+						</div>
+                        
+						<div class="content-body">
+
+                            <!-- 행사관리 -->
+                            <h4 class="cont_tit">행사관리</h4>
+
+                            <table class="cont_table cont_table02">
+                                <colgroup>
+                                    <col width="13%">
+                                    <col width="70%">
+                                    <col width="17%">                                    
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>행사명</th>
+                                        <th>신청자 수</th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td >03</td>                                        
+                                        <td >공공기술 R&amp;D 행사</td>                                        
+                                        <td><a href="#" >01</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td >02</td>                                        
+                                        <td >해양수산 기술이전 설명회</td>                                        
+                                        <td><a href="#">10</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td >01</td>
+                                        <td >해양수산 기술이전 설명회</td>                                        
+                                        <td><a href="#">10</a></td>
+                                    </tr>
+                                </tbody>                                
+                            </table>
+							<div class="btn_right_gorup">
+								<button type="button" class="btn btn_red" onclick="searchList(1);return false;">바로가기</button>
+							</div>
+                        </div>
+                        <!-- content-body -->
+                    </div>
+
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+</body>
+
+<script>
+
+	$(document).ready(function(){
+		
+		$('.modal_window').hide();
+		$('.modal_backdrop').hide();
+		
+		$('.btn_open').on('click',function(){
+			event.preventDefault();
+			$('.modal_window').show();
+			$('.modal_backdrop').show();
+			
+		});
+			
+		$('.btn_cancel').on('click',function(){
+			
+			$('.modal_window').hide();
+			$('.modal_backdrop').hide();
+		});
+		
+	});
+
+
+
+</script>
+</html>

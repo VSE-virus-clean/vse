@@ -1,0 +1,150 @@
+@charset "utf-8";
+
+/* base */
+html, body, div, span, applet, object, input, iframe, h1, h2, h3, h4, h5,
+	h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del,
+	dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt,
+	var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: white;
+	-webkit-text-size-adjust: none;
+}
+
+ol, ul {
+	list-style: none;
+	-webkit-text-size-adjust: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	-webkit-text-size-adjust: none;
+	width: 100%;
+}
+
+textarea {
+	resize: none;
+}
+
+blockquote, q {
+	quotes: "" "";
+}
+
+legend, caption {
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	font-size: 0;
+	line-height: 0;
+	*height: 0;
+	padding: 0;
+	margin-top: -1px;
+	text-indent: -9999px;
+}
+
+fieldset, img {
+	border: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+/* common */
+html, body {
+	height: 100%;
+}
+
+body {
+	font: 13px/1.25 "Noto Sans JP";
+	color: #000;
+}
+
+input, label {
+	vertical-align: middle;
+}
+
+input[type="text"], input[type="password"] {
+	height: 12px;
+	padding: 8px 5px;
+	border: 1px solid #b5babc;
+	font: 12px/1.25 "Noto Sans JP";
+	color: #000;
+}
+
+input[type="checkbox"], input[type="radio"] {
+	width: 12px;
+	height: 12px;
+}
+
+input[type=file] {
+	font-size: 12px;
+	font-family: "Noto Sans JP";
+}
+
+input[type="text"][disabled="disabled"] {
+	background: #ced1d4;
+}
+
+table {
+	table-layout: fixed;
+}
+
+select {
+	font: 12px/22px "Noto Sans JP";
+	vertical-align: middle;
+	border: 1px solid #b5babc;
+}
+
+textarea {
+	padding: 5px;
+	font: 13px/1.25 '"Noto Sans JP";,
+		'돋움';
+	border: 1px solid #b5babc;
+}
+
+a:link, a:visited {
+	color: #000;
+}
+
+a:hover, a:active {
+	color: #1469c0;
+}
+
+#wrap {
+	width: 100%;
+}
+
+.header_util {
+	background: #212121;
+}
+
+.header_util>div {
+	width: 1200px;
+	margin: 0px auto;
+	height: 35px;
+	line-height: 33px;
+	text-align: right;
+	background: red
+}
+
+.header_util>div>a {
+	display: inline-block;
+	margin-left: 3px;
+	padding-right: 10px;
+	background: url(/resources/admin/images/common/header_util_bar.gif)
+		right center no-repeat;
+	font-size: 11px;
+	color: #c6c6c6;
+}
+
+.header_util>div>a:last-child {
+	background: none;
+}
+
+.break_word { word-wrap: break-word; *word-wrap: normal; *word-break: break-all;}

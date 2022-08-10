@@ -1,0 +1,5 @@
+/* dashboard.html 페이지 */
+.dsbd_page .cont_table02 tbody tr td a {color: #000000;}
+.dsbd_page .cont_table02 .tbl_icon {padding-bottom: 13px;}
+.dsbd_page .cont_table02 tbody tr td:nth-child(2){text-align:left;}
+.dsbd_page .tbl_icon {padding-bottom:12px;}

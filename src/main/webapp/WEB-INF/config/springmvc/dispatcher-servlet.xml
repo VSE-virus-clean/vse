@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<context:component-scan base-package="vc">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+	<context:annotation-config />
+
+	<!-- HandlerAdapters 선언 시작 -->
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	
+<!-- 	<mvc:resources mapping="/resources/**" location="/resources/" /> -->
+
+	<!-- Interceptors 선언 -->
+	<bean id="sessionInterceptor" class="vc.virusclean.cmm.interceptor.SessionInterceptor" />
+	<bean id="defaultInterceptor" class="vc.virusclean.cmm.interceptor.DefaultInterceptor" />
+
+	<mvc:interceptors>
+		<ref bean="sessionInterceptor" />
+		<ref bean="defaultInterceptor" />
+	</mvc:interceptors>
+
+	<!-- ============================================================================================ -->
+	<!-- EXCEPTION RESOLVER :: Error에 대한 처리 -->
+	<!-- ============================================================================================ -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="error/errorMan" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key=".DataAccessException">error/errorMan</prop>
+				<prop key=".TransactionException">error/errorMan</prop>
+				<prop key=".NoSuchRequestHandlingMethodException">error/errorMan</prop>
+				<prop key=".TypeMismatchException">error/errorMan</prop>
+				<prop key=".MissingServletRequestParameterException">error/errorMan</prop>
+				<prop key=".NoResourceException">error/errorMan</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- =========================================================================== -->
+	<!-- BEANNAME VIEW RESOLVER :: EXCEL DOWNLOAD -->
+	<!-- =========================================================================== -->
+	<bean id="beanNameViewResolver"	class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1" />
+	</bean>
+	<bean id="fileDownloadView" class="jksoft.com.web.view.FileDownloadView" />
+	<bean id="reportExcelView" class="jksoft.com.web.view.ReportExcelView" />
+
+	<!-- =========================================================================== -->
+	<!-- TILES VIEW RESOLVER -->
+	<!-- =========================================================================== -->
+	<bean id="tilesViewResolver" class="jksoft.com.web.view.JKUrlBasedViewResolver">
+<!-- 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> -->
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<property name="order" value="2" />
+	</bean>
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:tiles/tiles_config_vse.xml</value>
+				<value>classpath:tiles/tiles_config_user.xml</value>
+				<value>classpath:tiles/tiles_config_admin.xml</value>
+			</list>
+		</property>
+	</bean>
+</beans>

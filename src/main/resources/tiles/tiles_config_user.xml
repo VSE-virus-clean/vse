@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- ============================================================================================= -->
+	<!-- [ DEFINITION :: TEMPLATE ] -->
+	<!-- ============================================================================================= -->
+	<!-- 일반 화면 -->
+	<definition name="user-default-tiles" template="/WEB-INF/jsp/user/normal/common/layout/layout_default.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/user/normal/common/include/inc_commonHead.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/user/normal/common/include/inc_header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/user/normal/common/include/inc_footer.jsp" />
+	</definition>
+	
+	<definition name="user-main-tiles" template="/WEB-INF/jsp/user/normal/common/layout/layout_main.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/user/normal/common/include/inc_commonHead.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/user/normal/common/include/inc_header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/user/normal/common/include/inc_footer.jsp" />
+	</definition>
+	
+	<definition name="user-login-tiles" template="/WEB-INF/jsp/user/normal/common/layout/layout_default.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/user/normal/common/include/inc_commonHead.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/user/normal/common/include/inc_header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="" />
+	</definition>
+	
+	<definition name="user-fullScreen-tiles" template="/WEB-INF/jsp/user/normal/common/layout/layout_fullScreen.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/user/normal/common/include/inc_commonHead.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+	
+	<!-- ERROR -->
+	<definition name="user-empty-tiles" template="/WEB-INF/jsp/admin/common/layout/layout_empty.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+
+	<!-- ============================================================================================= -->
+	<!-- [ DEFINITION :: EXTENDS ] -->
+	<!-- ============================================================================================= -->
+
+	<!-- 외부 API -->
+	<definition name="user/external/*" extends="user-fullScreen-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/external/{1}.jsp" />
+	</definition>
+	
+	<definition name="user/error/*" extends="user-empty-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/error/{1}.jsp" />
+	</definition>
+
+	<!-- 메인 페이지 -->
+	<definition name="user/mainMan" extends="user-main-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/mainMan.jsp" />
+	</definition>
+	
+	<!-- 로그인 -->
+	<definition name="user/member/loginMan" extends="user-login-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/member/loginMan.jsp" />
+	</definition>
+	
+	<!-- 회원가입관련 약관 -->
+	<definition name="user/registration/inc_service1" extends="user-empty-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/registration/inc_service1.jsp" />
+	</definition>
+	<definition name="user/registration/inc_service2" extends="user-empty-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/registration/inc_service2.jsp" />
+	</definition>
+	<definition name="user/registration/inc_service3" extends="user-empty-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/registration/inc_service3.jsp" />
+	</definition>
+	<definition name="user/registration/inc_service4" extends="user-empty-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/registration/inc_service4.jsp" />
+	</definition>
+	
+	
+	
+	
+	<!-- 일반 페이지 -->
+	<definition name="user/*" extends="user-default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/{1}.jsp" />
+	</definition>
+
+	<definition name="user/*/*" extends="user-default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/{1}/{2}.jsp" />
+	</definition>
+
+	<definition name="user/*/*/*" extends="user-default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/{1}/{2}/{3}.jsp" />
+	</definition>
+
+	<definition name="user/*/*/*/*" extends="user-default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/normal/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+</tiles-definitions>

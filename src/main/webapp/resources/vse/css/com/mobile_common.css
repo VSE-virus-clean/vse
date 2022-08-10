@@ -1,0 +1,123 @@
+body,html, button, input, select, textarea {font-size: 15px;}
+
+textarea { height: 130px; line-height: 20px; padding: 10px 10px; border: 1px solid rgb(204, 204, 204);}
+input[type='text'],input[type='password'],input[type='submit'],input[type='search'],input[type='number'],input[type='tel'],input[type='date'] {border:1px solid #cccccc;padding:0 10px;}
+input[type="text"] {height:40px;}
+/*select {font-size:30px;}*/
+
+
+
+
+
+#wrap {width:100%;min-width: auto;}
+.mo {display:block;}
+.scrollnone {overflow:hidden;}
+.pc {display:none;}
+.inner {width:100%;padding:0 18px;box-sizing:border-box;}
+
+/* 헤더 부분 */
+#header {height:60px;background:#000}
+#header .logo {margin-top: 21px;line-height:15px;font-size: 17px;}
+#header .logo img {height: 16px;}
+#header .top_link {font-size: 10px;width: 93px;padding: 9px 9px 9px 33px;line-height: 13px;position:relative;box-sizing:border-box;text-align:left;border-radius:28px;margin-top: 7px;}
+#header .top_link img {position:absolute;top:50%;margin-top:-7px;left:0;width:14px;height:auto;}
+#header .header_wrap {width:100%;padding:0 18px;box-sizing:border-box;}
+#header .header_wrap .gnb {display:none;}
+#header .mo_header {display:block;float:right;margin-top: 18px;margin-left: 15px;}
+.allmenu {width:20px;height:20px;background:url('../../images/com/icon_mo_gnb.png') center no-repeat;background-size:100%;display:block;}
+.mo_gnb {display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:#010101;z-index:9000;box-sizing:border-box;}
+.mo_gnb_header {height:60px;padding:0 18px;box-sizing:border-box;}
+.allmenu_close {width:20px;height:20px;margin-top: 18px;background:url('../../images/btn/btn_close.png') center no-repeat;background-size:100%;display:block;float:right;}
+.mo_gnb_con {height:calc(100vh - 60px);width:100%;padding:0 18px 36px;overflow: hidden;box-sizing:border-box;overflow-y: auto;}
+.mo_gnb_con .mo_gnb_1 > li {border-bottom:1px solid #484848;text-align:left;position:relative;}
+.mo_gnb_con .mo_gnb_1 > li.sub > a:before {content:'';display:block;width:10px;height:7px;top:50%;margin-top:;right:0;background:url('../../images/btn/gnb_arrow.png') center no-repeat;background-size: 100% auto;position:absolute;}
+.mo_gnb_con .mo_gnb_1 > li > a {display:block;padding-top:15px;position:relative;}
+.mo_gnb_con .mo_gnb_1 > li > a span {color:#fff;font-size:18px;line-height:20px;padding-bottom:5px;display:inline-block;position:relative;}
+.mo_gnb_con .mo_gnb_1 > li ul {padding:12px;border-top:1px solid #484848;display:none;}
+.mo_gnb_con .mo_gnb_1 > li ul li {border-bottom:1px solid #242424;}
+.mo_gnb_con .mo_gnb_1 > li ul li a {font-size:15px;line-height:20px;padding:5px 0;color:#ad7b61;display:block;} 
+.mo_gnb_con .mo_gnb_1 > li.on {border-bottom:0;}
+.mo_gnb_con .mo_gnb_1 > li.on > a span:after {content:'';bottom:-2px;left:0;display:block;width:100%;height:1px;border-bottom:4px solid #ad7b61;position:absolute;}	
+.mo_gnb_con .mo_gnb_1 > li.on ul {display:block;}
+.mo_gnb_con .mo_gnb_1 > li.on > a:before {background:url('../../images/btn/gnb_arrow_up.png') center no-repeat;background-size: 100% auto;}
+
+
+/* 푸터영역 */
+#footer {padding: 0 0 20px;}
+#footer .footer_con {margin: 0px auto 25px;}
+#footer .footer_con .footer_sec ul li, #footer .footer_con .footer_sec ul li a {font-size:10px;}
+#footer .footer_con.top .inner {padding: 36px 0 0;background-size: auto 18px;background-position: 18px 18px;height:auto;overflow:hidden;}
+#footer .footer_con.top {border-bottom:0;margin-bottom: 20px;}
+#footer .footer_con.top .footer_sec {width:auto;padding: 0 15px ;height:50px;line-height:50px;}
+#footer .footer_con .footer_sec h3, #footer .footer_con .footer_sec h3 a {font-size:12px;}
+#footer .footer_con .footer_sec.footer_sns_wrap {width:100% !important;text-align:left;}
+#footer .footer_sns {float:right;margin-top:10px;}
+#footer .footer_con.bottom .inner {padding:0 18px;}
+#footer .footer_con.bottom .footer_sec {min-height: auto !important;}
+#footer .footer_con.bottom .footer_sec:nth-child(1) ul + ul {margin-left:-5px !important;}
+#footer .footer_con.bottom .footer_sec ul {margin-left:-5px;}
+#footer .footer_con.bottom .footer_sec ul li {display:inline-block;margin-left:5px;line-height: 16px;}
+#footer .footer_con.bottom .footer_sec + .footer_sec {padding:0;width:100%;border:0; margin-top:20px;}
+#footer .footer_con.bottom .footer_sec h3 {margin-bottom:10px;}
+#footer .footer_copyright {width:100%;padding: 0 18px;text-align: left;box-sizing:border-box;}
+
+
+@media screen and (max-width:360px) {
+	html, button, input, select, textarea {font-size: 4.17vw;}
+	.inner {width:100%;padding:0 5.00vw;}
+
+	input[type='text'],input[type='password'],input[type='submit'],input[type='search'],input[type='number'],input[type='tel'],input[type='date'] {padding:0 2.78vw;}
+	input[type="text"] {height:11.11vw;}
+	/*select {font-size:8.33vw;}*/
+
+	/* 헤더 부분 */
+	#header {height:16.67vw;background:#000}
+	#header .logo {margin-top: 5.83vw;line-height:4.17vw;font-size: 4.72vw;}
+	#header .logo img {height: 4.44vw;}
+	#header .top_link {font-size: 2.78vw;width: 25.83vw;padding: 2.50vw 2.50vw 2.50vw 9.17vw;line-height: 3.61vw;border-radius:7.78vw;margin-top: 1.94vw;}
+	#header .top_link img {top:50%;margin-top:-1.94vw;left:0;width:3.89vw;height:auto;}
+	#header .header_wrap {width:100%;padding:0 5.00vw;}
+	#header .header_wrap .gnb {}
+	#header .mo_header {margin-top: 5.00vw;margin-left: 4.17vw;}
+	.allmenu {width:5.56vw;height:5.56vw;background:url('../../images/com/icon_mo_gnb.png') center no-repeat;background-size:100%;}
+	.mo_gnb {top:0;left:0;width:100%;height:100vh;background:#010101;}
+	.mo_gnb_header {height:16.67vw;padding:0 5.00vw;}
+	.allmenu_close {width:5.56vw;height:5.56vw;margin-top: 5.00vw;background:url('../../images/btn/btn_close.png') center no-repeat;background-size:100%;}
+	.mo_gnb_con {height:calc(100vh - 16.67vw);width:100%;padding:0 5.00vw 10.00vw;overflow-y: auto;}
+	.mo_gnb_con .mo_gnb_1 > li {border-bottom:0.28vw solid #484848;}
+	.mo_gnb_con .mo_gnb_1 > li.sub > a:before {width:2.78vw;height:1.94vw;top:50%;margin-top:;right:0;background:url('../../images/btn/gnb_arrow.png') center no-repeat;background-size: 100% auto;}
+	.mo_gnb_con .mo_gnb_1 > li > a {padding-top:4.17vw;}
+	.mo_gnb_con .mo_gnb_1 > li > a span {font-size:5.00vw;line-height:5.56vw;padding-bottom:1.39vw;}
+	.mo_gnb_con .mo_gnb_1 > li ul {padding:3.33vw;border-top:0.28vw solid #484848;}
+	.mo_gnb_con .mo_gnb_1 > li ul li {border-bottom:0.28vw solid #242424;}
+	.mo_gnb_con .mo_gnb_1 > li ul li a {font-size:4.17vw;line-height:5.56vw;padding:1.39vw 0;} 
+	.mo_gnb_con .mo_gnb_1 > li.on {border-bottom:0;}
+	.mo_gnb_con .mo_gnb_1 > li.on > a span:after {bottom:-0.56vw;left:0;width:100%;height:0.28vw;border-bottom:1.11vw solid #ad7b61;}	
+	.mo_gnb_con .mo_gnb_1 > li.on ul {}
+	.mo_gnb_con .mo_gnb_1 > li.on > a:before {background:url('../../images/btn/gnb_arrow_up.png') center no-repeat;background-size: 100% auto;}
+
+	/* 푸터영역 */
+	#footer {padding: 0 0 5.56vw;}
+	#footer .footer_con {margin: 0.00vw auto 6.94vw;}
+
+	#footer .footer_con .footer_sec ul li, #footer .footer_con .footer_sec ul li a {font-size:2.78vw;}
+
+	#footer .footer_con.top .inner {padding: 10.00vw 0 0;background-size: auto 5.00vw;background-position: 5.00vw 5.00vw;height:auto;}
+	#footer .footer_con.top {border-bottom:0;margin-bottom: 5.56vw;}
+	#footer .footer_con.top .footer_sec {width:auto;padding: 0 4.17vw ;height:13.89vw;line-height:13.89vw;}
+
+	#footer .footer_con .footer_sec h3, #footer .footer_con .footer_sec h3 a {font-size:3.33vw;}
+	#footer .footer_con .footer_sec.footer_sns_wrap {width:100% !important;}
+	#footer .footer_sns {margin-top:2.78vw;}
+	#footer .footer_con.bottom .inner {padding:0 5.00vw;}
+	#footer .footer_con.bottom .footer_sec {min-height: auto !important;}
+	#footer .footer_con.bottom .footer_sec:nth-child(1) ul + ul {margin-left:-1.39vw !important;}
+	#footer .footer_con.bottom .footer_sec ul {margin-left:-1.39vw;}
+	#footer .footer_con.bottom .footer_sec ul li {margin-left:1.39vw;line-height: 4.44vw;}
+
+	#footer .footer_con.bottom .footer_sec + .footer_sec {padding:0;width:100%;border:0; margin-top:5.56vw;}
+	#footer .footer_con.bottom .footer_sec h3 {margin-bottom:2.78vw;}
+	#footer .footer_copyright {width:100%;padding: 0 5.00vw;}
+
+
+}

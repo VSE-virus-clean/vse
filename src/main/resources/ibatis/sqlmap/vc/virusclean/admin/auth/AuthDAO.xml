@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : AuthDAO.xml 
+	Description : 관리자 정보를 조회한다.
+-->
+
+<sqlMap namespace="virus_clean_admin_auth_AuthDAO">
+
+	<typeAlias alias="authVO" type="vc.virusclean.admin.auth.vo.AuthVO" />
+	<typeAlias alias="loginVO" type="vc.virusclean.admin.auth.vo.LoginVO" />
+
+	<!-- 
+		Query Name : authDAO.selectAuth 
+		Description : 상세정보를 조회한다. 
+	-->
+	<select id="authDAO.selectAuth" parameterClass="loginVO"
+		resultClass="authVO">
+        <![CDATA[
+			/* ProgramID=authDAO.selectAuth */
+            SELECT MGR_SN mgrSn
+                 , MGR_ID mgrId
+                 , MGR_NM mgrNm
+                 , MGR_PW mgrPw
+                 , MGR_EML mgrEml
+                 , MGR_TN mgrTn
+                 , MGR_OPS_NM mgrOpsNm
+                 , MGR_POA_NM mgrPoaNm
+                 , MGR_AUTH_CD mgrAuthCd
+                 , CNNC_PSBL_IP cnncPsblIp
+                 , ST_CD stCd
+                 , TMP_PW_YN tmpPwYn
+                 , PW_ERR_OFT pwErrOft
+                 , MENU menu
+				 , MENU_CD menuCd
+                 , DATE_FORMAT(FIN_CNNC_DTM, '%Y%m%d') finCnncDtm
+                 , DATE_FORMAT(FIN_PW_ALTR_DTM, '%Y%m%d') finPwAltrDtm
+                 , RGST_ID rgstId
+                 , DATE_FORMAT(RGST_DTM, '%Y-%m-%d') rgstDtm
+                 , MDFY_ID mdfyId
+                 , DATE_FORMAT(MDFY_DTM, '%Y-%m-%d') mdfyDtm
+              FROM VC_ADM_01
+             WHERE MGR_ID = #mgrId#
+               AND ST_CD <> 'D'
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : authDAO.updateByStCd 
+		Description : 계정 상태값 변경 
+					- 마지막 접속일(st_cd가 	Y이고 비밀번호 오류 횟수가 0일때) 
+					- 비밀번호 오류 횟수 
+	-->
+	<update id="authDAO.updateByStCd" parameterClass="authVO">
+        <![CDATA[
+            /* ProgramID=authDAO.updateByStCd */ 
+            UPDATE VC_ADM_01
+               SET ST_CD = #stCd# 
+        ]]>
+
+		<isEqual property="stCd" compareValue="Y">
+			<isEqual property="pwErrOft" compareValue="0">        
+                <![CDATA[  , FIN_CNNC_DTM =  NOW() ]]>
+			</isEqual>
+		</isEqual>
+        
+        <![CDATA[       
+                 , PW_ERR_OFT = #pwErrOft#
+                 , MDFY_DTM =  NOW()
+             WHERE MGR_ID = #mgrId#
+        ]]>
+	</update>
+
+	<!-- 
+		Query Name : authDAO.updateByPassword 
+		Description : 비밀번호를 수정한다.
+	-->
+	<update id="authDAO.updateByPassword" parameterClass="authVO">
+        <![CDATA[
+			/* ProgramID=authDAO.updateByPassword */ 
+            UPDATE VC_ADM_01
+               SET MGR_PW = #mgrPw#
+                 , TMP_PW_YN = #tmpPwYn#
+                 , FIN_PW_ALTR_DTM = NOW()
+                 , PW_ERR_OFT = 0
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE MGR_ID = #mgrId#
+        ]]>
+	</update>
+
+
+	<!-- 
+		Query Name : authDAO.updateByPassword2 
+		Description : 비밀번호를 수정한다. 비밀번호 문의 승인시 휴면계정처리도 풀어준다. 
+	 -->
+	<update id="authDAO.updateByPassword2" parameterClass="authVO">
+        <![CDATA[
+            /* ProgramID=authDAO.updateByPassword */ 
+            UPDATE VC_ADM_01
+               SET MGR_PW = #mgrPw#
+                 , ST_CD = 'Y'
+                 , TMP_PW_YN = #tmpPwYn#
+                 , FIN_PW_ALTR_DTM = NOW()
+                 , PW_ERR_OFT = 0
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE MGR_ID = #mgrId#
+        ]]>
+	</update>
+
+
+	<!-- 
+		Query Name : authDAO.selectSuperAdminList 
+		Description : 슈퍼관리자 정보를 조회한다.
+	-->
+	<select id="authDAO.selectSuperAdminList" resultClass="authVO">
+        <![CDATA[
+            /* ProgramID=authDAO.selectSuperAdminList */
+            SELECT MGR_ID mgrId
+                 , MGR_NM mgrNm
+                 , MGR_EML mgrEml
+              FROM VC_ADM_01
+             WHERE MGR_AUTH_CD = 'S'
+               AND ST_CD <> 'D'
+        ]]>
+	</select>
+
+</sqlMap>

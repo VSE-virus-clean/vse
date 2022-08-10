@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : CouponDAO.xml 
+	Description : 쿠폰관련 DAO
+-->
+
+<sqlMap namespace="virus_clean_shop_CouponDAO">
+	<typeAlias alias="couponVO" type="vc.virusclean.admin.shop.vo.CouponVO" />
+	<typeAlias alias="couponMetaVO" type="vc.virusclean.admin.shop.vo.CouponMetaVO" />
+
+	<!-- 
+		Query Name : couponDAO.selectCouponMetaCount 
+		Description : 쿠폰메다데이터의 ROW의 수를 조회한다. 
+	-->
+	<select id="couponDAO.selectCouponMetaCount" parameterClass="couponMetaVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectCouponMetaCount */
+            SELECT COUNT(1)
+              FROM VC_SHOP_05 A
+             WHERE 1 = 1
+        ]]>
+        
+		<dynamic>
+			<isEqual property="isUse" compareValue="true">
+	        	<![CDATA[ AND A.USE_YN = 'Y' ]]>
+	        </isEqual>
+	        <isNotEqual property="isUse" compareValue="true">
+	        	<![CDATA[ AND A.USE_YN <> 'D' ]]>
+	        </isNotEqual>
+	       	<isNotEmpty property="searchGubunType">
+	               <![CDATA[ AND  A.LGRP_CD = #searchGubunType#  ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchGubunType2">
+	               <![CDATA[ AND  A.MGRP_CD = #searchGubunType2#  ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+	        
+			<isNotEmpty property="searchKey">
+            	<![CDATA[ AND (  A.CUP_TITL LIKE CONCAT('%',#searchKey#,'%') OR  A.CUP_SBC LIKE CONCAT('%',#searchKey#,'%') )]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<!-- 
+		Query Name : couponDAO.selectCouponMetaList 
+		Description : 쿠폰메다데이터의 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="couponDAO.selectCouponMetaList" parameterClass="couponMetaVO" resultClass="couponMetaVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectCouponMetaList */
+            SELECT A.*
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.cupMetaSn AND MENU_CD = 'COUPON' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.cupMetaSn AND MENU_CD = 'COUPON' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+                 , (SELECT COUNT(1) FROM VC_SHOP_06 WHERE CUP_META_SN = A.cupMetaSn) AS usable
+                 , (SELECT COUNT(1) FROM VC_SHOP_06 WHERE CUP_META_SN = A.cupMetaSn AND USE_YN = 'N') AS unusable
+              FROM (
+                       SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+                       		, A.CUP_META_SN cupMetaSn
+							, A.LGRP_CD lgrpCd
+							, A.MGRP_CD mgrpCd
+							, A.SGRP_CD sgrpCd
+							, A.CUP_TITL cupTitl
+							, A.CUP_SBC cupSbc
+							, A.PRO_CUP_NO proCupNo
+							, DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d') AS expsRgstDtm
+                            , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d')  AS expsFnhDtm
+							, A.EXPS_DAY expsDay
+							, A.MAX_CNT maxCnt
+							, A.PRICE price
+							, A.MAX_PRICE maxPrice
+							, A.USE_YN useYn
+							, A.RGST_SN rgstSn
+							, A.RGST_ID rgstId
+							, DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+							, DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+							, A.MDFY_SN mdfySn
+							, A.MDFY_ID mdfyId
+							, DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+                         FROM VC_SHOP_05 A, (SELECT @ROWNUM := 0) B
+                        WHERE 1 = 1
+        ]]>
+        
+		    <dynamic>
+		    	<isEqual property="isUse" compareValue="true">
+		        	<![CDATA[ AND A.USE_YN = 'Y' ]]>
+		        </isEqual>
+		        <isNotEqual property="isUse" compareValue="true">
+		        	<![CDATA[ AND A.USE_YN <> 'D' ]]>
+		        </isNotEqual>
+		        
+		       	<isNotEmpty property="searchGubunType">
+		               <![CDATA[ AND  A.LGRP_CD = #searchGubunType#  ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType2">
+		               <![CDATA[ AND  A.MGRP_CD = #searchGubunType2#  ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchStartDate" >
+		        	<isEmpty property="searchEndDate" >
+			        	<![CDATA[ 
+			             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+			   			]]>
+		   			</isEmpty>
+		   			<isNotEmpty property="searchEndDate" >
+			        	<![CDATA[ 
+			             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+	             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+			   			]]>
+		   			</isNotEmpty>
+		        </isNotEmpty>
+		        
+				<isNotEmpty property="searchKey">
+	            	<![CDATA[ AND (  A.CUP_TITL LIKE CONCAT('%',#searchKey#,'%') OR  A.CUP_SBC LIKE CONCAT('%',#searchKey#,'%') )]]>
+				</isNotEmpty>
+			</dynamic>
+		
+        <![CDATA[
+					ORDER BY A.CUP_META_SN DESC
+                   ) A
+			 LIMIT #rowStart#, #rowLimit#
+        ]]>
+	</select>
+	
+	
+	<!-- 
+		Query Name : couponDAO.selectCouponMeta 
+		Description : 쿠폰메다데이터의 상세정보를 조회한다. 
+	-->
+	<select id="couponDAO.selectCouponMeta" parameterClass="couponMetaVO" resultClass="couponMetaVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectCouponMeta */
+            SELECT A.CUP_META_SN cupMetaSn
+				 , A.LGRP_CD lgrpCd
+				 , A.MGRP_CD mgrpCd
+				 , A.SGRP_CD sgrpCd
+				 , A.CUP_TITL cupTitl
+				 , A.CUP_SBC cupSbc
+				 , A.PRO_CUP_NO proCupNo
+				 , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d') AS expsRgstDtm
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d')  AS expsFnhDtm
+				 , A.EXPS_DAY expsDay
+				 , A.MAX_CNT maxCnt
+				 , A.PRICE price
+				 , A.MAX_PRICE maxPrice
+				 , (SELECT COUNT(1) FROM VC_SHOP_06 WHERE CUP_META_SN = A.CUP_META_SN) AS usable
+                 , (SELECT COUNT(1) FROM VC_SHOP_06 WHERE CUP_META_SN = A.CUP_META_SN AND USE_YN = 'N') AS unusable
+				 , A.USE_YN useYn
+				 , A.RGST_SN rgstSn
+				 , A.RGST_ID rgstId
+				 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+				 , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+				 , A.MDFY_SN mdfySn
+				 , A.MDFY_ID mdfyId
+				 , DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+              FROM VC_SHOP_05 A
+             WHERE A.CUP_META_SN = #cupMetaSn#
+               AND A.USE_YN <> 'D'
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : couponDAO.insertCouponMeta 
+		Description : 쿠폰메다데이터의 정보를 등록한다. 
+	-->
+	<insert id="couponDAO.insertCouponMeta" parameterClass="couponMetaVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.insertCouponMeta */ 
+            INSERT INTO VC_SHOP_05
+                   (
+					  LGRP_CD
+					, MGRP_CD
+					, SGRP_CD
+					, CUP_TITL
+					, CUP_SBC
+					, PRO_CUP_NO
+					, EXPS_RGST_DTM
+					, EXPS_FNH_DTM
+					, EXPS_DAY
+					, MAX_CNT
+					, PRICE
+					, MAX_PRICE
+					, USE_YN
+					, RGST_SN
+					, RGST_ID
+					, RGST_DTM
+				   )
+            VALUES ( 
+					  #lgrpCd#
+					, #mgrpCd#
+					, #sgrpCd#
+					, #cupTitl#
+					, #cupSbc#
+					, #proCupNo#
+        ]]>
+        
+		<isNotEmpty property="expsRgstDtm">
+        	<![CDATA[	, DATE_FORMAT(#expsRgstDtm#, '%Y-%m-%d 00:00:00')	]]>
+		</isNotEmpty>
+		<isEmpty property="expsRgstDtm">
+        	<![CDATA[	, NULL	]]>
+		</isEmpty>
+		
+		<isNotEmpty property="expsFnhDtm">
+        	<![CDATA[	, DATE_FORMAT(#expsFnhDtm#, '%Y-%m-%d 23:59:59')	]]>
+		</isNotEmpty>
+		<isEmpty property="expsFnhDtm">
+        	<![CDATA[	, NULL	]]>
+		</isEmpty>
+		
+        <![CDATA[
+					, #expsDay#
+					, #maxCnt#
+					, #price#
+					, #maxPrice#
+                    , #useYn#
+                    , #rgstSn#
+                    , #rgstId#
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="cupMetaSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+
+	<!-- 
+		Query Name : couponDAO.updateCouponMeta 
+		Description : 쿠폰메다데이터의 정보를 수정한다.
+	-->
+	<update id="couponDAO.updateCouponMeta" parameterClass="couponMetaVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.updateCouponMeta */ 
+            UPDATE VC_SHOP_05
+               SET LGRP_CD = #lgrpCd#
+				 , MGRP_CD = #mgrpCd#
+				 , SGRP_CD = #sgrpCd#
+				 , CUP_TITL = #cupTitl#
+				 , CUP_SBC = #cupSbc#
+				 , PRO_CUP_NO = #proCupNo#
+       ]]>
+
+		<isNotEmpty property="expsRgstDtm">
+            <![CDATA[ , EXPS_RGST_DTM = DATE_FORMAT(#expsRgstDtm#, '%Y-%m-%d 00:00:00')  ]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="expsFnhDtm">
+            <![CDATA[ , EXPS_FNH_DTM = DATE_FORMAT(#expsFnhDtm#, '%Y-%m-%d 23:59:59')  ]]>
+		</isNotEmpty>
+       
+       <![CDATA[
+				 , EXPS_DAY = #expsDay#
+				 , MAX_CNT = #maxCnt#
+				 , PRICE = #price#
+				 , MAX_PRICE = #maxPrice#
+                 , USE_YN = #useYn#
+                 , MDFY_SN = #mdfySn#
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE CUP_META_SN = #cupMetaSn#
+        ]]>
+	</update>
+
+	<!-- 
+		Query Name : couponDAO.deleteCouponMeta 
+		Description : 쿠폰메다데이터의 정보를 삭제한다. 
+	-->
+	<update id="couponDAO.deleteCouponMeta" parameterClass="couponMetaVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.deleteCouponMeta */
+            UPDATE VC_SHOP_05
+               SET USE_YN = 'D'
+                 , MDFY_SN = #mdfySn#
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE 1 = 1
+        ]]>
+        
+        <isNotEqual property="cupMetaSn" compareValue="0">
+        	<![CDATA[ AND CUP_META_SN = #cupMetaSn#  ]]>
+		</isNotEqual>
+		
+	    <isNotEmpty property="delSeq">
+			<iterate property="delSeq" prepend=" AND CUP_META_SN IN " open="(" close=")" conjunction=",">
+				#delSeq[]#
+			</iterate>
+		</isNotEmpty>
+	</update>
+	
+	
+	<!-- /////////////////////////////////////////////////////////////
+		사용자 발급 쿠폰
+	     /////////////////////////////////////////////////////////////-->
+	<!-- 
+		Query Name : couponDAO.insertCouponUser 
+		Description : 사용자 발급 쿠폰 정보를 등록한다
+	-->
+	<insert id="couponDAO.insertCouponUser" parameterClass="couponVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.insertCouponUser */ 
+            INSERT INTO VC_SHOP_06
+                   (
+					  CUP_META_SN
+					, MBR_SN
+					, LGRP_CD
+					, MGRP_CD
+					, SGRP_CD
+					, CUP_TITL
+					, CUP_SBC
+					, CUP_NO
+					, EXPS_RGST_DTM
+					, EXPS_FNH_DTM
+					, PRICE
+					, RGST_DTM
+				   )
+            VALUES ( 
+					  #cupMetaSn#
+					, #mbrSn#
+					, #lgrpCd#
+					, #mgrpCd#
+					, #sgrpCd#
+					, #cupTitl#
+					, #cupSbc#
+					, #cupNo#
+        ]]>
+        
+		<isNotEmpty property="expsRgstDtm">
+        	<![CDATA[	, DATE_FORMAT(#expsRgstDtm#, '%Y-%m-%d 00:00:00')	]]>
+		</isNotEmpty>
+		<isEmpty property="expsRgstDtm">
+        	<![CDATA[	, NOW()	]]>
+		</isEmpty>
+		
+		<isNotEmpty property="expsFnhDtm">
+        	<![CDATA[	, DATE_FORMAT(#expsFnhDtm#, '%Y-%m-%d 23:59:59')	]]>
+		</isNotEmpty>
+		<isEmpty property="expsFnhDtm">
+        	<![CDATA[	, NULL	]]>
+		</isEmpty>
+		
+        <![CDATA[
+					, #price#
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="cupSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	
+	<!-- 
+		Query Name : couponDAO.updateCouponUserUsed 
+		Description : 사용자 발급 쿠폰 사용 CUP_SN 이나 CUP_NO가 필수로 있어야함.
+	-->
+	<update id="couponDAO.updateCouponUserUsed" parameterClass="couponVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.updateCouponUserUsed */
+            UPDATE VC_SHOP_06
+               SET USE_YN = 'N'
+                 , PRD_SN = #prdSn#
+                 , CUP_PRICE = #cupPrice#
+                 , USE_DTM = NOW()
+             WHERE MBR_SN = #mbrSn#
+               AND USE_YN = 'Y'
+        ]]>
+        
+        <isNotEqual property="cupSn" compareValue="0">
+        	<![CDATA[ AND CUP_SN = #cupSn#  ]]>
+		</isNotEqual>
+		
+		<isNotEqual property="cupNo" compareValue="0">
+        	<![CDATA[ AND CUP_NO = #cupNo#  ]]>
+		</isNotEqual>
+	</update>
+	
+	
+	<!-- 
+		Query Name : couponDAO.selectCouponAdmCount 
+		Description : 쿠폰데이터의 ROW의 수를 조회한다. 
+	-->
+	<select id="couponDAO.selectCouponAdmCount" parameterClass="couponVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectCouponAdmCount */
+            SELECT COUNT(1)
+              FROM VC_SHOP_06 A
+                   INNER JOIN VC_USR_01 B on B.MBR_SN = A.MBR_SN
+             WHERE 1 = 1
+        ]]>
+        
+		<dynamic>
+			<isEmpty property="searchType">
+           		<![CDATA[ AND A.USE_YN <> 'D'  ]]>
+			</isEmpty>
+			<isNotEmpty property="searchType">
+				<![CDATA[ AND A.USE_YN = #searchType#  ]]>
+			</isNotEmpty>
+			
+			
+			<isNotEqual property="cupMetaSn" compareValue="0">
+               <![CDATA[ AND  A.CUP_META_SN = #cupMetaSn#  ]]>
+			</isNotEqual>
+			
+	       	<isNotEmpty property="searchGubunType">
+               <![CDATA[ AND  A.LGRP_CD = #searchGubunType#  ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchGubunType2">
+               <![CDATA[ AND  A.MGRP_CD = #searchGubunType2#  ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchStartDate" >
+	        	<isEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+		   			]]>
+	   			</isEmpty>
+	   			<isNotEmpty property="searchEndDate" >
+		        	<![CDATA[ 
+		             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+		   			]]>
+	   			</isNotEmpty>
+	        </isNotEmpty>
+	        
+			<isNotEmpty property="searchKey">
+	            	<![CDATA[ AND (  
+	            					A.CUP_TITL LIKE CONCAT('%',#searchKey#,'%') 
+	            						OR A.CUP_SBC LIKE CONCAT('%',#searchKey#,'%')
+	            						OR A.CUP_NO = #searchKey#
+	            						OR B.MBR_ID = #searchKey#
+	            				  )
+	            	]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 
+		Query Name : couponDAO.selectCouponAdmList 
+		Description : 사용자 발급 쿠폰 목록을 조회한다 : 관리자용
+	-->
+	<select id="couponDAO.selectCouponAdmList" parameterClass="couponVO" resultClass="couponVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectCouponAdmList */
+            SELECT A.*
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.cupMetaSn AND MENU_CD = 'COUPON' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.cupMetaSn AND MENU_CD = 'COUPON' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+              FROM (
+                       SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+                       		, A.CUP_SN cupSn
+							, A.CUP_META_SN cupMetaSn
+							, A.PRD_SN prdSn
+							, A.MBR_SN mbrSn
+							, B.MBR_ID mbrId
+							, B.MBR_NICK mbrNick
+							, B.MBR_NM mbrNm
+							, A.LGRP_CD lgrpCd
+							, A.MGRP_CD mgrpCd
+							, A.SGRP_CD sgrpCd
+							, A.CUP_TITL cupTitl
+							, A.CUP_SBC cupSbc
+							, A.CUP_NO cupNo
+							, DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d') AS expsRgstDtm
+                            , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d')  AS expsFnhDtm
+							, A.PRICE price
+							, A.CUP_PRICE cupPrice
+							, A.USE_YN useYn
+							, DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+							, DATE_FORMAT(A.USE_DTM, '%Y-%m-%d %H:%i')  AS useDtm
+                          FROM VC_SHOP_06 A 
+                              INNER JOIN VC_USR_01 B on B.MBR_SN = A.MBR_SN
+                            , (SELECT @ROWNUM := 0) C
+                        WHERE 1 = 1
+        ]]>
+        
+		    <dynamic>
+		    	<isEmpty property="searchType">
+	           		<![CDATA[ AND A.USE_YN <> 'D'  ]]>
+				</isEmpty>
+				<isNotEmpty property="searchType">
+					<![CDATA[ AND A.USE_YN = #searchType#  ]]>
+				</isNotEmpty>
+				
+		    	<isNotEqual property="cupMetaSn" compareValue="0">
+	            	<![CDATA[ AND  A.CUP_META_SN = #cupMetaSn#  ]]>
+				</isNotEqual>
+				
+		       	<isNotEmpty property="searchGubunType">
+		        	<![CDATA[ AND  A.LGRP_CD = #searchGubunType#  ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType2">
+		        	<![CDATA[ AND  A.MGRP_CD = #searchGubunType2#  ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchStartDate" >
+		        	<isEmpty property="searchEndDate" >
+			        	<![CDATA[ 
+			             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') )
+			   			]]>
+		   			</isEmpty>
+		   			<isNotEmpty property="searchEndDate" >
+			        	<![CDATA[ 
+			             	AND ( A.RGST_DTM >= DATE_FORMAT(#searchStartDate#, '%Y-%m-%d 00:00:00') 
+	             						AND A.RGST_DTM <= DATE_FORMAT(#searchEndDate#, '%Y-%m-%d 23:59:59') )
+			   			]]>
+		   			</isNotEmpty>
+		        </isNotEmpty>
+		        
+				<isNotEmpty property="searchKey">
+	            	<![CDATA[ AND (  
+	            					A.CUP_TITL LIKE CONCAT('%',#searchKey#,'%') 
+	            						OR A.CUP_SBC LIKE CONCAT('%',#searchKey#,'%')
+	            						OR A.CUP_NO = #searchKey#
+	            						OR B.MBR_ID = #searchKey#
+	            				  )
+	            	]]>
+				</isNotEmpty>
+			</dynamic>
+		
+        <![CDATA[
+					ORDER BY A.CUP_META_SN DESC
+                   ) A
+			 LIMIT #rowStart#, #rowLimit#
+        ]]>
+	</select>
+	
+	<!-- 
+		Query Name : couponDAO.selectCouponUserCount 
+		Description : 사용자 발급 쿠폰 갯수를 조회한다. : 사용자용
+	-->
+	<select id="couponDAO.selectCouponUserCount" parameterClass="couponVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectCouponUserCount */
+            SELECT COUNT(1)
+              FROM VC_SHOP_06 A
+             WHERE A.USE_YN = 'Y'
+               AND A.MBR_SN = #mbrSn#
+               AND (A.EXPS_RGST_DTM <= NOW() AND ( A.EXPS_FNH_DTM IS NULL OR A.EXPS_FNH_DTM >= NOW() )) 
+        ]]>
+        
+	    <dynamic>
+	       	<isNotEmpty property="searchGubunType">
+	               <![CDATA[ AND  A.LGRP_CD = #searchGubunType#  ]]>
+			</isNotEmpty>
+			
+			<isNotEmpty property="searchGubunType2">
+	               <![CDATA[ AND  A.MGRP_CD = #searchGubunType2#  ]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>	
+	
+	<!-- 
+		Query Name : couponDAO.selectCouponUserList 
+		Description : 사용자 발급 쿠폰 목록을 조회한다 : 사용자용
+	-->
+	<select id="couponDAO.selectCouponUserList" parameterClass="couponVO" resultClass="couponVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectCouponUserList */
+            SELECT A.*
+                 , (SELECT MAX_PRICE FROM VC_SHOP_05 WHERE CUP_META_SN = A.cupMetaSn ) AS maxPrice
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.cupMetaSn AND MENU_CD = 'COUPON' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.cupMetaSn AND MENU_CD = 'COUPON' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+              FROM (
+                       SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+                       		, A.CUP_SN cupSn
+							, A.CUP_META_SN cupMetaSn
+							, A.PRD_SN prdSn
+							, A.MBR_SN mbrSn
+							, A.LGRP_CD lgrpCd
+							, A.MGRP_CD mgrpCd
+							, A.SGRP_CD sgrpCd
+							, A.CUP_TITL cupTitl
+							, A.CUP_SBC cupSbc
+							, A.CUP_NO cupNo
+							, DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d') AS expsRgstDtm
+                            , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d')  AS expsFnhDtm
+							, A.PRICE price
+                         FROM VC_SHOP_06 A, (SELECT @ROWNUM := 0) B
+                        WHERE A.USE_YN = #useYn#
+                          AND A.MBR_SN = #mbrSn#
+                          AND ( A.EXPS_RGST_DTM <= NOW() AND ( A.EXPS_FNH_DTM IS NULL OR A.EXPS_FNH_DTM >= NOW() ) )
+        ]]>
+        
+		    <dynamic>
+		       	<isNotEmpty property="searchGubunType">
+		               <![CDATA[ AND  A.LGRP_CD = #searchGubunType#  ]]>
+				</isNotEmpty>
+				
+				<isNotEmpty property="searchGubunType2">
+		               <![CDATA[ AND  A.MGRP_CD = #searchGubunType2#  ]]>
+				</isNotEmpty>
+			</dynamic>
+		
+        <![CDATA[
+					ORDER BY A.EXPS_FNH_DTM ASC
+                   ) A
+        ]]>
+	</select>
+	
+	
+	<!-- 
+		Query Name : couponDAO.selectEventCouponList 
+		Description : 다운로드 가능한 쿠폰 목록 을 조회한다. 
+	-->
+	<select id="couponDAO.selectEventCouponList" parameterClass="couponVO" resultClass="couponMetaVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectEventCouponList */
+            SELECT A.*
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.cupMetaSn AND MENU_CD = 'COUPON' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.cupMetaSn AND MENU_CD = 'COUPON' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+              FROM (
+                       SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+                       		, A.CUP_META_SN cupMetaSn
+							, A.LGRP_CD lgrpCd
+							, A.MGRP_CD mgrpCd
+							, A.SGRP_CD sgrpCd
+							, A.CUP_TITL cupTitl
+							, A.CUP_SBC cupSbc
+							, A.PRO_CUP_NO proCupNo
+							, A.EXPS_DAY expsDay
+							, A.MAX_CNT maxCnt
+							, A.PRICE price
+							, A.MAX_PRICE maxPrice
+                         FROM VC_SHOP_05 A, (SELECT @ROWNUM := 0) B
+                        WHERE A.USE_YN = 'Y'
+                          AND A.LGRP_CD = '다운쿠폰'
+                          AND A.CUP_META_SN NOT IN (
+									SELECT CUP_META_SN 
+	                                  FROM VC_SHOP_06
+									 WHERE MBR_SN = #mbrSn#
+                          	  )
+                          AND ( ( A.EXPS_RGST_DTM IS NULL OR A.EXPS_RGST_DTM <= NOW() ) 
+                          			AND ( A.EXPS_FNH_DTM IS NULL OR A.EXPS_FNH_DTM >= NOW() ) )
+					ORDER BY A.CUP_META_SN DESC
+                   ) A
+			
+        ]]>
+	</select>
+	
+	
+	
+	<!-- 
+		Query Name : couponDAO.selectCouponUserEmptyInfo 
+		Description : 사용자가 쿠폰번호를 등록해서 사용가능한 쿠폰이 있는지 확인
+						- 쿠폰번호가 일치하고. mbr_sn이 없는것을 찾아야함.
+	-->
+	<select id="couponDAO.selectCouponUserEmptyInfo" parameterClass="couponVO" resultClass="couponVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.selectCouponUserEmptyInfo */
+            SELECT COUNT(1)
+              FROM VC_SHOP_06 A
+             WHERE A.USE_YN = 'Y'
+               AND A.MBR_SN = 0
+               AND A.CUP_NO = #cupNo#
+               AND (A.EXPS_RGST_DTM <= NOW() AND ( A.EXPS_FNH_DTM IS NULL OR A.EXPS_FNH_DTM >= NOW() )) 
+        ]]>
+	</select>	
+	
+	
+	<!-- 
+		Query Name : couponDAO.updateCouponUserEmpty
+		Description : 사용자가 쿠폰번호를 등록해서 사용가능한 쿠폰이 있으면 해당 회원의 쿠폰으로 변경한다.
+	-->
+	<update id="couponDAO.updateCouponUserEmpty" parameterClass="couponVO">
+        <![CDATA[
+			/* ProgramID=couponDAO.updateCouponUserEmpty */
+            UPDATE VC_SHOP_06
+               SET MBR_SN = #mbrSn#
+                 , RGST_DTM = NOW()
+             WHERE MBR_SN = 0
+               AND CUP_SN = #cupSn#
+               AND CUP_NO = #cupNo#
+               AND USE_YN = 'Y'
+        ]]>
+	</update>
+
+</sqlMap>

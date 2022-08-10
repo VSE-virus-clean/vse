@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd" version="2.0">
+         
+    <tlib-version>1.0</tlib-version>
+    <uri>http://www.jksoft.com/taglib/tag</uri>
+    <short-name>tag</short-name>
+
+    <!-- 웹사이트 페이징  -->
+    <tag>
+        <name>paging</name>
+        <tag-class>jksoft.com.util.tag.PagingTag</tag-class>
+        <body-content>scriptless</body-content>
+    
+        <attribute>
+            <name>url</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        
+        <attribute>
+            <name>totalRow</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+        
+        <attribute>
+            <name>rowLimit</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+        
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+        
+        <attribute>
+            <name>pageLimit</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>	
+    </tag> 
+    
+    <tag>
+        <name>paging2</name>
+        <tag-class>jksoft.com.util.tag.PagingTag2</tag-class>
+        <body-content>scriptless</body-content>
+    
+        <attribute>
+            <name>url</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        
+        <attribute>
+            <name>totalRow</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+        
+        <attribute>
+            <name>rowLimit</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+        
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+        
+        <attribute>
+            <name>pageLimit</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>	
+    </tag> 
+    
+    <!-- HTML태그 변환 -->
+    <tag>
+        <name>html</name>
+        <tag-class>jksoft.com.util.tag.HtmlFormatTag</tag-class>
+        <body-content>scriptless</body-content>
+        
+        <attribute>
+            <name>attr</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>   
+        </attribute>
+        
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>   
+        </attribute>
+    </tag>
+</taglib>

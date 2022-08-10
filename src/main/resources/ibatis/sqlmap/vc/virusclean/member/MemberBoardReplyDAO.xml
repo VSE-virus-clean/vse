@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+    SQL File Name  : MemberBoardReplyDAO.xml
+    Description    : 일반 게시판
+    author         : Jeong.Hyoung.Jae
+    since          : 2017.1.25
+    version        : 1.0
+    Modification Information
+    since          author           description
+    ===========    =============    ===========================
+    2017.1.25      Jeong.Hyoung.Jae         최초 생성
+-->
+
+<sqlMap namespace="virus_clean_member_MemberBoardReplyDAO">
+    <typeAlias alias="boardReplyVO" type="vc.virusclean.admin.member.vo.MemberBoardReplyVO"/>
+
+    <!--
+        Query Name  : memberBoardReplyDAO.selectBoardReplyCount
+        Description : ROW의 수를 조회한다.
+        since          author           description
+        ===========    =============    ===========================
+        2017.1.25      Jeong.Hyoung.Jae         최초 생성
+    --> 
+    <select id="memberBoardReplyDAO.selectBoardReplyCount" parameterClass="boardReplyVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=memberBoardReplyDAO.selectBoardReplyCount */
+            SELECT COUNT(1)
+              FROM EM_COM_04
+             WHERE USE_YN <> 'D'
+               AND BLC_SN = #blcSn#
+        ]]>
+    </select>
+
+
+    <!--
+        Query Name  : memberBoardReplyDAO.selectBoardReplyList
+        Description : 목록을 조회한다.(페이징 처리.)
+        since          author           description
+        ===========    =============    ===========================
+        2017.1.25      Jeong.Hyoung.Jae         최초 생성
+    --> 
+    <select id="memberBoardReplyDAO.selectBoardReplyList" parameterClass="boardReplyVO" resultClass="boardReplyVO">
+        <![CDATA[
+			/* ProgramID=memberBoardReplyDAO.selectBoardReplyList */
+           SELECT BLC_CMD_SN blcCmdSn
+                , BLC_SN blcSn
+                , MBR_SN mbrSn
+                , MBR_NICK mbrNick
+                , BLC_CMD_SBC blcCmdSbc
+                , RGST_ID rgstId
+                , USE_YN useYn
+                , DATE_FORMAT(RGST_DTM, '%Y-%m-%d') AS rgstDtm
+             FROM EM_COM_04
+            WHERE USE_YN <> 'D'
+              AND BLC_SN = #blcSn#
+            ORDER BY RGST_DTM DESC
+        ]]>
+    </select>
+    
+    
+    <!--
+        Query Name  : memberBoardReplyDAO.deleteBoardReply
+        Description : 정보를 삭제한다.
+        since          author           description
+        ===========    =============    ===========================
+        2017.1.25      Jeong.Hyoung.Jae         최초 생성
+    -->   
+    <update id="memberBoardReplyDAO.deleteBoardReply" parameterClass="boardReplyVO">
+        <![CDATA[
+			/* ProgramID=memberBoardReplyDAO.deleteBoardReply */
+            UPDATE EM_COM_04
+               SET USE_YN = 'N'
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM = NOW()
+             WHERE BLC_CMD_SN = #blcCmdSn#
+               AND BLC_SN = #blcSn#
+               AND USE_YN = 'Y'
+        ]]>
+    </update>
+    
+</sqlMap>

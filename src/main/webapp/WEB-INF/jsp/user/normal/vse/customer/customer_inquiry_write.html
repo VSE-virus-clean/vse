@@ -1,0 +1,112 @@
+<? include("/resources/vse/inc/headerScript.html");?>
+<? include("/resources/vse/inc/header.html");?>
+<link href="/resources/vse/css/subpage/sub.css" rel="stylesheet" type="text/css"/>
+<script src="/resources/vse/js/subpage/sub.js" type="text/javascript"></script>
+
+
+<!-- #contentWrap -->
+<!-- 메인과 서브 모두 같은 id="contentWrap"안에 들어가지만 class의 차이로 메인과 서브를 구별 할 것입니다.-->
+<div id="contentWrap" class="">
+	<h2 id="contentAnchor">콘텐츠 영역</h2>
+	<h3 class="tit"> 1:1문의 </h3>
+
+	
+	<div class="inner mt60">
+		<div class="table_type_02">
+			<table>
+				<colgroup>
+					<col style="width:200px;" />
+					<col style="auto"/>
+				</colgroup>
+				<tbody>
+				<tr>
+					<th scope="row"><label for="qa_category">분류<strong class="color_red">*</strong></label></th>
+					<td>
+						<select name="qa_category" id="qa_category" required="" class="select_type_01 text_left">
+							<option value="">선택하세요</option>
+							<option value="제품문의">제품문의</option>
+							<option value="구매문의">구매문의</option>
+							<option value="사용법문의">사용법문의</option>
+							<option value="AS 문의">AS 문의</option>
+							<option value="골프코스문의">골프코스문의</option>
+							<option value="업무제휴">업무제휴</option>
+							<option value="기타">기타</option>
+							<option value="VSE">VSE</option>
+						</select>
+					</td>
+				</tr>
+
+
+				<tr>
+					<th scope="row"><label for="qa_email">이메일</label></th>
+					<td>
+						<input type="text" name="qa_email" value="Ksm7145a@naver.com" id="qa_email" class=" frm_input email" size="50" maxlength="100">
+						<label for="qa_email_recv" class="ck_type_02 ml10"><input type="checkbox" id="qa_email_recv" name="qa_email_recv" value="1"><span class="mr10"></span>답변받기</label>
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row"><label for="qa_hp">휴대폰</label></th>
+					<td>
+						<input type="text" name="qa_hp" value="010-0000-0000" id="qa_hp" class=" frm_input" size="30">
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row"><label for="qa_subject">제목<strong class="color_red">*</strong></label></th>
+					<td>
+						<input type="text" name="qa_subject" value="" id="qa_subject" required="" class="frm_input required" size="50" maxlength="255">
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row"><label for="qa_content">내용<strong class="color_red">*</strong></label></th>
+					<td>
+						<div class="x_1">
+							<textarea class="" id="qa_content"></textarea>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row">파일 #1</th>
+					<td>
+						<div class="filebox">
+							<input class="upload-name" value="파일선택" disabled="disabled">
+							<label for="ex_filename01">파일선택</label>
+							<input type="file" id="ex_filename01" class="upload-hidden"> 
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row">파일 #2</th>
+					<td>
+						<div class="filebox">
+							<input class="upload-name" value="파일선택" disabled="disabled">
+							<label for="ex_filename01">파일선택</label>
+							<input type="file" id="ex_filename01" class="upload-hidden"> 
+						</div>
+					</td>
+				</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+		<div class="btn_wrap mt60">
+			<a href="javascript:;" class="btn btn_black wd_250">작성완료</a><a href="customer_inquiry.html" class="btn btn_round_bk ml10 wd_250">목록</a>	
+		</div>
+    </div>
+
+
+</div>
+<script>
+$(function(){
+	$('#header .gnb > li').eq(4).addClass('active');
+});
+</script>
+
+<!-- // #contentWrap -->
+
+<? include("/resources/vse/inc/footer.html");?>			

@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : CartDAO.xml 
+	Description : 장바구니 정보
+-->
+
+<sqlMap namespace="virus_clean_shop_CartDAO">
+	<typeAlias alias="cartVO" type="vc.virusclean.admin.shop.vo.CartVO" />
+
+	<!-- 
+		Query Name : cartDAO.selectCount
+		Description : ROW의 수를 조회한다. 
+	-->
+	<select id="cartDAO.selectCount" parameterClass="cartVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=cartDAO.selectCount */
+            SELECT COUNT(1)
+              FROM VC_SHOP_04 A
+             WHERE A.USE_YN = 'Y'
+             
+        ]]>
+        
+		<dynamic>
+			<!-- 회원 -->
+			<isNotEqual property="mbrSn" compareValue="0">
+	        	<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+	        </isNotEqual>
+	        
+	        <!-- 비회원 -->
+			<isNotEmpty property="cartId">
+            	<![CDATA[ AND A.CART_ID = #cartId#]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 
+		Query Name : cartDAO.selectProductCount
+		Description : 기존 등록된 상품이 잇는지 확인
+						- 있으면 추가 하지 않는다.
+						- 장바구니화면에서 수량을 업데이트 해서 구매페이지로 가도록 한다.
+	-->
+	<select id="cartDAO.selectProductCount" parameterClass="cartVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=cartDAO.selectProductCount */
+            SELECT COUNT(1)
+              FROM VC_SHOP_04 A
+             WHERE A.USE_YN = 'Y'
+               AND A.PRD_SN = #prdSn#
+        ]]>
+        
+		<dynamic>
+			<!-- 회원 -->
+			<isNotEqual property="mbrSn" compareValue="0">
+	        	<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+	        </isNotEqual>
+	        
+	        <!-- 비회원 -->
+			<isNotEmpty property="cartId">
+            	<![CDATA[ AND A.CART_ID = #cartId#]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	
+	<!-- 
+		Query Name : cartDAO.updateProductCount
+		Description : 수량을 갱신
+	-->
+	<update id="cartDAO.updateProductCount" parameterClass="cartVO">
+        <![CDATA[
+			/* ProgramID=cartDAO.updateProductCount */
+            UPDATE VC_SHOP_04
+               SET PRD_CNT = PRD_CNT + #prdCnt#
+             WHERE USE_YN = 'Y'
+               AND PRD_SN = #prdSn#
+        ]]>
+        
+        <dynamic>
+			<!-- 회원 -->
+			<isNotEqual property="mbrSn" compareValue="0">
+	        	<![CDATA[ AND MBR_SN = #mbrSn# ]]>
+	        </isNotEqual>
+	        
+	        <!-- 비회원 -->
+			<isNotEmpty property="cartId">
+            	<![CDATA[ AND CART_ID = #cartId#]]>
+			</isNotEmpty>
+		</dynamic>
+	</update>
+	
+	
+	<!-- 
+		Query Name : cartDAO.selectList
+		Description : 목록을 조회한다.
+	-->
+	<select id="cartDAO.selectList" parameterClass="cartVO" resultClass="cartVO">
+        <![CDATA[
+			/* ProgramID=cartDAO.selectList */
+            SELECT A.CART_SN cartSn
+				 , A.PRD_SN prdSn
+				 , B.PRD_TITL prdTitl
+				 , (B.SALE_PRICE * A.PRD_CNT) salePrice
+				 , B.SELL_YN sellYn
+				 , A.MBR_SN mbrSn
+				 , A.CART_ID cartId							
+				 , A.PRD_OPT prdOpt
+				 , A.PRD_CNT prdCnt
+				 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.PRD_SN AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+				 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.PRD_SN AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+				 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+				 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+		      FROM VC_SHOP_04 A 
+				   INNER JOIN VC_SHOP_01 B ON B.PRD_SN = A.PRD_SN      
+		  	 WHERE A.USE_YN = 'Y'
+        ]]>
+        	<dynamic>
+				<!-- 회원 -->
+				<isNotEqual property="mbrSn" compareValue="0">
+		        	<![CDATA[ AND A.MBR_SN = #mbrSn# ]]>
+		        </isNotEqual>
+		        
+		        <!-- 비회원 -->
+				<isNotEmpty property="cartId">
+	            	<![CDATA[ AND A.CART_ID = #cartId#]]>
+				</isNotEmpty>
+			</dynamic>
+		
+        <![CDATA[
+			ORDER BY A.RGST_DTM DESC
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : cartDAO.insertCart
+		Description : 정보를 등록한다. 
+	-->
+	<insert id="cartDAO.insertCart" parameterClass="cartVO">
+        <![CDATA[
+			/* ProgramID=cartDAO.insertCart */ 
+            INSERT INTO VC_SHOP_04
+                   (
+					  PRD_SN
+					, MBR_SN
+					, CART_ID
+					, PRD_OPT
+					, PRD_CNT
+					, RGST_DTM
+				   )
+            VALUES ( 
+            		  #prdSn#
+					, #mbrSn#
+					, #cartId#
+					, #prdOpt#
+					, #prdCnt#
+                    , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="cartSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+
+    
+    <!-- 
+		Query Name : cartDAO.deleteCart 
+		Description : 삭제
+	-->
+	<update id="cartDAO.deleteCart" parameterClass="cartVO">
+        <![CDATA[
+			/* ProgramID=cartDAO.deleteCart */
+            UPDATE VC_SHOP_04
+               SET USE_YN = 'D'
+				 , MDFY_DTM = NOW()
+             WHERE 1 = 1
+        ]]>
+        
+        <dynamic>
+			<!-- 회원 -->
+			<isNotEqual property="mbrSn" compareValue="0">
+	        	<![CDATA[ AND MBR_SN = #mbrSn# ]]>
+	        </isNotEqual>
+	        
+	        <!-- 비회원 -->
+			<isNotEmpty property="cartId">
+            	<![CDATA[ AND CART_ID = #cartId#]]>
+			</isNotEmpty>
+			
+			<isNotEqual property="prdSn" compareValue="0">
+	        	<![CDATA[ AND PRD_SN = #prdSn#  ]]>
+			</isNotEqual>
+			
+		    <isNotEmpty property="delSeq">
+				<iterate property="delSeq" prepend=" AND PRD_SN IN " open="(" close=")" conjunction=",">
+					#delSeq[]#
+				</iterate>
+			</isNotEmpty>
+		</dynamic>
+	</update>
+	
+
+</sqlMap>

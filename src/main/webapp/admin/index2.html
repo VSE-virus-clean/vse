@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"> 
+	<title>바이러스클린랩 관리자</title>
+	<link rel="stylesheet" href="ui_common/css/reset.css">	
+	<link rel="stylesheet" href="ui_common/css/fonts/fonts.css">	
+	<link rel="stylesheet" href="ui_common/css/ui_common.css">	
+	<script src="ui_common/js/jquery.min.js"></script>
+	<script src="ui_common/js/ui_common.js"></script>
+</head>
+<body>
+	<header>
+		<div id="header">
+			<div class="header_inner"><a href="">로그아웃</a></div>
+		</div>
+		
+	</header>
+	<div class="contaioner_wrap clearfix">
+		<div id="side">
+			<div class="side_top">
+				<img src="images/common/logo.png" alt="">
+			</div>
+			<div class="user">
+				<a href="" class="clearfix">
+					<img src="images/common/user_icon.png" alt="" class="user_icon">
+					<span class="id">홍길동(ID)</span>
+				</a>
+			</div>
+			<div id="lefrMenu">
+				<ul>
+					<li class="depth01">
+						<a href="javascript:;"><span>배너&팝업관리</span></a>
+						
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>상품관리</span></a>
+						
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>주문관리</span></a>
+						
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>쿠폰관리</span></a>
+						<ul class="depth02">
+							<li><a href=""><span>쿠폰관리</span></a></li>
+							<li><a href=""><span>쿠폰내역</span></a></li>
+						</ul>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>정품관리</span></a>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>게시판관리</span></a>
+						<ul class="depth02">
+							<li><a href=""><span>게시판관리</span></a></li>
+							<li><a href=""><span>게시물관리</span></a></li>
+						</ul>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>고객관리</span></a>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>환경설정</span></a>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>히스토리관리</span></a>
+					</li>
+					<li class="depth01">
+						<a href="javascript:;"><span>통계관리</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="content">
+			<div id="container">
+				<div class="inner">
+					<div class="sec_top">
+						<h3 class="sec_tit">쿠폰관리</h3>
+						<ul class="top_tab">
+							<li><a href="#">쿠폰관리</a></li>
+							<li><a href="#">쿠폰목록</a></li>
+						</ul>
+					</div>
+					<div class="sec_cont">
+						<h4 class="cont_tit">조회조건</h4>
+						<div class="r_search_box">
+							<table class="r_search_table">
+								<colgroup>
+									<col style="width:150px">
+									<col style="">
+									<col style="width:150px">
+									<col style="">
+								</colgroup>
+								<tbody>
+									<tr>
+									   <th>등록일</th>
+									   <td colspan="3">										
+											<input type="text" placeholder="2020-05-15" name="FROM_APLY_DT_V_INFO" class="date_input is-datepick" readonly="readonly" autocomplete="off"  title="기간"> <em> ~ </em>
+											<input type="text" name="TO_APLY_DT_V_INFO" placeholder="2020-05-15" class="date_input is-datepick" readonly="readonly" autocomplete="off" title="기간">
+										</td>
+									</tr>
+									<tr>
+										<th>검색어</th>
+										<td colspan="3">
+										   <div class="check_box" id="text_box_group">
+												<input type="text" id="search_text" name="search_text" style="width:450px;">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>할인상태</th>
+										<td>
+											<label class="radio_box"  for="dis01">
+												<input type="radio" id="dis01" name="dis">
+												<span>전체</span>
+											</label>
+											<label class="radio_box" for="dis02">
+												<input type="radio" id="dis02" name="dis">
+												<span>할인(%)</span>
+											</label>
+											<label class="radio_box" for="dis03">
+												<input type="radio" id="dis03" name="dis">
+												<span>할인금액(원)</span>
+											</label>
+										</td>
+										<th>할인상태</th>
+										<td>
+											<label class="radio_box" for="cp01">
+												<input type="radio" id="cp01" name="cp">
+												<span>전체</span>
+											</label>
+											<label class="radio_box" for="cp02">
+												<input type="radio" id="cp02" name="cp">
+												<span>지급</span>
+											</label>
+											<label class="radio_box" for="cp03">
+												<input type="radio" id="cp03" name="cp">
+												<span>다운</span>
+											</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="btn_right_gorup">
+								<button type="button" class="btn btn_red" onclick="searchList(1);return false;">조회</button>
+								<button type="button" class="btn btn_gray" onclick="fn_init_page();">초기화</button>
+							</div>
+						</div>
+						<div class="content-body">
+							<div class="table_tit">
+								<div class="table_left_title">
+									<span>총<strong class="totCnt" style=" font-weight: 700;"> 100</strong>건 조회</span>
+								</div>
+								
+							</div>
+
+							<table class="cont_table" id="tab" style="TABLE-layout:fixed">
+								<colgroup>
+									<col style="width:120px">
+									<col style="">  
+									<col style="width:250px">
+									<col style="width:100px">
+									<col style="width:120px">
+									<col style="width:100px">
+									<col style="width:90px">
+									<col style="width:190px">
+									<col style="width:200px">
+								</colgroup>
+								<thead>
+									<tr>
+										<th><input type="checkbox" id="all">번호</th>
+										<th>쿠폰명</th>
+										<th>사용기간</th>
+										<th>할인타입</th>
+										<th>발급타입</th>
+										<th>상태</th>                           
+										<th>발급수</th>
+										<th>등록일</th>
+										<th>관리</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="checkbox" name="check" class="check2" value="00000000000000001234" title="선택">100
+										</td>
+										<td>할인율(10%)쿠폰</td>
+										<td>2020-04-26  ~  2021-04-26</td>
+										<td>원</td>
+										<td><span class="box">지급</span></td>
+										<td>발급중</td>
+										<td>1</td>
+										<td>2021-01-26</td>
+										<td class="table_btn">
+											<a href="" class="btn btn_red">수정</a>
+											<a href="" class="btn btn_gray">삭제</a>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="checkbox" name="check" class="check2" value="00000000000000001234" title="선택">100
+										</td>
+										<td>할인율(10%)쿠폰</td>
+										<td>2020-04-26  ~  2021-04-26</td>
+										<td>원</td>
+										<td><span >만료</span></td>
+										<td>발급중</td>
+										<td>1</td>
+										<td>2021-01-26</td>
+										<td class="table_btn">
+											<a href="" class="btn btn_red">수정</a>
+											<a href="" class="btn btn_gray">삭제</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="btn_center_gorup clearfix">
+								<div class="left">
+									<button type="button" class="btn btn_gray" onclick="searchList(1);return false;">선택취소</button>
+									<button type="button" class=" btn btn_gray" onclick="fn_init_page();">선택삭제</button>
+								</div>
+								<div class="right">
+									<button type="button" class=" btn btn_bk" onclick="fn_init_page();">쿠폰등록</button>
+								</div>
+							</div>
+
+							<!--  -->
+
+							
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+</body>
+</html>

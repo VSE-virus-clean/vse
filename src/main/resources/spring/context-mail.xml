@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<!-- ============================================================================================ -->
+	<!-- MAIL -->
+	<!-- ============================================================================================ -->
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="#{global['mail.host']}" />
+		<property name="protocol" value="#{global['mail.protocol']}" />
+		<property name="port" value="#{global['mail.port']}" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="username" value="#{global['mail.userID']}" />
+		<property name="password" value="#{global['mail.userPW']}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<!-- SSL사용여부 확인하기 :: mail.smtp.starttls.enable은 SSL사용에 대한 것 -->
+				<prop key="mail.smtp.starttls.enable">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" />
+</beans>

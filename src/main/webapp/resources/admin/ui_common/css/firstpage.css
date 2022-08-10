@@ -1,0 +1,19 @@
+.top_bar{width: 100%; height: 40px; -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+-moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+box-shadow: 3px 3px 3px rgba(0,0,0,0.3);	}
+.inner{width: 600px; margin: 0 auto; margin-top: 170px;}
+.page_box{text-align: center; margin-top: 70px;}
+.page_box img{padding-top: 30px;}
+.page_box h3{margin-top: 50px; font-size: 30px; font-weight: 600;}
+.page_box p {margin-top: 20px; font-size: 18px;}
+.page_box input {width: 100%; line-height: 52px; box-sizing: border-box; padding: 0 10px; font-size: 18px;}
+.page_box input + input{margin-top: 20px;}
+.page_box .btn_center_gorup .btn {width: 100%; font-size: 20px;}
+
+/* 시스템 정기점검 */
+.system_check_pg .ad_logo img {width:230px;}
+.system_check > img {width:160px;}
+.system_check .during {background-color:#2d0a4f; padding:10px 0; border-radius:70px; width: 52%; margin: 15px auto 25px;}
+.system_check .during strong {font-size:30px; color:#ffffff; font-weight:600; }
+.system_check > strong {font-size:18px; font-weight:600; color:#2d0a4f;}
+.system_check > p {margin-top: 12px;}

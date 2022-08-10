@@ -1,0 +1,244 @@
+.info_confirm {display:flex; justify-content:space-between; align-items:center; padding-top: 70px; margin-bottom: 15px;}
+.info_confirm h4 {font-size: 26px;}
+.info_confirm a.btn02 {width:200px;}
+
+.agree {padding-bottom: 150px;}
+.agree .tb_box{padding:0 30px ;}
+.agree  .agree_check{margin-top: 20px; display: flex;}
+.agree  .agree_check .input_checkbox{line-height: 42px;}
+.agree  .agree_check .btn_line{margin-left: auto;}
+.agree .agree_cont_box{height: 150px; margin-top: 15px; line-height: 1.5;}
+
+.addinfo{padding-bottom: 90px}
+.addinfo .table-type01 .id.dspflx td {display: flex;}
+.addinfo .table-type01 .id td input,
+.addinfo .table-type01 .id td a.btn02 {display:inline-block; vertical-align:middle;}
+.addinfo .table-type01 .id td input {letter-spacing: -2px;}
+.addinfo .table-type01 .id td .btn02.btn_pp{ width: 200px; margin-left: 10px;}
+.addinfo .table-type01 .id:first-child td input {font-size:18px;}
+
+
+.addinfo .table-type01 .pw td input {width: 480px;}
+.addinfo .tb_head{font-size: 20px; font-weight: bold; text-align: center;}
+.addinfo .tb_head + .table-type01 + .tb_head {margin-top: 50px;}
+.addinfo .table-type01 tbody tr td p {font-size:18px;} 
+
+.join_ok {padding-bottom: 150px;}
+.join_ok .inner{width: 1320px;}
+.join_ok .line_box{text-align: center; padding: 95px 0; border:1px solid #999999;margin-top: 20px;}
+.join_ok .line_box h3{font-size: 26px; margin-top: 20px;}
+.join_ok .line_box h3 strong{color: #2d0a4f;}
+.join_ok .line_box p{font-size: 20px; margin-top: 15px; }
+.join_ok p.notice {font-size: 20px; text-align: center; margin-top: 30px;}
+.join_ok .line_box p.thank {font-size:20px; margin-top:15px;}
+
+.inquiry .inner_1{margin-top: 40px;}
+
+
+
+/* .find_ */
+.find {padding-bottom: 100px;}
+.certInfo{display: flex; align-items: center;}
+.inquiry .log_form .certInfo input{ width: calc(100% - 200px);}
+.certInfo .btn_gray{width: 190px; margin:0 0 0  10px; }
+.certInfo .btn_gray span{font-size: 18px;}
+.inquiry .log_form .certInfo .time{margin-left: 10px; line-height: 1.8; font-size: 18px;}
+.inquiry .log_btn{width: 100%; margin-top:50px;}
+.find_info{color: #999999; font-size: 26px; margin-top: 60px; text-align: center;}
+.find .btn_wrap .btn{ width: 50%;}
+
+@media (max-width: 1024px) {
+	#container {padding-top:83px;}
+	
+	.location_bar {padding:20px 0;}
+	h3.p_tit02,
+	h3.p_tit {margin-top:30px; font-weight:800;}
+	h4.cont_tit02 {padding-top:8.79vw;}
+	.agree,
+	.addinfo,
+	.join_ok {padding-bottom: 70px;}
+	.agree .btn_wrap,
+	.addinfo .join > .btn_wrap,
+	.join_ok .join > .btn_wrap {margin-top:60px;}
+	.table-type01 tr td,
+	.table-type01 tr th {padding:1.95vw 3.91vw; }
+	
+	/* login */
+	.inquiry.login_main h3.p_tit {margin-top:70px;}
+	
+	
+	/* step 01 */
+	.agree .tb_box {padding: 0 4.88vw;}
+	.agree .agree_check:first-child,
+	.agree .agree_check:last-child {margin-top:3.91vw;}
+	.agree .agree_check + .agree_check {margin-top:3.42vw;}
+	.agree .agree_check .input_checkbox {font-size:20px;}
+	.agree .agree_cont_box {height:165px; margin-top:20px; pading: 2.73vw 3.91vw;}
+	
+	
+	/* step 02 */
+	h4.cont_tit02 {margin-bottom:3.42vw;}
+	.addinfo .table-type01 .id input {width:32.23vw !important;}
+	.addinfo .table-type01 .id:first-child td input {font-size:1.9vw;}
+	.addinfo .table-type01:first-child {}
+	.addinfo .table-type01 .btn02.btn_pp {width:19.53vw !important;}
+	.addinfo .table-type01 .add .btn02.btn_pp span {padding-left:10%;}
+	.addinfo .table-type01 .pw input {width:49.8vw !important;}
+	.addinfo .table-type01 .name input {width:29.3vw;}
+	.addinfo .table-type01 .phone select {width:14.1vw !important;}
+	.addinfo .table-type01 .phone input {width:16.6vw !important;}
+	.addinfo .table-type01 .phone em {width:2.44vw;}
+	.addinfo .table-type01 .mail input:first-child {width:23.44vw !important;}
+	.addinfo .table-type01 .pw:last-child td input {}
+	.addinfo .table-type01 .mail input#mbrEml2 {width:16.6vw !important;}
+	.addinfo .table-type01 .mail select {width:13.71vw;}
+	.addinfo .table-type01 .add div:first-child > input {width:27.34vw;}
+	.addinfo .table-type01 .add div:not(:first-child) > input {width:61.04vw;}
+	
+	
+	/* step 03 */
+	.join_ok .line_box h3 {margin-top:35px;}
+	.join_ok .line_box p {margin-top:20px;}
+	.join_ok .join > .btn_wrap a {width:32.23vw !important;}
+	
+}
+
+@media (max-width: 720px) {
+	.inner {width:calc(100vw - 40px);}
+	h3.p_tit02,
+	h3.p_tit {margin-top: 3.89vw; font-size:8.33vw;}
+	.step {margin-top:6.25vw;}
+	h4.cont_tit02 {padding-top: 10.42vw; font-size:5.56vw; margin-bottom: 2.78vw;}
+	.agree,
+	.addinfo,
+	.join_ok {padding-bottom:13.89vw;}
+	.agree .btn_wrap,
+	.addinfo .join > .btn_wrap,
+	.join_ok .join > .btn_wrap {margin: 12.5vw auto 0;}
+	.addinfo .table-type01 th.first {white-space: nowrap ;}
+	.addinfo .tb_head,
+	.table-type01 tr td {font-size:3.89vw; padding:2.78vw;}
+	.table-type01 tr th {font-size:3.89vw; padding: 4.86vw 2.08vw;}
+	
+	.tb_head .input_checkbox span {letter-spacing:-2px;}
+	.agree .btn_wrap a,
+	.addinfo .join > .btn_wrap a,
+	.join_ok .join > .btn_wrap a {width:45.83vw !important;}
+	
+	/* login */
+	.inquiry .log_btn {margin-top:5.56vw;}
+	
+	/* step 01 */
+	.agree .agree_check .input_checkbox {font-size: 3.89vw;}
+	.agree .agree_check:first-child,
+	.agree .agree_check:last-child {margin-top:4.86vw;}
+	.agree .agree_check + .agree_check {margin-top: 4.17vw;}
+	.agree .agree_check .input_checkbox span em.point_o {font-weight:bold;}
+	.agree .agree_cont_box {font-size:2.78vw; height:22.92vw; padding: 2.78vw 3.47vw; margin-top:2.08vw;}
+	.agree .agree_check:last-child label span em {letter-spacing:-1px;}
+	
+	
+	/* step 02 */
+	.table-type01 tr th {width:20%; word-break:keep-all;}
+	.addinfo .table-type01 td input[type="text"],
+	.addinfo .table-type01 td input[type="password"],
+	.addinfo .table-type01 td a,
+	.addinfo .table-type01 td span,
+	.addinfo .table-type01 td p,
+	.addinfo .table-type01 td em {font-size:3.89vw !important;}
+	.addinfo .table-type01 td input,
+	.addinfo .table-type01 td select,
+	.addinfo .table-type01 td a.btn_pp {height:8.33vw;}
+	.addinfo .table-type01 .name input,
+	.addinfo .table-type01 .id td input {width:35.67vw !important;}
+	.addinfo .table-type01 .id td input#agreed {width:25px !important; height:25px !important;} 
+	.addinfo .table-type01 .id:first-child td input {font-size:2vw; letter-spacing:0}
+	.addinfo .table-type01 .id td a.btn02 {width:41.67vw;}
+	.addinfo .table-type01 .id td .btn02.btn_pp {width:19.44vw !important; margin-left:1.39vw; }
+	.addinfo .table-type01 .id:first-child td input[type="text"] {}
+	.addinfo .table-type01 td .btn02.btn_pp span {font-size:3.89vw;}
+	.addinfo .table-type01 td #btnCheckCert.btn02.btn_pp span,
+	.addinfo .table-type01 td #btnZipCode.btn02.btn_pp span  {line-height:8vw;}
+	.addinfo .table-type01 .id td #btnCheckNick.btn02.btn_pp  span,
+	.addinfo .table-type01 .id td #btnCheckID.btn02.btn_pp  span {line-height:8.5vw;}
+	.addinfo .table-type01 input#mbrNm {padding-left:0; padding-right:0;}
+	
+	.addinfo .table-type01 .pw input {width:100% !important;}
+	
+	.addinfo .tb_head + .table-type01 + .tb_head {margin-top:6.94vw;}
+	
+	.addinfo .table-type01 .phone select {/*width:18.06vw !important;*/ width:22vw !important; padding: 3px 0;}
+	.addinfo .table-type01 .phone input {width:25% !important;}
+	.addinfo .table-type01 .btn02.btn_pp {width:27.78vw !important;}
+	#container .addinfo .table-type01 .mail input {width:42% !important;}
+	#container .addinfo .table-type01 .mail select {width:100% !important; margin-top:1.39vw; display:block;}
+	.addinfo .table-type01 .add div:first-child > input {width:38.89vw !important; }
+	.addinfo .table-type01 #btnZipCode.btn02.btn_pp {width:8.33vw !important; }
+	.addinfo .table-type01 #btnZipCode.btn02.btn_pp span {display:none;}
+	.addinfo .table-type01 .add div:not(:first-child) > input {width:100% !important;}
+	.addinfo .table-type01 .mail em {width:20px; height:8.33vw; line-height:8vw;}
+	.addinfo .join > .btn_wrap {margin-top:6.94vw;}
+	
+	.addinfo .table-type01 .id td input {letter-spacing:0;}
+	.addinfo .table-type01 td span {vertical-align:middle;}
+	
+	#container .addinfo tbody .pw.first th,
+	#container .addinfo tbody .id.dspflx th,
+	#container .addinfo tbody .id.agree_or th {white-space: nowrap;}
+	
+	/* step 03 */
+	.join_ok .line_box {padding:11.11vw 0 9.72vw !important;}
+	.join_ok .line_box .line_box_inner img {width:15.28vw;} 
+	.join_ok .line_box .line_box_inner h3 {font-size:4.17vw; margin-top:4.86vw;}
+	.join_ok .line_box .line_box_inner p {font-size:3.61vw; margin-top:2.78vw;}
+	.join_ok .join > .btn_wrap {margin-top:6.94vw;}
+	
+	
+	
+	/* info_modify */
+	.info_check .info_confirm {padding-top: 8.33vw; margin-bottom: 1.39vw;}
+	.info_check .info_confirm h4 {margin-top: 0;}
+	
+	.info_check .info_confirm a {width: 22.22vw !important; height: 8.33vw;}
+	.info_check .info_confirm .btn02 span {font-size: 3.89vw; line-height: 0; line-height: 8.5vw;}
+
+	.info_check .table-type01 .id td input {width:41.67vw;}
+	.info_check .table-type01 .id td .btn02.btn_pp {width:19.44vw; margin-left: 1.39vw;}
+	.info_check .table-type01 .id td .btn02.btn_pp span {line-height: 8.5vw;}
+	.info_check .table-type01 .pw td input {width:100%;}
+
+	.info_check .addinfo .join > .btn_wrap {margin-top: 13.89vw;}
+
+	.info_check h3.p_tit02 {margin-top: 11.11vw;}
+	.info_check .info_confirm {padding-top: 8.33vw;}
+	
+	.info_check .info_confirm h4 {font-size: 5.56vw;}
+	.info_check .info_confirm a.btn02 {width:22.22vw;}
+	.info_check .table-type01.table03 .input_checkbox input {width:25px;}
+	.info_check .table-type01 tr .phone select {width: 13.7vw !important; padding-left: 0; padding-right: 0;}
+	.info_check .table-type01 tr .phone input {padding: 3px; text-align:center;}
+	.info_check .table-type01 tr .mail select {width: 25.6vw; padding-left: 0; padding-right: 0;}
+	.info_check .table-type01 tr .mail input:not(:first-child) {width: 25.6vw;}
+	.info_check .table-type01 tr .add .add_search {width:8.33vw;}
+	.info_check table .phone em {width:4.17vw;}
+	.addinfo .table-type01 .id:dspflx td input[type="text"] {font-size:3.89vw !important;}
+	
+	
+	/* login */
+	.inquiry.login_main h3.p_tit {margin-top: 11.11vw; font-size: 8.33vw;}
+	.inquiry .inner_1 {margin:6.94vw auto 9.72vw; }
+	.inquiry .tab .inner_1 {margin: 9.72vw auto 13.89vw; font-size: 3.89vw; }
+	.inquiry .log_form {width:100%; margin: 0 auto;padding:0 10px;box-sizing:border-box;}
+	.inquiry .log_form input {width:100%; height:8.33vw; margin:0;}
+	.inquiry .log_form input[type="text"],
+	.inquiry .log_form input[type="password"]{font-size: 3.89vw;}
+	.inquiry .log_form input + input {margin-top: 1.39vw;}
+	.inquiry .log_find {margin:6.94vw auto; width:100%; width: calc(100% - 16.67vw); justify-content: center;}
+	.inquiry .log_btn {max-width: 600px; width: calc(100% - 16.67vw);}
+	.inquiry .log_option {width: calc(100% - 16.67vw); justify-content: center; display:flex; align-items:center;} 
+	.inquiry .log_option li {margin: 0;}	
+	.inquiry .log_option li a img {height: 4.17vw;}
+	.inquiry .log_option li a p {font-size:3.33vw; padding-top:2.08vw; word-break: keep-all;} 
+	.inquiry .log_find li.middot {margin: 0 1.39vw;}
+}
+

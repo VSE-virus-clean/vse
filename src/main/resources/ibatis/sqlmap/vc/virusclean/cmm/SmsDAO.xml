@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : SmsDAO.xml 
+	Description : SMS 문자 관련 DAO
+-->
+
+<sqlMap namespace="virus_clean_cmm_SmsDAO">
+	<typeAlias alias="smsCertVO" type="vc.virusclean.cmm.vo.SmsCertVO" />
+	<typeAlias alias="smsVO" type="vc.virusclean.cmm.vo.SmsVO" />
+	
+
+	<!-- 
+		Query Name : smsDAO.checkCertNoVerify
+		Description : 인증 번호 확인 (유효시간 RGST_DTM으로 부터 3분)
+	-->
+	<select id="smsDAO.checkCertNoVerify" parameterClass="smsCertVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=smsDAO.checkCertNoVerify */
+            SELECT COUNT(1)
+			  FROM VC_COM_06
+			 WHERE CERT_SN = #certSn#
+			   AND HP_NO = #hpNo#
+			   AND CERT_NO = #certNo#
+  			   AND TIMESTAMPDIFF(SECOND, RGST_DTM, now()) < 180
+        ]]>
+	</select>
+
+	<!-- 
+		Query Name : smsDAO.insertCert
+		Description : 인증 번호 정보를 등록한다.
+	-->
+	<insert id="smsDAO.insertCert" parameterClass="smsCertVO">
+        <![CDATA[
+			/* ProgramID=smsDAO.insertCert */ 
+            INSERT INTO VC_COM_06
+                   (
+					  HP_NO
+					, CERT_NO
+					, RGST_DTM
+
+				   )
+            VALUES ( 
+					  #hpNo#
+					, #certNo#
+					, NOW()
+				   )
+	    ]]>
+	    <selectKey resultClass="int" keyProperty="certSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	<!-- 
+		Query Name : smsDAO.updateCertVrfyDtm
+		Description : 인증 번호 확인시간을 업데이트 한다.
+	-->
+	<update id="smsDAO.updateCertVrfyDtm" parameterClass="smsCertVO">
+        <![CDATA[
+			/* ProgramID=smsDAO.updateCertVrfyDtm */ 
+            UPDATE VC_COM_06
+               SET VRFY_DTM = NOW()
+             WHERE CERT_SN = #certSn#
+        ]]>
+	</update>
+	
+	
+	<!-- 
+		Query Name : smsDAO.insertSendSms
+		Description : SMS 타입 발송
+	-->
+	<insert id="smsDAO.insertSendSms" parameterClass="smsVO">
+        <![CDATA[
+			/* ProgramID=smsDAO.insertSendSms */ 
+            INSERT INTO BIZ_MSG
+                   (
+					  MSG_TYPE
+					, CMID
+					, SEND_PHONE
+					, DEST_PHONE
+					, MSG_BODY
+					, REQUEST_TIME
+					, SEND_TIME
+				   )
+            VALUES ( 
+					  0
+					, #cmid#
+					, #sendPhone#
+					, #destPhone#
+					, #msgBody#
+					, NOW()
+					, NOW()
+				   )
+	    ]]>
+	</insert>
+	
+	
+	<!-- 
+		Query Name : smsDAO.insertSendKakao
+		Description : 카톡알림발송
+	-->
+	<insert id="smsDAO.insertSendKakao" parameterClass="smsVO">
+        <![CDATA[
+			/* ProgramID=smsDAO.insertSendKakao */ 
+            INSERT INTO BIZ_MSG
+                   (
+					  MSG_TYPE
+					, CMID
+					, SEND_PHONE
+					, DEST_PHONE
+					, TEMPLATE_CODE
+					, SENDER_KEY
+					, NATION_CODE
+					, RE_TYPE					
+					, MSG_BODY
+					, RE_BODY
+					, REQUEST_TIME
+					, SEND_TIME
+				   )
+            VALUES ( 
+					  6
+					, #cmid#
+					, #sendPhone#
+					, #destPhone#
+					, #templateCode#
+					, #senderKey#
+					, '82'
+					, 'MMS'
+					, #msgBody#
+					, #msgBody#
+					, NOW()
+					, NOW()
+				   )
+	    ]]>
+	</insert>
+
+</sqlMap>

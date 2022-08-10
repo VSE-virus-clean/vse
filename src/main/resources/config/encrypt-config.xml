@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+
+<properties>
+	<comment>Spring Properties 암호화 정보</comment>
+	<entry key="jdbcs.database.class">com.mysql.jdbc.Driver</entry>
+<!-- 	<entry key="jdbcs.database.url">jdbc:mysql://223.26.252.141:3306/virusclean?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;autoReconnectForPools=true&amp;zeroDateTimeBehavior=convertToNull</entry> -->
+<!-- 	<entry key="jdbcs.database.user">web</entry> -->
+<!-- 	<entry key="jdbcs.database.pwd">1q2w3e4r</entry> -->
+	
+	<entry key="jdbcs.database.url">jdbc:mysql://viruscleanlab.co6jad5ex5nn.ap-northeast-2.rds.amazonaws.com:3306/virusclean?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;autoReconnectForPools=true&amp;zeroDateTimeBehavior=convertToNull</entry>
+	<entry key="jdbcs.database.user">vclab</entry>
+	<entry key="jdbcs.database.pwd">vclab12!#</entry>
+	
+	<entry key="jdbcs.database.jndiName">XXXX</entry>
+</properties>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- ============================================================================================= -->
+	<!-- [ DEFINITION :: TEMPLATE ] -->
+	<!-- ============================================================================================= -->
+	<!-- 일반 화면 -->
+	<definition name="default-tiles" template="/WEB-INF/jsp/admin/common/layout/layout_default.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/admin/common/include/inc_commonHead.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/admin/common/include/inc_header.jsp" />
+		<put-attribute name="lnb" value="/WEB-INF/jsp/admin/common/include/inc_lnb.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/admin/common/include/inc_footer.jsp" />
+	</definition>
+
+	<!-- 팝업 -->
+	<definition name="popup-tiles" template="/WEB-INF/jsp/admin/common/layout/layout_popUp.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/admin/common/include/inc_commonHead.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+
+	<!-- REDIRECT등 Include -->
+	<definition name="fullScreen-tiles" template="/WEB-INF/jsp/admin/common/layout/layout_fullScreen.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/admin/common/include/inc_commonHead.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+
+	<!-- LNB제외 Include -->
+	<definition name="notLnb-tiles"	template="/WEB-INF/jsp/admin/common/layout/layout_notLnb.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/admin/common/include/inc_commonHead.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/admin/common/include/inc_header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/admin/common/include/inc_footer.jsp" />
+	</definition>
+
+	<!-- 개인정보 수정 페이지용 -->
+	<definition name="ua-tiles"	template="/WEB-INF/jsp/admin/common/layout/layout_ua.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/admin/common/include/inc_commonHead.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/admin/common/include/inc_header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/admin/common/include/inc_footer.jsp" />
+	</definition>
+
+	<!-- ERROR -->
+	<definition name="empty-tiles" template="/WEB-INF/jsp/admin/common/layout/layout_empty.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+
+
+	<!-- ============================================================================================= -->
+	<!-- [ DEFINITION :: EXTENDS ] -->
+	<!-- ============================================================================================= -->
+
+	<definition name="admin/error/*" extends="empty-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/error/{1}.jsp" />
+	</definition>
+
+	<definition name="admin/common/redirect" extends="fullScreen-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/common/redirect.jsp" />
+	</definition>
+
+	<!-- 로그인 화면 -->
+	<definition name="admin/auth/loginMan" extends="fullScreen-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/auth/loginMan.jsp" />
+	</definition>
+
+<!-- 	<definition name="admin/auth/mainMan" extends="notLnb-tiles"> -->
+<!-- 		<put-attribute name="content" value="/WEB-INF/jsp/admin/auth/mainMan.jsp" /> -->
+<!-- 	</definition> -->
+
+<!-- 	<definition name="admin/auth/uaMod" extends="ua-tiles"> -->
+<!-- 		<put-attribute name="content" value="/WEB-INF/jsp/admin/auth/uaMod.jsp" /> -->
+<!-- 	</definition> -->
+
+	<!-- 팝업 페이지 -->
+	<definition name="admin/*/pop/*" extends="popup-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/{1}/pop/{2}.jsp" />
+	</definition>
+	<definition name="admin/*/*/pop/*" extends="popup-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/{1}/{2}/pop/{3}.jsp" />
+	</definition>
+
+	<!-- 일반 페이지 -->
+	<definition name="admin/*/*" extends="default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/{1}/{2}.jsp" />
+	</definition>
+
+	<definition name="admin/*/*/*" extends="default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/{1}/{2}/{3}.jsp" />
+	</definition>
+
+	<definition name="admin/*/*/*/*" extends="default-tiles">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/{1}/{2}/{3}/{4}.jsp" />
+	</definition>
+</tiles-definitions>

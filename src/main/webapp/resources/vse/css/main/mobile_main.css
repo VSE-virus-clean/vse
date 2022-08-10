@@ -1,0 +1,93 @@
+.mobile .section .btn {width:182px;}
+/*section01*/
+.mobile #MainVideo01 {z-index:1;}
+.section01 .video_text {top:calc(100vh - 60%);}
+.section01 .scroll_swing {top: calc(100vh - 16%);}
+.section01 .up {z-index:2;position:fixed;bottom:inherit;opacity: 1 !important;transform: translate3d(0, 0px, 0px) !important;}
+.main_contant {z-index:5;}
+.mobile .section01,
+.mobile .section01 .video_wrap {height: 100vh;}
+.mobile	.section01 .up {min-width:auto;}
+.mobile	.section01 .video_text h3 {font-size:28px;line-height:35px;margin-bottom:-18px;}
+.mobile	.section01 .scroll_swing span {font-size:10px;}
+.mobile	.section01 .scroll_swing img {width:20px;height:auto;}
+.mobile	#MainVideo01 {min-width: 1100px;height: 100%;transform: translate3d(0px, 10px, 10px);}
+/*section02*/
+.mobile	.section02 {padding:65px 0;}
+.mobile	.section02 h3.tit {font-size: 28px;line-height:46px;}
+.mobile	.section02 h3.tit img {margin-top:-5px;height: 28px;}
+/*section03*/
+.mobile	.section03 {height:100vh;}
+.mobile	.section03 h3.tit {font-size:28px;line-height:38px;}
+.mobile	.section03 .btn {margin-top:25px;}
+/*section04*/
+.mobile	.section04,
+.mobile	.section05 {padding:35px 0;box-sizing:border-box;}
+.mobile .section04 .sub_txt {word-break:keep-all;}
+.mobile .section04 .sub_txt strong {font-weight:normal;}
+.mobile .section04 .process {margin-top:15px;height:405px;background: url('../../images/main/process_bg_mo.png') center no-repeat;background-size:auto 100% ;}
+.mobile .section04 .process ul {display:none;}
+/*section05*/
+.mobile .section05 h3.tit {margin-bottom:20px;}
+.mobile .section05 .sub_tit {padding-left:9px;}
+.mobile .section05 .sub_tit:after { width: 0px;height: 0px;border-top: 8px solid transparent;border-right: 8px solid #c10023;}
+.mobile .section05 .sub_txt {padding-left:9px;font-size:14px;}
+.mobile .section05 .table_type_01 {padding:0 9px;}
+.mobile .section05 .tab_con {margin-top:35px !important;}
+.mobile .section05 .tab_list .x_1  {padding:0 !important;}
+.mobile .section05 .privacy_wrap {}
+.mobile	#MainVideo01 {min-width:auto !important;width:100%;height:auto;transform: translate3d(0px, 10px, 10px);}
+.mobile .section05 .btn_wrap {overflow:hidden;display:flex;}
+.mobile .section05 .btn {width:calc(50% - 10px);float:left;flex: 1;}
+/*section06*/
+.section06 {padding:35px 0;}
+.section06 .slide .sec05_sl_outer {width:100%;}
+.section06 .slide .sec05_sl_outer.pc_show li a {margin:0 auto;}
+.section06 .section05_slide_arrow.prev {right: 90%;transform:translate(0,0);}
+.section06 .section05_slide_arrow.next {left: 90%;transform:translate(0,0);}
+.section06 .sns_linkwrap {display:block;padding:0 18px;margin-top:40px;}
+.section06 .sns_linkwrap ul {display: flex;justify-content: center;align-items: center;width: 100%;margin-top: 20px;}
+.section06 .sns_linkwrap > span:after{width:70%;margin: 12px 0;vertical-align:middle;float: right;}
+.section06 .inner_sol .tit {font-size:28px;}
+.section06 .inner_sol .sub,
+.section06 .sns_linkwrap > span{font-size:16px;}
+@media screen and (max-width:460px) {
+	.mobile	#MainVideo01 {min-width:auto !important;width: auto !important;height:100%;transform: translate3d(-280px, 10px, 10px);}
+}
+
+@media screen and (max-width:360px) {
+
+
+.mobile .section .btn {width:50.56vw;}
+/*section01*/
+.mobile .section01,
+.mobile .section01 .video_wrap {height: 100vh;}
+.mobile	.section01 .up {min-width:auto;}
+.mobile	.section01 .video_text {font-size:7.78vw;line-height:9.72vw;margin-bottom:-5.00vw;}
+.mobile	.section01 .scroll_swing span {font-size:2.78vw;}
+.mobile	.section01 .scroll_swing img {width:5.56vw;height:auto;}
+.mobile	#MainVideo01 {min-width: 305.56vw !important;height: 100%;transform: translate3d(-97.22vw, 2.78vw, 2.78vw);}
+/*section02*/
+.mobile	.section02 {padding:18.06vw 0;}
+.mobile	.section02 h3.tit {font-size: 7.78vw;line-height:12.78vw;}
+.mobile	.section02 h3.tit img {margin-top:-1.39vw;height: 7.78vw;}
+/*section03*/
+.mobile	.section03 {height:100vh;}
+.mobile	.section03 h3.tit {font-size:7.78vw;line-height:10.56vw;}
+.mobile	.section03 .btn {margin-top:6.94vw;}
+/*section04*/
+.mobile	.section04,
+.mobile	.section05 {padding:9.72vw 0;}
+.mobile .section04 .sub_txt {word-break:keep-all;}
+.mobile .section04 .sub_txt strong {}
+.mobile .section04 .process {margin-top:4.17vw;height:112.50vw;background: url('../../images/main/process_bg_mo.png') center no-repeat;background-size:auto 100% ;}
+/*section05*/
+.mobile .section05 h3.tit {margin-bottom:5.56vw;}
+.mobile .section05 .sub_tit {padding-left:2.50vw;}
+.mobile .section05 .sub_tit:after { width: 0.00vw;height: 0.00vw;border-top: 2.22vw solid transparent;border-right: 2.22vw solid #c10023;}
+.mobile .section05 .sub_txt {padding-left:2.50vw;font-size:3.89vw;}
+.mobile .section05 .table_type_01 {padding:0 2.50vw;}
+.mobile .section05 .tab_con {margin-top:9.72vw !important;}
+.mobile .section05 .tab_list .x_1  {padding:0 !important;}
+
+}

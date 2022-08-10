@@ -1,0 +1,13 @@
+.paging_wrap {padding: 60px 0;margin:0 auto;}
+.paging li {display:inline-block; vertical-align:middle; border:1px solid #c2c2c2; background-color:#ffffff; margin:0 5px; padding:0;}
+.paging li a {color:#c2c2c2; display:block; width:100%; padding:9px 12px;box-sizing:border-box;width:32px;height:32px;}
+.paging li.active {background-color:#c2c2c2; }
+.paging li.active a {color:#ffffff;}
+.paging li.pag_first,
+.paging li.pag_last {border:0; font-size:12px;}
+.paging li.pag_first {margin-right:20px;}
+.paging li.pag_last {margin-left:20px;}
+.paging li.pag_first.active,
+.paging li.pag_last.active {background-color:#ffffff;}
+.paging li.pag_first.active a,
+.paging li.pag_last.active a {color: #333333;}

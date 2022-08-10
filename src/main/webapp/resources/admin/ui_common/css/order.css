@@ -1,0 +1,71 @@
+/* 공통 */
+body.modal_open {
+    overflow: hidden;
+    overflow-y: auto;
+}
+#wrap .txt_ct p,
+#wrap .txt_ct span {text-align:center;}
+#wrap .txt_ri,
+#wrap .txt_ri p,
+#wrap .txt_ri span {text-align: right;}
+#wrap .txt_le, 
+#wrap .txt_le p,
+#wrap .txt_le span {text-align: left;}	
+#wrap .txt_ct {text-align: center;}
+#wrap .txt_red {color:#d2212f;}
+#wrap .bg_gray {background-color: #f9f9f9;}
+#wrap .bg_white {background-color: #ffffff;	}
+
+#wrap .cont_table tbody tr td {padding: 22px 30px; font-size:18px;}
+#wrap .cont_table tbody tr td  p,
+#wrap .cont_table tbody tr td  span,
+#wrap .cont_table tbody tr td  strong {font-size:18px;}
+#wrap .cont_table tbody tr th p,
+#wrap .cont_table tbody tr th span,
+#wrap .cont_table thead th,
+#wrap .cont_table thead th p,
+#wrap .cont_table thead th span {font-size:20px; font-weight:500;}
+
+
+/* modal */
+.modal_window01 {position: fixed; top:0; left:0; right:0; bottom:0; overflow:hidden;}
+.modal_window_wrap { position: relative; top: 0; left: 0; background-color: #ffffff; max-width: 800px; margin: 100px auto 0; height: auto; overflow-y: scroll;}
+.inner_pop {width:92%; margin: 0 auto; padding:30px 0 40px; overflow:hidden;}
+.modal_tit{box-shadow: 0px 0px 9px rgb(0 0 0 / 20%); width:100%; padding:;}
+.modal_tit h3 {font-size: 22px; font-weight: 700; padding: 25px 0 0 69px;}
+.modal_tit .btn_cancel {padding: 25px; float:right;}
+.modal_tit h3,
+.modal_tit > a {display:inline-block;}
+.modal_cont h4.cont_tit {font-size: 26px; margin-bottom: 15px;}
+.modal_cont select {width:35%; font-size: 18px;}
+.modal_cont textarea {resize:none; width:100%; padding:7px; font-size: 18px;}
+.modal_cont .btn_center_gorup {margin-top: 35px;}
+
+/*  */
+#wrap .content-body {margin-top: 85px;}
+#wrap #container .sec_cont h4.cont_tit {font-size:26px;}
+.cont_tit_wrap {margin-bottom: 15px; display: flex; justify-content:space-between; align-items:flex-end;}
+#wrap #container .cont_tit_wrap .cont_tit {margin-bottom: 0;}
+.cont_tit_wrap a span {background:url('../images/tgl_btn.png') no-repeat; width:20px; height: 8px; background-position: 50%; display: inline-flex;}
+
+.txtar {background-color: #f9f9f9;}
+.txtar textarea {resize:none; width:100%; padding:10px; height:180px; border:0; box-sizing:border-box;}
+
+#wrap .content-body01 {margin-top: 0;}
+
+#wrap .content-body.content-body02 {margin-top: 35px;}
+.cont_table02 tbody td .prd_img {padding:0 10px; box-sizing:border-box;}
+.cont_table02 tbody td img {width:70px; display:inline-block; vertical-align:middle;}
+.cont_table02 tbody td select {text-align-last:center; vertical-align:middle; }
+.cont_table02 tbody td.confirm_btn a {display:inline-block; color:#222; padding:10px 20px; background-color: #8c8c8c; color:#ffffff;}
+
+.cont_table02 tbody tr th,
+.cont_table03 tbody tr th,
+.cont_table05 tbody tr th {font-weight:500; font-size:20px;}
+
+.content-body03 tbody tr:first-child td input.bg_gray[type="text"] {width:20%}
+.content-body03 tbody tr:nth-child(2) td input.bg_gray[type="text"],
+.content-body03 tbody tr:nth-child(3) td input.bg_gray[type="text"],
+.content-body03 tbody tr:nth-child(4) td input.bg_gray[type="text"] {width:35%;}
+.content-body03 tbody tr:last-child td input.bg_gray[type="text"] {width:50%;}
+.content-body03 tbody .txt_le  input.bg_gray[type="text"] {padding:5px 10px; box-sizing:border-box; }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+  		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+	<!-- ============================================================================================ -->
+	<!-- HTTP와 HTTPS 페이지를 설정한다. -->
+	<!-- ============================================================================================ -->
+<!-- 	<sec:http auto-config="true"> -->
+<!--         <sec:form-login login-page="/admin/loginMan.vc" /> -->
+<!--         <sec:intercept-url pattern="/**" access="permitAll" requires-channel="http" /> -->
+        
+<!--         <sec:port-mappings> -->
+<!--             <sec:port-mapping http="8080" https="8080"/> -->
+<!--         </sec:port-mappings> -->
+        
+<!--         <sec:session-management> -->
+<!--             <sec:concurrency-control max-sessions="1" expired-url="/admin/loginMan.vc"/>       -->
+<!--         </sec:session-management> -->
+<!--     </sec:http> -->
+    
+<!--     <sec:authentication-manager></sec:authentication-manager> -->
+</beans>

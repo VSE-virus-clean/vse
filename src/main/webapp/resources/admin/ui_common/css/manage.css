@@ -1,0 +1,32 @@
+#wrap .txt_ct p,
+#wrap .txt_ct span {text-align:center;}
+#wrap .txt_ri p,
+#wrap .txt_ri span {text-align: right;}
+#wrap .txt_le,
+#wrap .txt_le p,
+#wrap .txt_le span {text-align: left;}	
+
+
+
+
+.content-body {margin-top: 55px;}
+.content-body .cont_table th,
+.content-body .cont_table td {font-size:18px;}
+
+.sec_cont_top .sec_top_tab li {display:inline-block; vertical-align:middle;}
+.sec_cont_top .sec_top_tab li.space {margin: 0 35px; font-size:26px; font-weight: 100;}
+.sec_cont_top .sec_top_tab li.big {font-size:26px;}
+.sec_cont_top .sec_top_tab li.small {font-size:18px;}
+.sec_cont_top .sec_top_tab li a {text-decoration: none;  color:#222;}
+
+.sec_cont .sec_cont_tab .tab_wrap li {float:left; width:24.8%; text-align:center; background-color:#cccccc;}
+.sec_cont .sec_cont_tab .tab_wrap li a {padding:20px 0; width:100%;}
+.sec_cont .sec_cont_tab .tab_wrap li a span::before {content:url('/resources/admin/ui_common/images/tab01.png'); display:inline-block; width:11px; height:11px; margin-right:10px;}
+.sec_cont .sec_cont_tab .tab_wrap li.active {background-color: #d2212f;}
+.sec_cont .sec_cont_tab .tab_wrap li.active a span::before {content:url('/resources/admin/ui_common/images/tab02.png'); display:inline-block; width:11px; height:11px; margin-right:10px;}
+.sec_cont .sec_cont_tab .tab_wrap li + li {margin-left:.2%;}
+.sec_cont .sec_cont_tab .tab_wrap li a {display:inline-block;  color:#ffffff; text-decoration: none; font-size:20px;}
+
+
+.sec_cont .cont_table tbody tr td {padding:20px 30px;}
+.sec_cont .cont_table tbody tr td span input {padding: 7px; box-sizing:border-box;}

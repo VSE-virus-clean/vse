@@ -1,0 +1,13 @@
+/* modal */
+.modal_window {position: fixed; top: 50%; left: 50%; z-index:1000; transform:translate(-50% , -50%);}
+.modal_backdrop {position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 900; background-color: #000; opacity:.5;}
+
+.modal_content {-webkit-box-shadow: 0 5px 15px rgb(0 0 0 / 35%); box-shadow: 0 5px 15px rgb(0 0 0 / 35%); text-align:center; background-color:#ffffff; padding: 80px 60px; width:380px;}
+.modal_content 
+img {width:150px; margin:0 auto;}
+.modal_txt {padding:15px;}
+.modal_content h4 {font-size:28px; line-height:2.5; color:#d2212f; font-weight:bold;}
+.modal_content p {font-size:18px;}
+.modal_content  .btn_right_gorup {text-align:center;}
+
+

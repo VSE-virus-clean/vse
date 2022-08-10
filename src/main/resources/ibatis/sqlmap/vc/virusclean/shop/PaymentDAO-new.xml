@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+	SQL File Name : ProductDAO.xml 
+	Description : 결제정보
+-->
+
+<sqlMap namespace="virus_clean_shop_PaymentDAO">
+	<typeAlias alias="paymentVO" type="vc.virusclean.admin.shop.vo.PaymentVO" />
+
+	<!-- 
+		Query Name : paymentDAO.selectProductCount 
+		Description : ROW의 수를 조회한다. 
+	-->
+	<select id="paymentDAO.selectProductCount" parameterClass="paymentVO" resultClass="int">
+        <![CDATA[
+			/* ProgramID=paymentDAO.selectProductCount */
+            SELECT COUNT(1)
+              FROM VC_PAY_02 A
+             WHERE A.USE_YN <> 'D'
+             
+        ]]>
+        
+       	<isNotEmpty property="lgrpCd">
+               <![CDATA[ AND  A.LGRP_CD = #lgrpCd#  ]]>
+		</isNotEmpty>
+		
+        <isEqual property="isApi" compareValue="false">
+        	<![CDATA[ 
+        		
+        	]]>
+        </isEqual>
+        <isEqual property="isApi" compareValue="true">
+        	<![CDATA[ 
+        		AND A.USE_YN = 'Y' 
+        		AND (  (A.EXPS_RGST_DTM IS NULL OR A.EXPS_RGST_DTM <= NOW()) AND (  A.EXPS_FNH_DTM IS NULL OR  A.EXPS_FNH_DTM >= NOW() ))
+        	]]>
+        </isEqual>
+        
+		<dynamic>
+			<isNotEmpty property="searchKey">
+            	<![CDATA[ AND (  A.PRD_TITL LIKE CONCAT('%',#searchKey#,'%') OR  A.PRD_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<!-- 
+		Query Name : paymentDAO.selectProductList 
+		Description : 목록을 조회한다.(페이징 처리.) 
+	-->
+	<select id="paymentDAO.selectProductList" parameterClass="paymentVO" resultClass="paymentVO">
+        <![CDATA[
+			/* ProgramID=paymentDAO.selectProductList */
+            SELECT A.*
+        		 , ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE PRD_SN = A.prdSn AND USE_YN = 'Y' AND SCRAP_CD = 'PRODUCT' AND MBR_SN = #rgstSn# ) AS myScrapCnt
+                 , IFNULL( (SELECT ATTC_FIL_SN FROM VC_COM_02 WHERE COTN_SN = A.prdSn AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , 0) AS fileSn
+                 , IFNULL( (SELECT FIL_NM FROM VC_COM_02 WHERE COTN_SN = A.prdSn AND MENU_CD = 'PRODUCT' AND FIL_SCN_CD = 'THUMB' AND USE_YN = 'Y' LIMIT 1) , '') AS filNm
+              FROM (
+                       SELECT @ROWNUM := @ROWNUM+1 AS rowNum 
+							, A.PRD_SN prdSn
+							, A.LANG_CD langCd
+							, A.LGRP_CD lgrpCd
+							, A.MGRP_CD mgrpCd
+							, A.SGRP_CD sgrpCd
+							, A.PRD_TITL prdTitl
+							, A.PRD_SBC1 prdSbc1
+							, A.PRD_SBC2 prdSbc2
+							, A.PRD_CD prdCd
+							, DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d %H:%i') AS expsRgstDtm
+                            , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d %H:%i')  AS expsFnhDtm
+                            , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+							, A.PRD_RCT prdRct
+							, A.SUPPLY_PRICE supplyPrice
+							, A.SALE_PRICE salePrice
+							, A.QUANTITY quantity
+							, A.ST_NO stNo
+							, A.SELL_YN sellYn
+							, A.USE_YN useYn
+							, A.RGST_SN rgstSn
+							, A.RGST_ID rgstId
+							, DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+							, A.MDFY_SN mdfySn
+							, A.MDFY_ID mdfyId
+							, DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm
+                         FROM VC_PAY_02 A, (SELECT @ROWNUM := 0) B
+                        WHERE A.USE_YN <> 'D'
+        ]]>
+        
+	        	<isNotEmpty property="lgrpCd">
+		               <![CDATA[ AND A.LGRP_CD = #lgrpCd#  ]]>
+				</isNotEmpty>
+				
+		      	<isEqual property="isApi" compareValue="false">
+		        	<![CDATA[ 
+		        		
+		        	]]>
+		        </isEqual>
+		        <isEqual property="isApi" compareValue="true">
+		        	<![CDATA[ 
+		        		AND  A.USE_YN = 'Y' 
+		        		AND (  (A.EXPS_RGST_DTM IS NULL OR A.EXPS_RGST_DTM <= NOW()) AND (  A.EXPS_FNH_DTM IS NULL OR  A.EXPS_FNH_DTM >= NOW() ))
+		        	]]>
+		        </isEqual>
+		        
+				<dynamic>
+					<isNotEmpty property="searchKey">
+		            	<![CDATA[ AND (  A.PRD_TITL LIKE CONCAT('%',#searchKey#,'%') OR  A.PRD_SBC1 LIKE CONCAT('%',#searchKey#,'%') )]]>
+					</isNotEmpty>
+				</dynamic>
+		
+        <![CDATA[
+					ORDER BY A.ST_NO, A.EXPS_RGST_DTM DESC, A.PRD_SN DESC
+                   ) A
+			 LIMIT #rowStart#, #rowLimit#
+        ]]>
+	</select>
+
+
+	<!-- 
+		Query Name : paymentDAO.selectProduct 
+		Description : 상세정보를 조회한다. 
+	-->
+	<select id="paymentDAO.selectProduct" parameterClass="paymentVO" resultClass="paymentVO">
+        <![CDATA[
+			/* ProgramID=paymentDAO.selectProduct */
+            SELECT A.PRD_SN prdSn
+				 , A.LANG_CD langCd
+				 , A.LGRP_CD lgrpCd
+				 , A.MGRP_CD mgrpCd
+				 , A.SGRP_CD sgrpCd
+				 , A.PRD_TITL prdTitl
+				 , A.PRD_SBC1 prdSbc1
+				 , A.PRD_SBC2 prdSbc2
+				 , A.PRD_CD prdCd
+				 , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS expsRgstDay
+                 , DATE_FORMAT(A.EXPS_RGST_DTM, '%H')  AS expsRgstTime
+                 , DATE_FORMAT(A.EXPS_RGST_DTM, '%i')  AS expsRgstMinute
+                 , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d %H:%i')  AS expsRgstDtm
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d')  AS expsFnhDay
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%H')  AS expsFnhTime
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%i')  AS expsFnhMinute
+                 , DATE_FORMAT(A.EXPS_FNH_DTM, '%Y-%m-%d %H:%i')  AS expsFnhDtm
+                 , DATE_FORMAT(A.EXPS_RGST_DTM, '%Y-%m-%d')  AS userViewDtm
+				 , A.PRD_RCT prdRct
+				 , A.SUPPLY_PRICE supplyPrice
+				 , A.SALE_PRICE salePrice
+				 , A.QUANTITY quantity
+				 , A.ST_NO stNo
+				 , A.SELL_YN sellYn
+				 , A.USE_YN useYn
+				 , A.RGST_SN rgstSn
+				 , A.RGST_ID rgstId
+				 , DATE_FORMAT(A.RGST_DTM, '%Y-%m-%d %H:%i')  AS rgstDtm
+				 , A.MDFY_SN mdfySn
+				 , A.MDFY_ID mdfyId
+				 , DATE_FORMAT(A.MDFY_DTM, '%Y-%m-%d %H:%i')  AS mdfyDtm            
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND SGRP_CD <> 'PHOTO' ) AS reviewCnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND SGRP_CD = 'PHOTO' ) AS reviewPhotoCnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 5 ) AS grade5Cnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 4 )  AS grade4Cnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 3 )  AS grade3Cnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 2 )  AS grade2Cnt
+				 , ( SELECT COUNT(1) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' AND GRADE = 1 )  AS grade1Cnt
+				 , ( SELECT IFNULL(CEIL(AVG(GRADE)), 0) FROM VC_USR_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND LGRP_CD = 'REVIEW' )  AS gradeAvg
+				 , ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND SCRAP_CD = 'PRODUCT' ) AS scrapCnt
+		]]>
+		
+		<isEqual property="isApi" compareValue="true">
+        	<isNotEqual property="rgstSn" compareValue="0">
+        		<![CDATA[ 
+					, ( SELECT COUNT(1) FROM VC_SHOP_02 WHERE PRD_SN = A.PRD_SN AND USE_YN = 'Y' AND SCRAP_CD = 'PRODUCT' AND MBR_SN = #rgstSn# ) AS myScrapCnt
+				]]>
+        	</isNotEqual>
+        	<isEqual property="rgstSn" compareValue="0">
+        		<![CDATA[ 
+					, 0 AS myScrapCnt
+				]]>
+        	</isEqual>
+        </isEqual>
+        <isNotEqual property="isApi" compareValue="true">
+        	<![CDATA[ 
+				, 0 AS myScrapCnt
+			]]>
+        </isNotEqual>
+	        
+		<![CDATA[
+              FROM VC_PAY_02 A
+             WHERE A.PRD_SN = #prdSn#
+        ]]>
+        
+       	<isNotEmpty property="lgrpCd">
+        	<![CDATA[ AND A.LGRP_CD = #lgrpCd#  ]]>
+		</isNotEmpty>
+		
+		<isEqual property="isApi" compareValue="false">
+        	<![CDATA[ AND A.USE_YN <> 'D'	]]>
+        </isEqual>
+        <isEqual property="isApi" compareValue="true">
+        	<![CDATA[ 
+        		AND  A.USE_YN = 'Y' 
+        		AND (  (A.EXPS_RGST_DTM IS NULL OR A.EXPS_RGST_DTM <= NOW()) AND (  A.EXPS_FNH_DTM IS NULL OR  A.EXPS_FNH_DTM >= NOW() ))
+        	]]>
+        </isEqual>
+	</select>
+
+
+	<!-- 
+		Query Name : paymentDAO.insertProduct 
+		Description : 정보를 등록한다. 
+	-->
+	<insert id="paymentDAO.insertProduct" parameterClass="paymentVO">
+        <![CDATA[
+			/* ProgramID=paymentDAO.insertProduct */ 
+            INSERT INTO VC_PAY_02
+                   (
+					  LANG_CD
+					, LGRP_CD
+					, MGRP_CD
+					, SGRP_CD
+					, PRD_TITL
+					, PRD_SBC1
+					, PRD_SBC2
+					, PRD_CD
+					, PRD_RCT
+					, SUPPLY_PRICE
+					, SALE_PRICE
+					, QUANTITY
+					, ST_NO
+					, SELL_YN
+					, EXPS_RGST_DTM
+					, EXPS_FNH_DTM
+					, USE_YN
+					, RGST_SN
+					, RGST_ID
+					, RGST_DTM
+				   )
+            VALUES ( 
+					  #langCd#
+					, #lgrpCd#
+					, #mgrpCd#
+					, #sgrpCd#
+					, #prdTitl#
+					, #prdSbc1#
+					, #prdSbc2#
+					, #prdCd#
+					, #prdRct#
+					, #supplyPrice#
+					, #salePrice#
+					, #quantity#
+					, #stNo#
+					, #sellYn#
+
+        ]]>
+        
+		<isNotEmpty property="expsRgstDtm">
+        	<![CDATA[	, DATE_FORMAT(#expsRgstDtm#, '%Y-%m-%d %H:%i:%s')	]]>
+		</isNotEmpty>
+		<isEmpty property="expsRgstDtm">
+        	<![CDATA[	, NULL	]]>
+		</isEmpty>
+		
+		<isNotEmpty property="expsFnhDtm">
+        	<![CDATA[	, DATE_FORMAT(#expsFnhDtm#, '%Y-%m-%d %H:%i:%s')	]]>
+		</isNotEmpty>
+		<isEmpty property="expsFnhDtm">
+        	<![CDATA[	, NULL	]]>
+		</isEmpty>
+		
+        <![CDATA[
+                   , #useYn#
+                   , #rgstSn#
+                   , #rgstId#
+                   , NOW()
+				   )
+        ]]>
+		<selectKey resultClass="int" keyProperty="prdSn">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+
+
+    
+    <!-- 
+		Query Name : paymentDAO.updateProductByStNo 
+		Description : 정렬순서 변경
+						- Service에서 For문으로 하나씩 던져줄것.
+	-->
+	<update id="paymentDAO.updateProductByStNo" parameterClass="paymentVO">
+        <![CDATA[
+			/* ProgramID=paymentDAO.updateProductByStNo */
+            UPDATE VC_PAY_02
+               SET ST_NO = #stNo#
+             WHERE PRD_SN = #prdSn#
+        ]]>
+	</update>
+	
+
+</sqlMap>
