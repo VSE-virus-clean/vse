@@ -23,36 +23,66 @@
 		<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/logo01_png-white-2.png" alt="VSE" /></a>
 		<ul class="gnb">
 			<li class="">
-				<a href="/product.vse">SIMULATOR</a>
+				<a href="/product.vse">VSE</a>
+				<div class="gnb_sub">
+					<ul class="inner">
+						<li>
+							<a href="#none">VSE1</a>
+						</li>
+						<li>
+							<a href="#none">VSE2</a>
+						</li>
+						<li>
+							<a href="#none">Ohter</a>
+						</li>
+					</ul>
+				</div>
 			</li>
 			<li>
 				<a href="/interior.vse">CHOOSE YOUR SPACE</a>
+				<div class="gnb_sub">
+				<ul class="inner">
+					<li>
+						<a href="#none">Residential Installs</a>
+					</li>
+					<li>
+						<a href="#none">Academy or Practice Range</a>
+					</li>
+					<li>
+						<a href="#none">Golf Club &amp; Golf Facility</a>
+					</li>
+					<li>
+						<a href="#none">Sports Lounge</a>
+					</li>
+				</ul>
+				</div>
 			</li>
 			<!--
 			<li>
 				<a id="GNB-STARTUP" href="/startups.vse">창업</a>
 			</li>
 			-->
-			<!---->
+			<!--
 			<li>
 				<a href="/business/presentation.vse">사업 설명회</a>
 			</li>
+			-->
 			
 			<li>
 				<a href="javascript:;">CS CENTER</a>
 				<div class="gnb_sub">
 					<ul class="inner">
 						<li>
-							<a href="/customer/faq.vse">자주하는 질문</a>
+							<a href="/customer/faq.vse">FAQ</a>
 						</li>
 						<li>
-							<a href="/customer/shop-location/list.vse">매장찾기</a>
+							<a href="/customer/shop-location/list.vse">LOCATION</a>
 						</li>
 						<li>
-							<a href="https://voicecaddie.co.kr/bbs/login.php?url=https%3A%2F%2Fvoicecaddie.co.kr%2Fbbs%2Fqalist.php" target="_blank">제품, 기타 문의</a><!-- customer_inquiry.vse -->
+							<a href="#none" target="_blank">REQUEST MORE INFORMATION</a>
 						</li>
 						<li>
-							<a href="/customer/event/list.vse">이벤트&amp;뉴스</a>
+							<a href="/customer/event/list.vse">EVENT&amp;NEWS</a>
 						</li>
 					</ul>
 				</div>
@@ -76,10 +106,35 @@
 				<div  class="mo_gnb_con">
 					<ul class="mo_gnb_1">
 						<li class="">
-							<a href="/product.vse"><span>SIMULATOR</span></a>
+							<a href="#none"><span>VSE</span></a>
+							<ul class="inner">
+								<li>
+									<a href="/product.vse">VSE1</a>
+								</li>
+								<li>
+									<a href="#none">VSE2</a>
+								</li>
+								<li>
+									<a href="#none">Ohter</a>
+								</li>
+							</ul>
 						</li>
 						<li>
-							<a href="/interior.vse"><span>CHOOSE YOUR SPACE</span></a>
+							<a href="#none"><span>CHOOSE YOUR SPACE</span></a>
+							<ul class="inner">
+								<li>
+									<a href="#none">Residential Installs</a>
+								</li>
+								<li>
+									<a href="#none">Academy or Practice Range</a>
+								</li>
+								<li>
+									<a href="#none">Golf Club &amp; Golf Facility</a>
+								</li>
+								<li>
+									<a href="#none">Sports Lounge</a>
+								</li>
+							</ul>
 						</li>
 						<!-- 
 						<li>
@@ -95,21 +150,18 @@
 							<a href="javascript:;"><span>CS CENTER</span></a>
 							<ul class="inner">
 								<li>
-									<a href="/customer/faq.vse">자주하는 질문</a>
+									<a href="/customer/faq.vse">FAQ</a>
 								</li>
 								<li>
-									<a href="/customer/shop-location.vse">매장찾기</a>
+									<a href="/customer/shop-location.vse">LOCATION</a>
 								</li>
 								<li>
-									<a href="https://voicecaddie.co.kr/bbs/login.php?url=https%3A%2F%2Fvoicecaddie.co.kr%2Fbbs%2Fqalist.php" target="_blank">제품, 기타 문의</a><!-- customer_inquiry.html -->
+									<a href="#NONE">REQUEST MORE INFORMATION</a>
 								</li>
 								<li>
-									<a href="/customer/event/list.vse">이벤트&뉴스</a>
+									<a href="/customer/event/list.vse">EVENT&amp;NEWS</a>
 								</li>
 							</ul>
-						</li>
-						<li>
-							<a href="/teaching.vse"><span>VSE레슨프로</span></a>
 						</li>
 					</ul>
 				</div>

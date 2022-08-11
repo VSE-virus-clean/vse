@@ -88,7 +88,7 @@ a.skip01:hover,a.skip01:focus,a.skip01:active,a.skip02:hover,a.skip02:focus,a.sk
 #header .header_wrap .gnb > li.hover .gnb_sub {height:120px !important;}
 #header .header_wrap .gnb > li:hover .gnb_sub ul,
 #header .header_wrap .gnb > li.hover .gnb_sub ul {display:block;}
-.gnb_sub  > .inner {padding: 40px 0 40px;padding-left:260px;overflow:hidden; width: 1200px !important; box-sizing: border-box; margin: 0 auto;}
+.gnb_sub  > .inner {padding: 40px 0 40px;padding-left:184px;overflow:hidden; width: 1200px !important; box-sizing: border-box; margin: 0 auto;}
 .gnb_sub  > ul > li {float:left;width:auto;padding-right:40px;text-align:left;}
 .gnb_sub  > ul > li > a {color:#fff;font-size: 18px;font-weight:bold;}
 .gnb_sub  > ul > li:hover  > a,
