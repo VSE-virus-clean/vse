@@ -8,9 +8,17 @@
 <!-- 	<entry key="jdbcs.database.user">web</entry> -->
 <!-- 	<entry key="jdbcs.database.pwd">1q2w3e4r</entry> -->
 	
+	<!-- 운영  -->
+	<!-- 
 	<entry key="jdbcs.database.url">jdbc:mysql://viruscleanlab.co6jad5ex5nn.ap-northeast-2.rds.amazonaws.com:3306/virusclean?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;autoReconnectForPools=true&amp;zeroDateTimeBehavior=convertToNull</entry>
 	<entry key="jdbcs.database.user">vclab</entry>
 	<entry key="jdbcs.database.pwd">vclab12!#</entry>
+	-->
+	
+	<!-- 개발 -->
+	<entry key="jdbcs.database.url">jdbc:mysql://usa-vse-dev.co6jad5ex5nn.ap-northeast-2.rds.amazonaws.com:3306/virusclean?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;autoReconnectForPools=true&amp;zeroDateTimeBehavior=convertToNull</entry>
+	<entry key="jdbcs.database.user">vclab</entry>
+	<entry key="jdbcs.database.pwd">y4pKjAPbyK</entry>
 	
 	<entry key="jdbcs.database.jndiName">XXXX</entry>
 </properties>
