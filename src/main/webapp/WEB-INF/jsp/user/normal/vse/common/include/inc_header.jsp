@@ -33,11 +33,11 @@
 				<a id="GNB-STARTUP" href="/startups.vse">창업</a>
 			</li>
 			-->
-			<!--
+			<!---->
 			<li>
 				<a href="/business/presentation.vse">사업 설명회</a>
 			</li>
-			-->
+			
 			<li>
 				<a href="javascript:;">CS CENTER</a>
 				<div class="gnb_sub">

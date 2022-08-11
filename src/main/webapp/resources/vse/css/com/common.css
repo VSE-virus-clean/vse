@@ -106,16 +106,21 @@ a.skip01:hover,a.skip01:focus,a.skip01:active,a.skip02:hover,a.skip02:focus,a.sk
 #footer .footer_con .footer_sec h3 a{font-size:14px;line-height:20px;color:#fff;font-weight:900}
 #footer .footer_con .footer_sec ul li {opacity:0.6;line-height:24px;}
 #footer .footer_con .footer_sec ul li ,
-#footer .footer_con .footer_sec ul li a {font-size:12px;color:#adadad;}
-#footer .footer_con.top {border-bottom:2px solid #141414;margin-bottom:50px;}
-#footer .footer_con.top .inner {padding-left:230px;height:80px;background:url('../../images/com/logo.png') left top 24px no-repeat;box-sizing:border-box;}
+#footer .footer_con .footer_sec ul li a {font-size:14px;color:#fff;}
+#footer .footer_con .footer_sec ul li a:hover{
+	text-decoration: underline;
+}
+#footer .footer_con.top {border-bottom:2px solid #141414;margin-bottom:20px;}
+#footer .footer_con.top .inner {padding-left:230px;height:80px;background:url('../../images/com/logo01_png-white-2.png') left top 24px no-repeat;box-sizing:border-box;
+	background-size: 70px
+}
 #footer .footer_con.top .footer_sec {width:170px;line-height:40px;height:80px;padding:20px 0;}
 #footer .footer_con.top h3 {display:inline-block;width:100%;vertical-align:middle;text-align:center;}
 #footer .footer_con.top .footer_sec + .footer_sec h3 {border-left:2px solid #141414;} 
 
 #footer .footer_con.bottom .footer_sec h3 {margin-bottom:20px;display:block;}
 #footer .footer_con.bottom .footer_sec {min-height:130px !important;width:auto;padding:0 30px 0 0;}
-#footer .footer_con.bottom .footer_sec + .footer_sec {border-left:2px solid #141414;padding-left:30px;}
+#footer .footer_con.bottom .footer_sec + .footer_sec {padding-left:30px;}
 #footer .footer_con.bottom .footer_sec ul {float:left;}
 #footer .footer_con.bottom .footer_sec:nth-child(1) ul + ul {margin-left:30px !important;}
 #footer .footer_con .footer_sec.footer_sns_wrap {width:350px !important;float:right !important;overflow:hidden;background:#191919;text-align:center;}
@@ -142,6 +147,21 @@ a.skip01:hover,a.skip01:focus,a.skip01:active,a.skip02:hover,a.skip02:focus,a.sk
 }
 input::placeholder{
 	color: #999!important
+}
+._p_icon{
+	position: relative;
+	padding-left: 15px;
+}
+._p_icon:after{
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    background: red;
+    position: absolute;
+    left: 0;
+    top: calc(50% - 4px);
 }
 .mo_header {display:none;}
 

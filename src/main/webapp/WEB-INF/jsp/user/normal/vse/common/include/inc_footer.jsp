@@ -13,6 +13,7 @@
 <div id="footer">
 	<div class="footer_con top">
 		<div class="inner">
+			<!-- 
 			<div class="footer_sec">
 				<h3><a href="/company/intro.vse">회사소개</a></h3>
 			</div>
@@ -22,6 +23,7 @@
 			<div class="footer_sec">
 				<h3><a href="/company/personal.vse">개인정보취급방침</a></h3>
 			</div>
+			 -->
 			<div class="footer_sec footer_sns_wrap">
 				<h3>FOLLOW US</h3>
 				<ul class="footer_sns">
@@ -39,17 +41,10 @@
 	<div class="footer_con bottom">
 		<div class="inner">
 			<div class="footer_sec">
-				<h3>(주)브이씨</h3>
+				<h3>Customer Service</h3>
 				<ul>
-					<li>대표자: 김준오 </li>
-					<li>주소: 서울특별시 강남구 테헤란로 108길 23</li>
-					<li>대표번호: 02-538-3100 </li>
-					<li>팩스번호 02-538-3104,5</li>
-				</ul>
-				<ul>
-					<li>사업자등록번호: 209-81-39552 </li>
-					<li>정보처리담당자: 이상윤 </li>
-					<li>통신판매업신고: 제2019-서울강남-03541호</li>
+					<li>Support@voicecaddie.com</li>
+					<li>562-926-3978</li>
 				</ul>
 			</div>
 			<!-- 
@@ -64,15 +59,18 @@
 			</div>
 			 -->
 			<div class="footer_sec">
-				<h3>VSE 고객센터</h3>
 				<ul>
-					<li>문의: 1544-4667</li>
+					<li><a class="_p_icon" href="https://voicecaddie.com/terms-of-service/" target="_blank">Terms of Service</a></li>
+					<li><a class="_p_icon" href="https://voicecaddie.com/privacy-policy/" target="_blank">Privacy Policy</a></li>
+					<li><a class="_p_icon" href="https://voicecaddie.com/warranty/" target="_blank">Warranty Policy</a></li>
+					<li><a class="_p_icon" href="https://voicecaddie.com/shipping-returns/" target="_blank">Shipping and Returns</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<!--footer_con-->
+	<!--footer_con
 	<p class="footer_copyright">COPYRIGHT © 2021. voicecaddie. ALL RIGHTS RESERVED.</p>
+	-->
 </div>
 <div id="wp_tg_cts" style="display:none;"></div>
 
