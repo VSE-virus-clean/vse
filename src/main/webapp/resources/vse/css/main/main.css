@@ -20,6 +20,15 @@
 .section01 .scroll_swing span:before {content:'';display:block;width:14px;height:9px;background:url('../../images/icon/arrow_w.png') center no-repeat;margin: 10px auto;}
 .section01 .scroll_swing span {display:block;color:#fff;font-size:12px;line-height:12px;animation:scrollArrow 1.5s infinite}
 
+.section01 #MainVideo01.v_image_only{
+	background-image: url(/resources/vse/images/main/home_main_01.jpg);
+	height: 100%;
+    background-size: cover;
+    background-position: center;
+    transform: none;
+    min-width: 100%!important
+}
+
 /*section02*/
 .section02 {padding:130px 0;}
 .section02 h3.tit {font-size: 46px;line-height: 46px;margin-bottom:5px;letter-spacing: -5px !important;}
@@ -46,7 +55,7 @@
 .section04 .process ul li.process_02 img{margin:40px auto 20px}
 /*section05*/
 .section05 {padding:110px 0;}
-.section05 h3.tit {margin-bottom:80px;}
+.section05 h3.tit {margin-bottom:40px;}
 .section05 .sub_tit {position:relative;padding-left:30px;}
 .section05 .sub_tit:after {content:'';display:block; width: 0px;height: 0px;border-top: 14px solid transparent;border-right: 14px solid #c10023;position:absolute;top:0;left:0;transform: rotate(180deg);}
 .section05 .sub_txt {padding-left:30px;}

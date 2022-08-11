@@ -7,7 +7,7 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 .active h3.tit + .sub_txt { opacity: 1 ; transform: translate(0, 0) !important;}
 */
 #header {background:#000;}
-#header .top_link {background:#c10023;}
+#header .top_link {}
 #contentWrap {padding-top:150px;padding-bottom:100px;}
 
 .bg_black .tit {color:#fff;}

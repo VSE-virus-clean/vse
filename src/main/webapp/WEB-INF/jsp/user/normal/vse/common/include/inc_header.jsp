@@ -12,32 +12,34 @@
                   GNB영역이다.
 --%>
 <div id="skipNav">
-	<a href="#contentWrap">본문 바로가기</a>
-	<a href="#header">글로벌 네비게이션 바로가기</a>
+	<a href="#contentWrap">contents</a>
+	<a href="#header">menu</a>
 </div>
 
 
 <div id="header">
-	<h2 id="gnbAnchor">글로벌 네비게이션 영역</h2>
+	<h2 id="gnbAnchor">menu</h2>
 	<div class="header_wrap">
-		<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/header_logo.png" alt="VSE로고" /></a>
+		<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/logo01_png-white-2.png" alt="VSE" /></a>
 		<ul class="gnb">
 			<li class="">
-				<a href="/product.vse">VSE</a>
+				<a href="/product.vse">SIMULATOR</a>
 			</li>
 			<li>
-				<a href="/interior.vse">인테리어</a>
+				<a href="/interior.vse">CHOOSE YOUR SPACE</a>
 			</li>
+			<!--
 			<li>
 				<a id="GNB-STARTUP" href="/startups.vse">창업</a>
 			</li>
+			-->
 			<!--
 			<li>
 				<a href="/business/presentation.vse">사업 설명회</a>
 			</li>
 			-->
 			<li>
-				<a href="javascript:;">고객지원</a>
+				<a href="javascript:;">CS CENTER</a>
 				<div class="gnb_sub">
 					<ul class="inner">
 						<li>
@@ -55,9 +57,11 @@
 					</ul>
 				</div>
 			</li>
+			<!-- 
 			<li>
 				<a href="/teaching.vse">VSE레슨프로</a>
 			</li>
+			 -->
 
 		</ul>
 		<!-- gnb -->
@@ -66,27 +70,29 @@
 			<a href="javascript:;" class="allmenu"></a>
 			<div class="mo_gnb">
 				<div class="mo_gnb_header">
-					<a href="/index.vse" class="logo">보이스캐디<img src="/resources/vse/images/com/symbol_w.png" alt="VSE로고"></a>
-					<a href="javascript:;" class="allmenu_close" title="메뉴닫기"></a>
+					<a href="/index.vse" class="logo">VOICE CADDIE<img src="/resources/vse/images/com/symbol_w.png" alt="VSE"></a>
+					<a href="javascript:;" class="allmenu_close" title="CLOSE"></a>
 				</div>
 				<div  class="mo_gnb_con">
 					<ul class="mo_gnb_1">
 						<li class="">
-							<a href="/product.vse"><span>VSE</span></a>
+							<a href="/product.vse"><span>SIMULATOR</span></a>
 						</li>
 						<li>
-							<a href="/interior.vse"><span>인테리어</span></a>
+							<a href="/interior.vse"><span>CHOOSE YOUR SPACE</span></a>
 						</li>
+						<!-- 
 						<li>
 							<a href="/startups.vse"><span>창업</span></a>			
 						</li>
+						 -->
 						<!--
 						<li>
 							<a href="/business/presentation.vse"><span>사업 설명회</span></a>
 						</li>
 						-->
 						<li class="sub">
-							<a href="javascript:;"><span>고객지원</span></a>
+							<a href="javascript:;"><span>CS CENTER</span></a>
 							<ul class="inner">
 								<li>
 									<a href="/customer/faq.vse">자주하는 질문</a>
@@ -110,7 +116,7 @@
 			</div>
 		</div>
 		<!-- END:mo_gnb -->
-		<a href="https://main.voicecaddie.co.kr/" class="top_link" target="_blank">보이스캐디 바로가기 <img src="/resources/vse/images/icon/icon_link.png" alt="링크이동하기 아이콘" /></a>	
+		<a href="https://voicecaddie.com/" class="top_link" target="_blank"><img src="/resources/vse/images/com/logo.png" alt="voice caddie" /></a>	
 	</div>
 </div>
 
