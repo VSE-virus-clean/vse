@@ -70,51 +70,60 @@ public class VseController extends XController {
 	 * 제품설명
 	 * vse/product/product.jsp
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/product.vse"} )
     public String product(ModelMap model) throws Exception{     
 		model.addAttribute("pageMenuId", "VSE-PRODUCT");
         return "vse/product/product";
     }
+    */
+	
 	
 	/**
 	 * 인테리어 > 사진
 	 * vse/interior/interior_photo
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/interior.vse"} )
     public String interior_photo(ModelMap model) throws Exception{     
 		model.addAttribute("pageMenuId", "VSE-INTERIOR-PHOTO");
         return "vse/interior/interior_photo";
     }
+    */
 	
 	/**
 	 * 창업 > 창업시스템
 	 * vse/interior/interior_photo
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/startups.vse"} )
     public String startups_system(ModelMap model) throws Exception{     
 		model.addAttribute("pageMenuId", "VSE-STARTUPS-SYSTEM");
         return "vse/startups/startups_system";
     }
+    */
 	
 	/**
 	 * 사업설명회 > 첨가첩수 > 창업상담
 	 * business/business_register01.html
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/business/consult.vse"} )
     public String business_register01(ModelMap model) throws Exception{     
 		model.addAttribute("pageMenuId", "VSE-BUSINESS-REGISTER01");
         return "vse/business/business_register01";
     }
-	
+	 */
 	
 	/**
 	 * 사업설명회 > 첨가첩수 > 사업설명회
 	 * business/business_register02.html
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/business/presentation.vse"} )
     public String business_register02(ModelMap model) throws Exception{    
@@ -127,6 +136,7 @@ public class VseController extends XController {
 		model.addAttribute("pageMenuId", "VSE-BUSINESS-REGISTER02");
         return "vse/business/business_register02";
     }
+    */
 	
 	/**
 	 * 고객지원 > FAQ
@@ -204,17 +214,19 @@ public class VseController extends XController {
 	 * VSE레슨프로 : APPLICATION
 	 * teaching/teachingpro.html
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/teaching.vse"} )
     public String teachingpro(ModelMap model) throws Exception{     
 		model.addAttribute("pageMenuId", "VSE-TEACHING-TEACHINGPRO");
         return "vse/teaching/teachingpro";
     }
-	
+	*/
 	/**
 	 * 회사소개
 	 * vse/product/company_intro.jsp
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/company/intro.vse"} )
     public String company_intro(ModelMap model) throws Exception{     
@@ -223,34 +235,40 @@ public class VseController extends XController {
 		
         return "vse/product/company_intro";
     }
+    */
 	
 	/**
 	 * 이용약관
 	 * vse/product/company_conditions.jsp
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/company/conditions.vse"} )
     public String company_conditions(ModelMap model) throws Exception{     
 		model.addAttribute("pageMenuId", "VSE-COMPANY-CONDITIONS");
         return "vse/product/company_conditions";
     }
+    */
 	
 	/*
 	 * 개인정보취급방침
 	 * vse/product/company_personal.jsp
 	 */
+	/*
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/company/personal.vse"} )
     public String company_personal(ModelMap model) throws Exception{     
 		model.addAttribute("pageMenuId", "VSE-COMPANY-PERSONAL");
         return "vse/product/company_personal";
     }
+    */
 	
 	
 	
 	/**
      * 커뮤니티 입력
      */
+	/*
 	@AuthCheck(loginCheck=false)
     @ResponseBody
     @RequestMapping(value= "/apply/register.vse", method=RequestMethod.POST)
@@ -271,6 +289,104 @@ public class VseController extends XController {
         }
         
         return mResult;
+    }
+    */
+	
+	/**
+	 * vse1
+	 * vse/product/vse1.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/product/vse1.vse"} )
+    public String product_vse1(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "product_vse1");
+		
+        return "vse/product/vse1";
+    }
+	/**
+	 * vse2
+	 * vse/product/vse2.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/product/vse2.vse"} )
+    public String product_vse2(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "product_vse2");
+		
+        return "vse/product/vse2";
+    }
+	/**
+	 * ohter
+	 * vse/product/ohter.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/product/ohter.vse"} )
+    public String product_ohter(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "product_ohter");
+		
+        return "vse/product/ohter";
+    }
+	/**
+	 * choose your space
+	 * vse/space/main.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/space/main.vse"} )
+    public String space_main(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "space");
+		
+        return "vse/space/main";
+    }
+	/**
+	 * choose your space - Residential Installs
+	 * vse/space/residential_installs.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/space/residential_installs.vse"} )
+    public String space_residential_installs(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "space");
+		
+        return "vse/space/residential_installs";
+    }
+	/**
+	 * choose your space - Academy or Practice Range
+	 * vse/space/academy_or_practice_range.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/space/academy_or_practice_range.vse"} )
+    public String space_academy_or_practice_range(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "space");
+		
+        return "vse/space/academy_or_practice_range";
+    }
+	/**
+	 * choose your space - Golf Club & Golf Facility
+	 * vse/space/golf_club_golf_facility.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/space/golf_club_golf_facility.vse"} )
+    public String space_golf_club_golf_facility(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "space");
+		
+        return "vse/space/golf_club_golf_facility";
+    }
+	/**
+	 * choose your space - Sports Lounge
+	 * vse/space/sports_lounge.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/space/sports_lounge.vse"} )
+    public String space_sports_lounge(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "space");
+		
+        return "vse/space/sports_lounge";
     }
 
 }

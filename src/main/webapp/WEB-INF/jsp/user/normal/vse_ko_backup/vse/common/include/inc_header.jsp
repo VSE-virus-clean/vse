@@ -39,20 +39,20 @@
 				</div>
 			</li>
 			<li>
-				<a href="/space/main.vse">CHOOSE YOUR SPACE</a>
+				<a href="/interior.vse">CHOOSE YOUR SPACE</a>
 				<div class="gnb_sub">
 				<ul class="inner">
 					<li>
-						<a href="/space/residential_installs.vse">Residential Installs</a>
+						<a href="#none">Residential Installs</a>
 					</li>
 					<li>
-						<a href="/space/academy_or_practice_range.vse">Academy or Practice Range</a>
+						<a href="#none">Academy or Practice Range</a>
 					</li>
 					<li>
-						<a href="/space/golf_club_golf_facility.vse">Golf Club &amp; Golf Facility</a>
+						<a href="#none">Golf Club &amp; Golf Facility</a>
 					</li>
 					<li>
-						<a href="/space/sports_lounge.vse">Sports Lounge</a>
+						<a href="#none">Sports Lounge</a>
 					</li>
 				</ul>
 				</div>

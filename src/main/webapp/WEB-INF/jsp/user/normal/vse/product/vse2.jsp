@@ -14,7 +14,7 @@
 <div id="contentWrap" class="">
 	<h2 id="contentAnchor">콘텐츠 영역</h2>
 	<div class="inner product_top" style="padding-bottom:500px">
-		<h3 class="tit move">보이스캐디의 <br class="mo">정확함이 그대로</h3>
+		<h3 class="tit move">VSE2</h3>
 		<p class="sub_txt text_center mt40 move move02">보이스캐디의 정확한 측정기술이 그대로 접목된 <br class="mo">MACH 401센서는 <br class="pc"/>어떠한 상황의 샷도 <br class="mo">일관성 있게 거리정보를 안내합니다.</p>
 		<p class="keywords_wrap text_center mt40 move move02">#정확도 #모션센싱 #키오스크</p>
 		<div class="product_video move move02">

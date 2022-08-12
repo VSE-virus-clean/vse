@@ -7,19 +7,11 @@
 <%@ taglib prefix="function" uri="http://www.jksoft.com/taglib/function" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<%--
-Description : 개인정보보호방침
+<%-- 
+    Description : choose your space residential_installs
 --%>
 
 <div id="contentWrap" class="">
-	<h2 id="contentAnchor">콘텐츠 영역</h2>
-
-	<div class="inner">
-		<%@ include file="/WEB-INF/jsp/user/normal/vse/common/include/inc_privateTextarea.jsp" %>
-	</div>
+	<h2>residential_installs</h2>
+	menuid = <c:out value="${pageMenuId}" />
 </div>
-<script>
-$(function(){
-$('#header .gnb > li').eq(0).addClass('active');
-});
-</script>
