@@ -69,7 +69,7 @@ p.vsebusiness-image img { width:100%; }
 			<div class="inner">
 				<div class="con text_center">
 					<h3 class="tit move">VSE leads the golf market by adding new “experience” and “Value” to golfers’ lifestyle.</h3>
-					<a href="/interior.vse" class="btn btn_round move move02">Choose Your Space</a>
+					<a href="/space/main.vse" class="btn btn_round move move02">Choose Your Space</a>
 				</div>
 			</div>
 		</div>

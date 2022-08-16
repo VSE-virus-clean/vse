@@ -22,7 +22,7 @@
 	<div class="header_wrap">
 		<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/logo01_png-white-2.png" alt="VSE" /></a>
 		<ul class="gnb">
-			<li class="">
+			<li class=<c:out value="${pageMenuId == 'product' ? 'active':'' }" />>
 				<a href="/product/vse1.vse">VSE</a>
 				<div class="gnb_sub">
 					<ul class="inner"> 
@@ -38,7 +38,7 @@
 					</ul>
 				</div>
 			</li>
-			<li>
+			<li class=<c:out value="${pageMenuId == 'space' ? 'active':'' }" />>
 				<a href="/space/main.vse">CHOOSE YOUR SPACE</a>
 				<div class="gnb_sub">
 				<ul class="inner">
@@ -68,8 +68,8 @@
 			</li>
 			-->
 			
-			<li>
-				<a href="javascript:;">CS CENTER</a>
+			<li class=<c:out value="${pageMenuId == 'customer' ? 'active':'' }" />>
+				<a href="/customer/faq.vse">CS CENTER</a>
 				<div class="gnb_sub">
 					<ul class="inner">
 						<li>
@@ -79,10 +79,10 @@
 							<a href="/customer/shop-location/list.vse">LOCATION</a>
 						</li>
 						<li>
-							<a href="#none" target="_blank">REQUEST MORE INFORMATION</a>
+							<a href="/customer/request_more_information.vse">REQUEST MORE INFORMATION</a>
 						</li>
 						<li>
-							<a href="/customer/event/list.vse">EVENT&amp;NEWS</a>
+							<a href="/customer/event/list.vse">NOTICE&amp;NEWS</a>
 						</li>
 					</ul>
 				</div>
@@ -107,32 +107,32 @@
 					<ul class="mo_gnb_1">
 						<li class="">
 							<a href="#none"><span>VSE</span></a>
-							<ul class="inner">
+							<ul class="inner"> 
 								<li>
-									<a href="/product.vse">VSE1</a>
+									<a href="/product/vse1.vse">VSE1</a>
 								</li>
 								<li>
-									<a href="#none">VSE2</a>
+									<a href="/product/vse2.vse">VSE2</a>
 								</li>
 								<li>
-									<a href="#none">Ohter</a>
+									<a href="/product/ohter.vse">Ohter</a>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<a href="#none"><span>CHOOSE YOUR SPACE</span></a>
+							<a href="/space/main.vse"><span>CHOOSE YOUR SPACE</span></a>
 							<ul class="inner">
 								<li>
-									<a href="#none">Residential Installs</a>
+									<a href="/space/residential_installs.vse">Residential Installs</a>
 								</li>
 								<li>
-									<a href="#none">Academy or Practice Range</a>
+									<a href="/space/academy_or_practice_range.vse">Academy or Practice Range</a>
 								</li>
 								<li>
-									<a href="#none">Golf Club &amp; Golf Facility</a>
+									<a href="/space/golf_club_golf_facility.vse">Golf Club &amp; Golf Facility</a>
 								</li>
 								<li>
-									<a href="#none">Sports Lounge</a>
+									<a href="/space/sports_lounge.vse">Sports Lounge</a>
 								</li>
 							</ul>
 						</li>
@@ -147,19 +147,19 @@
 						</li>
 						-->
 						<li class="sub">
-							<a href="javascript:;"><span>CS CENTER</span></a>
+							<a href="#none"><span>CS CENTER</span></a>
 							<ul class="inner">
 								<li>
 									<a href="/customer/faq.vse">FAQ</a>
 								</li>
 								<li>
-									<a href="/customer/shop-location.vse">LOCATION</a>
+									<a href="/customer/shop-location/list.vse">LOCATION</a>
 								</li>
 								<li>
-									<a href="#NONE">REQUEST MORE INFORMATION</a>
+									<a href="/customer/request_more_information.vse">REQUEST MORE INFORMATION</a>
 								</li>
 								<li>
-									<a href="/customer/event/list.vse">EVENT&amp;NEWS</a>
+									<a href="/customer/event/list.vse">NOTICE&amp;NEWS</a>
 								</li>
 							</ul>
 						</li>

@@ -151,7 +151,7 @@ public class VseController extends XController {
 		model.addAttribute("result", boardService.selectBoardList(boardVO));
 		
 		model.addAttribute("requestUri", "customer/faq");
-		model.addAttribute("pageMenuId", "VSE-CUSTOMER-FAQ");
+		model.addAttribute("pageMenuId", "customer");
         return "vse/customer/customer_qna";
     }
 	
@@ -169,7 +169,7 @@ public class VseController extends XController {
 		
 		model.addAttribute("result", boardService.selectBoardList(boardVO));
 		model.addAttribute("requestUri", "customer/shop-location");
-		model.addAttribute("pageMenuId", "VSE-CUSTOMER-SHOP");
+		model.addAttribute("pageMenuId", "customer");
 		
         return "vse/customer/customer_shop";
     }
@@ -188,7 +188,7 @@ public class VseController extends XController {
 		
 		model.addAttribute("result", boardService.selectBoardList(boardVO));
 		model.addAttribute("requestUri", "customer/event");
-		model.addAttribute("pageMenuId", "VSE-CUSTOMER-EVENT");
+		model.addAttribute("pageMenuId", "customer");
         return "vse/customer/customer_event";
     }
 	
@@ -205,7 +205,7 @@ public class VseController extends XController {
 		
 		model.addAttribute("result", boardService.selectBoard(boardVO));
         model.addAttribute("requestUri", "customer/event");
-		model.addAttribute("pageMenuId", "VSE-CUSTOMER-EVENT");
+		model.addAttribute("pageMenuId", "customer");
 		
         return "vse/customer/customer_board_view";
     }
@@ -300,7 +300,7 @@ public class VseController extends XController {
     @RequestMapping(value={"/product/vse1.vse"} )
     public String product_vse1(ModelMap model) throws Exception{     
 		
-		model.addAttribute("pageMenuId", "product_vse1");
+		model.addAttribute("pageMenuId", "product");
 		
         return "vse/product/vse1";
     }
@@ -312,7 +312,7 @@ public class VseController extends XController {
     @RequestMapping(value={"/product/vse2.vse"} )
     public String product_vse2(ModelMap model) throws Exception{     
 		
-		model.addAttribute("pageMenuId", "product_vse2");
+		model.addAttribute("pageMenuId", "product");
 		
         return "vse/product/vse2";
     }
@@ -324,7 +324,7 @@ public class VseController extends XController {
     @RequestMapping(value={"/product/ohter.vse"} )
     public String product_ohter(ModelMap model) throws Exception{     
 		
-		model.addAttribute("pageMenuId", "product_ohter");
+		model.addAttribute("pageMenuId", "product");
 		
         return "vse/product/ohter";
     }
@@ -387,6 +387,18 @@ public class VseController extends XController {
 		model.addAttribute("pageMenuId", "space");
 		
         return "vse/space/sports_lounge";
+    }
+	/**
+	 * cs center - REQUEST MORE INFORMATION
+	 * vse/customer/request_more_information.jsp
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/customer/request_more_information.vse"} )
+    public String customer_request_more_information(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "customer");
+		
+        return "vse/customer/request_more_information";
     }
 
 }

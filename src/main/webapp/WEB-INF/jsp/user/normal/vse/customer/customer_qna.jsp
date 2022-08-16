@@ -13,12 +13,12 @@
 
 <div id="contentWrap" class="">
 	<h2 id="contentAnchor">콘텐츠 영역</h2>
-	<h3 class="tit"> FAQ 자주하는 질문 </h3>
+	<h3 class="tit"> FAQ </h3>
 	<div class="inner mt100">
 		<ul class="faq_wrap">
 			<c:choose>
 			<c:when test="${empty result.list}">
-				<li class="nodata">검색 결과가 없습니다.</li>
+				<li class="nodata">No Data.</li>
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${result.list}" var="data" varStatus="i">
@@ -32,9 +32,4 @@
 		</ul>
 	</div>
 </div>
-<script>
-$(function(){
-	$('#header .gnb > li').eq(4).addClass('active');
-});
-</script>
 			

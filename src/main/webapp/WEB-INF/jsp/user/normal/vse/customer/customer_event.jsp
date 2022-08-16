@@ -8,25 +8,25 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%-- 
-    Description : 고객지원 > 이벤트뉴스 > 목록
+    Description : customer - notice & news
 --%>
 
 <div id="contentWrap" class="">
 	<h2 id="contentAnchor">콘텐츠 영역</h2>
-	<h3 class="tit"> 이벤트 &amp; 뉴스 </h3>
+	<h3 class="tit"> NOTICE &amp; NEWS </h3>
 
 	<div class="bg_gray search_wrap mt50">
 		<div class="inner">
 			<form name="searchForm" method="get" class="search_bar" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 				<select name="searchType" class="select_type_01 search_select">
-					<option value="0">전체</option>
-                       <option value="1">제목</option>
-                       <option value="2">내용</option>
+					<option value="0">ALL</option>
+                       <option value="1">TITLE</option>
+                       <option value="2">CONTENTS</option>
 				</select>
 				<div class="search_type_01">
-					<input type="search" id="searchKey" name="searchKey" title="검색어" maxlength="100" minlength="2" placeholder="궁금하신 내용을 입력해주세요." value="${result.searchInfo.searchKey}"/>
-					<a class="btn_search submit" href="#" title="검색하기">
-						<img src="/resources/vse/images/btn/btn_search.png" alt="검색아이콘">
+					<input type="search" id="searchKey" name="searchKey" title="검색어" maxlength="100" minlength="2" placeholder="Please enter the contents." value="${result.searchInfo.searchKey}"/>
+					<a class="btn_search submit" href="#" title="Search">
+						<img src="/resources/vse/images/btn/btn_search.png" alt="search icon">
 					</a>
 				</div>
 			</form>
@@ -42,7 +42,7 @@
 			<ul class="clear">
 				<c:choose>
 	                <c:when test="${empty result.list}">
-	                    <li class="nodata">등록된 게시물이 없습니다.</li>
+	                    <li class="nodata">No Data.</li>
 	                </c:when>
 	                <c:otherwise>
 	                    <c:forEach items="${result.list}" var="data" varStatus="i">
@@ -73,7 +73,6 @@
 </div>
 <script>
 $(function(){
-	$('#header .gnb > li').eq(4).addClass('active');
 	
 	 $('form[name=searchForm]').ready(function(){
 		$('select[name=searchType] option[value="${result.searchInfo.searchType}"]').prop('selected', true);

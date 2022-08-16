@@ -99,6 +99,18 @@
 /*.btn */
 .btn_wrap {text-align:center;}
 .btn {padding:20px;line-height:20px;font-size:20px;background:#010101;border-radius:50px;color:#fff;text-align:center;display:inline-block;box-sizing:border-box;transition:all 0.5s;}
+.btn2 {
+	padding: 15px 20px;
+    line-height: 20px;
+    font-size: 20px;
+    background: #010101;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    box-sizing: border-box;
+    transition: all 0.5s;
+}
 .btn img {display:inline-block;margin-top:-4px;}
 .btn_type_02 {width:150px;padding:12px;line-height:20px;font-size:16px;background:#010101;color:#fff;text-align:center;display:inline-block;box-sizing:border-box;}
 .btn_round {background:none !important;line-height: 16px;border:2px solid #fff;transition:all 0s;}
@@ -107,7 +119,9 @@
 .btn_prev {height: 50px;width: 22px;background: url(../../images/btn/btn_select.png) center no-repeat;display: inline-block;float: right;transform: rotate(-90deg);}
 .btn_black:hover,
 .btn:hover {background:#c10023 !important;color:#fff !important;}
+.btn2:hover {background:#c10023 !important;color:#fff !important;}
 .btn.btn_round:hover {border-color:#c10023 !important;}
+.btn2.btn_round:hover {border-color:#c10023 !important;}
 /* font color */
 .color_gray {color:#777777;}
 .color_gray5 {color:#555;}

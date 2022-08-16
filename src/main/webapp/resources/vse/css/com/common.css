@@ -163,6 +163,12 @@ input::placeholder{
     left: 0;
     top: calc(50% - 4px);
 }
+.no_padding{
+	padding: 0!important
+}
+._relatives{
+	position: relative;
+}
 .mo_header {display:none;}
 
 

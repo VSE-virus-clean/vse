@@ -26,16 +26,16 @@
 <!-- 						<td>보이스캐디</td> -->
 <!-- 					</tr> -->
 					<tr>
-						<th>작성일</th>
+						<th>Date</th>
 						<td>${result.info.userViewDtm}</td>
 					</tr>
 					<tr>
-						<th>조회</th>
+						<th>Hits</th>
 						<td>${result.info.blcRct}</td>
 					</tr>
 					<c:if test="${not empty result.file.list}">
 					<tr>
-						<th>첨부파일</th>
+						<th>Attachment</th>
 						<td>
 							${function:printAttachFileList3("Y", "ATTCH", result.file.list)}
 						</td>
@@ -54,15 +54,10 @@
 		<div class="btn_wrap mt60 clear">
 <!-- 			<a href="javascript:;" class="btn_type_02 btn_round_bk f_l">이전글</a> -->
 			<p class="inline_block f_r">
-				<a href="${contextPath}/${requestUri}/list.vse?${function:searchQuery(result.searchInfo)}" class="btn_type_02 btn_round_bk">목록</a>	
+				<a href="${contextPath}/${requestUri}/list.vse?${function:searchQuery(result.searchInfo)}" class="btn_type_02 btn_round_bk">LIST</a>	
 			</p>
 		</div>
     </div>
 
 
 </div>
-<script>
-$(function(){
-	$('#header .gnb > li').eq(4).addClass('active');
-});
-</script>

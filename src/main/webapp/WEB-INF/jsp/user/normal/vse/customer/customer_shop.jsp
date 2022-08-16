@@ -13,7 +13,8 @@
 <div id="contentWrap" class="">
 	<h2 id="contentAnchor">콘텐츠 영역</h2>
 	<div class="inner map_wrap">
-		<h3 class="tit mb50">매장찾기</h3>
+		<h3 class="tit">LOCATION</h3>
+		<p class="sub_tit text_center mb50">SHOWROOMS / DEALERS</p>
 
 		<div class="table_type_02 mt50">
 			<table>
@@ -26,22 +27,22 @@
 				<thead>
 					<tr>
 						<th class="">NO</th>
-						<th class="">매장명</th>
-						<th class="">타석수</th>
-						<th class="">주소</th>
+						<th class="">Store name</th>
+						<th class="">Contact</th>
+						<th class="">Address</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:choose>
 						<c:when test="${empty result.list}">
-							<tr><td colspan="4"  class="nodata">등록된 매장이 없습니다.</td></tr>
+							<tr><td colspan="4"  class="nodata">No Data.</td></tr>
 						</c:when>
 						<c:otherwise>
 	                    	<c:forEach items="${result.list}" var="data" varStatus="i">
 								<tr class="text_center">
 									<td>${function:rowNumber(result.searchInfo, i.count)}</td>
 									<td>
-										<a href="https://map.kakao.com/?map_type=TYPE_MAP&q=${data.blcSbc4}&urlLevel=3" target="_blank">
+										<a href="https://www.google.co.kr/maps/place/${data.blcSbc4}" target="_blank">
 											<strong><tag:html value="${data.blcTitl}" attr="NQ" /></strong>
 										</a>
 									</td>
@@ -68,13 +69,10 @@
 // 		"key" : "26yqw",
 		//"mapWidth" : "585",
 		//"mapHeight" : "546",
-		"mapHeight" : "<?php if(is_mobile()) { ?>250<?php } else { ?>546<?php } ?>"
+		//"mapHeight" : "<?php if(is_mobile()) { ?>250<?php } else { ?>546<?php } ?>"
 		
 // 	}).render();
 	
-	$(function(){
-		$('#header .gnb > li').eq(4).addClass('active');
-	});
 </script>
 <style>
 .section_address {display:none;}

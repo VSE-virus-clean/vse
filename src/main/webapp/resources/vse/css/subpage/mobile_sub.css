@@ -7,6 +7,24 @@
 .product_top .product_video {left: 0;width: 100%;margin-left: 0;padding: 0 18px;margin-bottom: -50px;box-sizing: border-box;position:relative;}
 .product_top .product_video iframe {width:100% !important;height:350px !important;}
 
+/*cys*/
+.mobile ._txt_centers h3{
+	font-size: 28px
+}
+.mobile ._txt_centers{
+	width: auto;
+	padding: 0 18px;
+	line-height: 30px;
+}
+.mobile ._txt_centers p{
+	font-size: 15px
+}
+.mobile ._h500{
+	height: 250px;
+}
+.mobile ._txt_centers .btn2{
+	margin-top: 20px
+}
 /*220317*/
 .icon_pro_more {display:inline-block;width:20px;height:20px;background:url('../../images/icon/icon_pro_more.png') center no-repeat;background-size:20px;vertical-align:middle;}
 
