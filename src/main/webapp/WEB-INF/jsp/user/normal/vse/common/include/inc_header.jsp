@@ -29,9 +29,11 @@
 						<li>
 							<a href="/product/vse1.vse">VSE1</a>
 						</li>
+						<!-- 
 						<li>
 							<a href="/product/vse2.vse">VSE2</a>
 						</li>
+						 -->
 						<li>
 							<a href="/product/ohter.vse">Ohter</a>
 						</li>
@@ -111,9 +113,11 @@
 								<li>
 									<a href="/product/vse1.vse">VSE1</a>
 								</li>
+								<!-- 
 								<li>
 									<a href="/product/vse2.vse">VSE2</a>
 								</li>
+								 -->
 								<li>
 									<a href="/product/ohter.vse">Ohter</a>
 								</li>

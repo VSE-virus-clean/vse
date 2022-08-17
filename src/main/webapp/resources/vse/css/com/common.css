@@ -143,7 +143,13 @@ a.skip01:hover,a.skip01:focus,a.skip01:active,a.skip02:hover,a.skip02:focus,a.sk
 	margin-left: 10px
 }
 ._color_999{
-	color: #999
+	color: #999!important
+}
+._font_weight200{
+	font-weight: 200!important
+}
+._color_222{
+	color: #222!important
 }
 input::placeholder{
 	color: #999!important
@@ -168,6 +174,9 @@ input::placeholder{
 }
 ._relatives{
 	position: relative;
+}
+._color_b{
+	color: #000!important
 }
 .mo_header {display:none;}
 

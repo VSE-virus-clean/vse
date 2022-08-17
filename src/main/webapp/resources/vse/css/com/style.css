@@ -109,7 +109,7 @@
     text-align: center;
     display: inline-block;
     box-sizing: border-box;
-    transition: all 0.5s;
+    transition: all 0s;
 }
 .btn img {display:inline-block;margin-top:-4px;}
 .btn_type_02 {width:150px;padding:12px;line-height:20px;font-size:16px;background:#010101;color:#fff;text-align:center;display:inline-block;box-sizing:border-box;}

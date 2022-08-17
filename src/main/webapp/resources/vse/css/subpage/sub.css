@@ -61,6 +61,9 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
     flex-direction: column;
     align-items: flex-start;
 }
+._txt_centers._line30{
+	line-height: 30px;
+}
 ._txt_centers h3{
     font-size: 46px;
     color: #fff;
@@ -70,29 +73,92 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 	font-size: 26px;
 	color: #fff;
 }
+._txt_centers ._sm_font{
+    font-size: 26px;
+    color: #fff;
+    font-weight: bold
+}
+._txt_centers ._sm_sub_font{
+	font-size: 20px;
+	color: #fff;
+	font-weight: 200;
+}
 ._sub_sec_mo{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     align-content: flex-start;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 }
 ._sub_sec_mo ._items{
 	width: calc(50% - 10px);
     overflow: hidden;
-    margin-right: 10px;
     margin-bottom: 10px;
+}
+._sub_sec_mo ._items:nth-child(odd){
+	margin-right: 10px;
 }
 ._sub_sec_mo ._items:before {
     content: "";
     display: block;
-    padding-top: 100%; /* 1:1 비율 */
+    padding-top: 70%;
 }
 ._pdb110{
 	padding-bottom: 110px
 }
+._w100{
+	width: 100%!important
+}
 
+._zin_style{
+	border-top: 1px solid #141414;
+    padding-top: 50px!important;
+    margin-top: 50px
+}
+._zin_style ._item_wrap{
+	display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: flex-start;
+    padding-top: 40px
+}
+._zin_style ._item_wrap:first-child{
+	padding-top: 0;
+}
+._zin_style ._item_wrap:nth-child(even){
+	flex-direction: row-reverse
+}
+._zin_style ._item_wrap:nth-child(odd) ._img._items{
+	margin-left: 40px
+}
+._zin_style ._item_wrap:nth-child(even) ._img._items{
+	margin-right: 40px
+}
+._zin_style ._item_wrap ._items{
+	width: 50%;
+    box-sizing: border-box;
+}
+._zin_style ._item_wrap ._img:before {
+    content: "";
+    display: block;
+    padding-top: 60%;
+}
+._zin_style._left ._item_wrap:nth-child(even){
+	flex-direction: row
+}
+._zin_style._left ._item_wrap:nth-child(odd){
+	flex-direction: row-reverse
+}
+._zin_style._left ._item_wrap:nth-child(odd) ._img._items{
+	margin-right: 40px;
+	margin-left: 0;
+}
+._zin_style._left ._item_wrap:nth-child(even) ._img._items{
+	margin-left: 40px;
+	margin-right: 0;
+}
 /*slide -------------------------*/
 /*slick*/
 .slick-arrow {width:37px;height:74px;margin-top:-51px;position:absolute;top:50%;border:none;background:url('../../images/btn/btn_slide_prev.png') center no-repeat;display:block;text-indent:-99999999px;}

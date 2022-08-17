@@ -25,6 +25,21 @@
 .mobile ._txt_centers .btn2{
 	margin-top: 20px
 }
+.mobile ._zin_style ._item_wrap{
+	flex-direction: column!important;
+}
+.mobile ._zin_style ._item_wrap ._items{
+	width: 100%;
+}
+.mobile ._zin_style ._item_wrap ._img._items{
+	margin: 0!important
+}
+.mobile ._zin_style ._item_wrap ._txt._items{
+	padding: 0 0 20px 0;
+}
+.mobile ._zin_style ._item_wrap ._txt._items ._txt_centers{
+	padding: 0;
+}
 /*220317*/
 .icon_pro_more {display:inline-block;width:20px;height:20px;background:url('../../images/icon/icon_pro_more.png') center no-repeat;background-size:20px;vertical-align:middle;}
 

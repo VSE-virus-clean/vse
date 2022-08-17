@@ -8,10 +8,61 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%-- 
-    Description : choose your space golf_club_golf_facility
+    Description : choose your space
 --%>
 
-<div id="contentWrap" class="">
-	<h2>golf_club_golf_facility</h2>
-	menuid = <c:out value="${pageMenuId}" />
+<div id="contentWrap" class="no_padding">
+	<h2 id="contentAnchor">콘텐츠 영역</h2>
+	<div class="_h100vh _relatives">
+		<div class="_sub_sec _fixeds" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)"></div>
+		<div class="_txt_centers">
+			<h3 class="move">Golf Club & Golf Facility</h3>
+			<p class="move">
+				VSE can enhance your golf life to another level.
+				<br />
+				<a href="/customer/request_more_information.vse" class="btn2 btn_round">CONTACT SALES</a>
+			</p>
+		</div>
+	</div>
+	
+	<div class="_sub_sec_w _up_down_padding">
+		<div class="inner">
+			<p class="sub_tit text_center mb20">Transform your space with VSE</p>
+			<h3 class="tit"><img src="/resources/vse/images/com/logo01_png-full.png" alt="vse voice caddie" style="height:80px"></h3>
+		</div>
+	</div>
+	
+	<div class="_h500 _relatives _sub_sec2" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)">
+		<div class="_txt_centers">
+			<p class="">
+				Throw a VSE golf party and treat your guests with 
+				enjoyment and gratification.
+				Have a fun time without getting bored by playing a 
+				fun golf game.
+				<br />
+				<a href="/product/vse1.vse" class="btn2 btn_round">LEARN MORE</a>
+			</p>
+		</div>
+	</div>
+	
+	<div class="_sub_sec_w _up_down_padding">
+		<div class="inner">
+			<h3 class="sub_tit text_center">CHOOSE YOUR SPACE VSE</h3>
+			<p class="sub_tit text_center">can enhance your golf life to another level.</p>
+		</div>
+	</div>
+	
+	<div class="_sub_sec_w _pdb110">
+		<div class="inner _sub_sec_mo">
+			<div class="_items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)">
+			</div>
+			<div class="_items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_02.jpg)">
+			</div>
+			<div class="_items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_03.jpg)">
+			</div>
+			<div class="_items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)">
+			</div>
+		</div>
+	</div>
+	
 </div>

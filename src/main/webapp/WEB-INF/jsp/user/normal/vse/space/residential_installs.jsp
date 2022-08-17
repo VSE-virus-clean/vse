@@ -8,7 +8,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%-- 
-    Description : choose your space residential_installs
+    Description : choose your space
 --%>
 
 <div id="contentWrap" class="no_padding">
@@ -16,13 +16,17 @@
 	<div class="_h100vh _relatives">
 		<div class="_sub_sec _fixeds" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)"></div>
 		<div class="_txt_centers">
-			<h3 class="move">RESIDENTIAL INSTALLS</h3>
+			<h3 class="move">Residential Installs</h3>
 			<p class="move">
 				Practice golf from your home in your comfort zone.
 				<br />
 				<a href="/customer/request_more_information.vse" class="btn2 btn_round">CONTACT SALES</a>
 			</p>
 		</div>
+		<p class="scroll_swing up">
+			<img src="/resources/vse/images/com/icon_swing.png" alt="scroll">
+			<span>scroll down</span>
+		</p>
 	</div>
 	
 	<div class="_sub_sec_w _up_down_padding">
