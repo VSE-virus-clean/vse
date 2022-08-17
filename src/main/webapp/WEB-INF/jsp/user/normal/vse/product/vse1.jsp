@@ -14,19 +14,13 @@
 <div id="contentWrap" class="">
 	<h2 id="contentAnchor">콘텐츠 영역</h2>
 	<div class="inner product_top" style="padding-bottom:500px">
-		<h3 class="tit move">VSE1</h3>
-		<p class="sub_txt text_center mt40 move move02">보이스캐디의 정확한 측정기술이 그대로 접목된 <br class="mo">MACH 401센서는 <br class="pc"/>어떠한 상황의 샷도 <br class="mo">일관성 있게 거리정보를 안내합니다.</p>
-		<p class="keywords_wrap text_center mt40 move move02">#정확도 #모션센싱 #키오스크</p>
-		<div class="product_video move move02">
-			<!--<img src="/resources/vse/images/subpage/videos_product.jpg">-->
-			<!--
-			<video controls width="100%">
-				<source src="/resources/vse/videos/videos_01.mp4" type="video/webm">
-			</video>
-			-->
-			<iframe class="shadow" style="width:1200px;height:605px;" src="https://www.youtube.com/embed/rZBaH77Sp_E?rel=0&modestbranding=1" title="YouTube embed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
-			
-		</div>
+		<h3 class="tit move">Why VSE?</h3>
+		<p class="sub_txt text_center mt40 move move02">
+			What makes golf difficult starts from the obsession with 
+			information that you don't have to think about when you play 
+			golf. VSE focuses on finding the cause, not the effect, to deliver 
+			only essential information to golfers to swing easier.
+		</p>
 	</div>
 	<div class="bg_gray tab_wrap vse_pro_wrap" style="overflow:hidden;">
 		<div class="inner">

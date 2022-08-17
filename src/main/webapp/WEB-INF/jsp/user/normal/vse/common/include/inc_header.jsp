@@ -20,7 +20,7 @@
 <div id="header">
 	<h2 id="gnbAnchor">menu</h2>
 	<div class="header_wrap">
-		<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/logo01_png-white-2.png" alt="VSE" /></a>
+		<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/logo02_png-white-2.png" alt="VSE" /></a>
 		<ul class="gnb">
 			<li class=<c:out value="${pageMenuId == 'product' ? 'active':'' }" />>
 				<a href="/product/vse1.vse">VSE</a>
@@ -102,7 +102,7 @@
 			<a href="javascript:;" class="allmenu"></a>
 			<div class="mo_gnb">
 				<div class="mo_gnb_header">
-					<a href="/index.vse" class="logo">VOICE CADDIE<img src="/resources/vse/images/com/symbol_w.png" alt="VSE"></a>
+					<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/logo02_png-white-2.png" alt="VSE"></a>
 					<a href="javascript:;" class="allmenu_close" title="CLOSE"></a>
 				</div>
 				<div  class="mo_gnb_con">
