@@ -63,7 +63,8 @@ public class VseController extends XController {
 		model.addAttribute("deviceCode", multiUtil.checkDevice());
 		model.addAttribute("pageMenuId", "VSEMA");
 		
-        return "vse/main/index";
+        // return "vse/main/index";
+		return "redirect:/main/vse.vse";
     }
 	
 	/**
@@ -291,6 +292,54 @@ public class VseController extends XController {
         return mResult;
     }
     */
+	
+	/**
+	 * VSE
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/main/vse.vse"} )
+    public String vse1(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "vse");
+		
+        return "vse/main/vse";
+    }
+	
+	/**
+	 * NEWS
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/main/news.vse"} )
+    public String vse(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "news");
+		
+        return "vse/main/news";
+    }
+	
+	/**
+	 * Support
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/main/support.vse"} )
+    public String news(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "support");
+		
+		return "vse/main/support";
+    }
+	
+	/**
+	 * Shop
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/main/shop.vse"} )
+    public String shop(ModelMap model) throws Exception{     
+		
+		model.addAttribute("pageMenuId", "shop");
+		
+		return "vse/main/shop";
+    }
 	
 	/**
 	 * vse1

@@ -211,7 +211,7 @@
 .tab_type_01 li.active a {color:#c10023;border-bottom:4px solid #c10023;}
 .tab_con .tab_list {display:none;font-size:20px;}
 .tab_con .tab_list.active {display:block;}
-.tab_wrap.type01 .tab_type_01 li a {font-size:20px;padding:0;line-height:57px;color:#cccccc;border-color:#fff;}
+.tab_wrap.type01 .tab_type_01 li a {font-size:20px;padding:0;line-height:30px;color:#cccccc;border-color:#fff;}
 .tab_wrap.type01 .tab_type_01 li.active a {color:#c10023;border-color:#c10023;}
 .tab_wrap.type01 .tab_type_01 + .tab_con {background:#f8f8f8;padding:20px 30px;box-sizing:border-box;}
 .tab_type_02 {overflow:hidden;position:relative;}

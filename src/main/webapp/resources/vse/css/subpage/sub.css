@@ -95,7 +95,24 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 	width: calc(50% - 10px);
     overflow: hidden;
     margin-bottom: 10px;
+    position: relative;
 }
+._sub_sec_mo ._items .overlay{
+	position:absolute; 
+	top:0; 
+	left:0; 
+	width:100%; 
+	height:100%; 
+	background-color: rgba(0, 0, 0, 0.3); 
+	flex-direction:column;
+	align-items: center;
+	justify-content: space-evenly;
+	display:none;
+}
+._sub_sec_mo ._items .overlay .txt_area .tit {font-size:1.3rem;line-height:60px;color:#ffffff; text-align: left; font-weight:bold;word-break: keep-all;}
+._sub_sec_mo ._items .overlay .txt_area .sub_txt {font-size:1.1rem;line-height:30px;color:#ffffff;word-break: keep-all;}
+._sub_sec_mo ._items:hover .overlay{display:flex;}
+
 ._sub_sec_mo ._items:nth-child(odd){
 	margin-right: 10px;
 }
@@ -213,6 +230,7 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 .vse_pro_hardware .info .icon_pro_more {margin-top:-4px;}
 .vse_pro_hardware .pro_hardware {position:relative;}
 .vse_pro_hardware .pro_hardware .btn_pro_more {position:absolute;}
+.vse_pro_hardware .pro_hardware .btn_pro_more .mark {color:white; position: relative; left: 5px;}
 .vse_pro_hardware .pro_hardware .pro_more_01 {bottom:204px;right:360px;}
 .vse_pro_hardware .pro_hardware .pro_more_02 {top:126px;left:50%;}
 .vse_pro_hardware .pro_hardware .pro_more_03 {bottom:140px;left:50%;margin-left: -26px;}
@@ -222,14 +240,14 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 .hardware_slide .slick-dots li.slick-active button {background:#c10023;}
 
 .hardware_info_wrap {display: flex;height:100%;}
-.hardware_info_wrap .img {float:left;width:calc(100% - 340px);overflow:hidden;position:relative;}
+.hardware_info_wrap .img {float:left;width:calc(100% - 600px);overflow:hidden;position:relative;}
 .hardware_info_wrap .img .con {position:absolute;height:100%;top:0;left:0;}
 .hardware_info_wrap .img img {width:100%;height:auto;display:block;}
-.hardware_info_wrap .con {float:left;width:340px;padding:30px;text-align:left;background:#fff;box-sizing:border-box;}
-.hardware_info_wrap .con .tit {text-align:left;font-size:36px;line-height:46px;margin-top:15vh;}
+.hardware_info_wrap .con {float:left;width:515px;padding:30px;text-align:left;background:#fff;box-sizing:border-box;}
+.hardware_info_wrap .con .tit {text-align:left;font-size:36px;line-height:46px;color: #bf9e85; font-weight: normal;}
 .hardware_info_wrap .con .txt {margin-top:30px;text-align:left;font-size:20px;line-height:30px;color:#555555;}
 
-.popup_wrap {position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:1133px;max-height:640px;height:80%;background:#fff;z-index:9900;overflow:hidden;display:none;}
+.popup_wrap {position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:1050px;max-height:640px; background:#fff;z-index:9900;overflow:hidden;display:none;}
 .popup_top {position:relative;}
 .popup_top .btn_close {position:absolute;top:20px;right:20px;z-index:10}
 .popup_dim {position:fixed;top:0;left:0;width:100%;height:100vh;background:#000;opacity:0.8;z-index:9100;display:none;}
