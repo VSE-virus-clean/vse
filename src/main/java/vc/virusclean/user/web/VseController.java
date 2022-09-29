@@ -298,7 +298,7 @@ public class VseController extends XController {
 	 */
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/main/vse.vse"} )
-    public String vse1(ModelMap model) throws Exception{     
+    public String vse(ModelMap model) throws Exception{     
 		
 		model.addAttribute("pageMenuId", "vse");
 		
@@ -310,11 +310,35 @@ public class VseController extends XController {
 	 */
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/main/news.vse"} )
-    public String vse(ModelMap model) throws Exception{     
+    public String news(@ModelAttribute BoardVO boardVO, ModelMap model) throws Exception{     
 		
+		boardVO.setIsApi(true);
+		boardVO.setLgrpCd("VSENEWS");    //게시판 아이디
+		boardVO.setRowLimit(3);
+		
+		model.addAttribute("result", boardService.selectBoardList(boardVO));
+		model.addAttribute("requestUri", "customer/event");
 		model.addAttribute("pageMenuId", "news");
 		
         return "vse/main/news";
+    }
+	
+	/**
+	 * NEWS > 상세
+	 * customer/customer_board_view.html
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/main/news/view.vse"} )
+    public String news_view(@ModelAttribute BoardVO boardVO, ModelMap model) throws Exception{     
+		
+		boardVO.setIsApi(true);
+		boardVO.setLgrpCd("VSENEWS");    //게시판 아이디
+		
+		model.addAttribute("result", boardService.selectBoard(boardVO));
+        model.addAttribute("requestUri", "customer/event");
+		model.addAttribute("pageMenuId", "customer");
+		
+        return "vse/main/news_view";
     }
 	
 	/**
