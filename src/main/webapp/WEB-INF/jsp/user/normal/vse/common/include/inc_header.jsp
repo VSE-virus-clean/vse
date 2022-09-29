@@ -20,60 +20,45 @@
 <div id="header">
 	<h2 id="gnbAnchor">menu</h2>
 	<div class="header_wrap">
-		<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/logo02_png-white-2.png" alt="VSE" /></a>
+		<a href="#none" class="logo"><img src="/resources/vse/images/com/logo02_png-white-2.png" alt="VSE" /></a>
 		<ul class="gnb">
-			<li class=<c:out value="${pageMenuId == 'product' ? 'active':'' }" />>
-				<a href="/product/vse1.vse">VSE</a>
+			<li class=<c:out value="${pageMenuId == 'vse' ? 'active':'' }" />>
+				<a href="/main/vse.vse">VSE</a>
+			</li>
+			<li class=<c:out value="${pageMenuId == 'news' ? 'active':'' }" />>
+				<a href="/main/news.vse">NEWS</a>
+			</li>
+			<li class=<c:out value="${pageMenuId == 'support' ? 'active':'' }" />>
+				<a href="/main/support.vse">Support</a>
+			</li>
+			 <li class=<c:out value="${pageMenuId == 'shop' ? 'active':'' }" />>
+				<a href="/main/shop.vse">Shop</a>
+			</li>
+			<li class=<c:out value="${pageMenuId == 'reference' ? 'active':'' }" />>
+				<a href="/product/vse1.vse">REFERENCE</a>
 				<div class="gnb_sub">
 					<ul class="inner"> 
 						<li>
 							<a href="/product/vse1.vse">VSE1</a>
 						</li>
-						<!-- 
 						<li>
 							<a href="/product/vse2.vse">VSE2</a>
 						</li>
-						 -->
 						<li>
 							<a href="/product/ohter.vse">Ohter</a>
 						</li>
-					</ul>
-				</div>
-			</li>
-			<li class=<c:out value="${pageMenuId == 'space' ? 'active':'' }" />>
-				<a href="/space/main.vse">CHOOSE YOUR SPACE</a>
-				<div class="gnb_sub">
-				<ul class="inner">
-					<li>
-						<a href="/space/residential_installs.vse">Residential Installs</a>
-					</li>
-					<li>
-						<a href="/space/academy_or_practice_range.vse">Academy or Practice Range</a>
-					</li>
-					<li>
-						<a href="/space/golf_club_golf_facility.vse">Golf Club &amp; Golf Facility</a>
-					</li>
-					<li>
-						<a href="/space/sports_lounge.vse">Sports Lounge</a>
-					</li>
-				</ul>
-				</div>
-			</li>
-			<!--
-			<li>
-				<a id="GNB-STARTUP" href="/startups.vse">창업</a>
-			</li>
-			-->
-			<!--
-			<li>
-				<a href="/business/presentation.vse">사업 설명회</a>
-			</li>
-			-->
-			
-			<li class=<c:out value="${pageMenuId == 'customer' ? 'active':'' }" />>
-				<a href="/customer/faq.vse">CS CENTER</a>
-				<div class="gnb_sub">
-					<ul class="inner">
+						<li>
+							<a href="/space/residential_installs.vse">Residential Installs</a>
+						</li>
+						<li>
+							<a href="/space/academy_or_practice_range.vse">Academy or Practice Range</a>
+						</li>
+						<li>
+							<a href="/space/golf_club_golf_facility.vse">Golf Club &amp; Golf Facility</a>
+						</li>
+						<li>
+							<a href="/space/sports_lounge.vse">Sports Lounge</a>
+						</li>	
 						<li>
 							<a href="/customer/faq.vse">FAQ</a>
 						</li>
@@ -89,12 +74,6 @@
 					</ul>
 				</div>
 			</li>
-			<!-- 
-			<li>
-				<a href="/teaching.vse">VSE레슨프로</a>
-			</li>
-			 -->
-
 		</ul>
 		<!-- gnb -->
 		<!-- mo_gnb -->
