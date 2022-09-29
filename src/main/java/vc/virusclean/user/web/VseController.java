@@ -346,8 +346,13 @@ public class VseController extends XController {
 	 */
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/main/support.vse"} )
-    public String news(ModelMap model) throws Exception{     
+    public String support(@ModelAttribute BoardVO boardVO,ModelMap model) throws Exception{     
 		
+		boardVO.setIsApi(true);
+		boardVO.setLgrpCd("VSEFAQ");    //게시판 아이디
+		model.addAttribute("result", boardService.selectBoardList(boardVO));
+		
+		model.addAttribute("requestUri", "customer/faq");
 		model.addAttribute("pageMenuId", "support");
 		
 		return "vse/main/support";
