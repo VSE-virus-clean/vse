@@ -30,8 +30,8 @@
 					<li><a href="https://www.youtube.com/channel/UCLMJLbX6Pur9ukrnJ52LPLQ" target="_blank" class="sns_y" ></a></li>
 					<li><a href="https://www.facebook.com/voicecaddie.VSE/" target="_blank" class="sns_f"></a></li>
 					<li><a href="https://instagram.com/vse_kor?utm_medium=copy_link" target="_blank" class="sns_i"></a></li>
-					<li><a href="https://blog.naver.com/voicecaddiek" target="_blank" class="sns_nb"></a></li>
-					<li><a href="https://post.naver.com/voicecaddiek/" target="_blank" class="sns_np"></a></li>
+<!-- 				<li><a href="https://blog.naver.com/voicecaddiek" target="_blank" class="sns_nb"></a></li> -->
+<!-- 				<li><a href="https://post.naver.com/voicecaddiek/" target="_blank" class="sns_np"></a></li> -->
 				</ul>
 			</div>
 		</div>
@@ -63,14 +63,13 @@
 					<li><a class="_p_icon" href="https://voicecaddie.com/terms-of-service/" target="_blank">Terms of Service</a></li>
 					<li><a class="_p_icon" href="https://voicecaddie.com/privacy-policy/" target="_blank">Privacy Policy</a></li>
 					<li><a class="_p_icon" href="https://voicecaddie.com/warranty/" target="_blank">Warranty Policy</a></li>
-					<li><a class="_p_icon" href="https://voicecaddie.com/shipping-returns/" target="_blank">Shipping and Returns</a></li>
+<!-- 				<li><a class="_p_icon" href="https://voicecaddie.com/shipping-returns/" target="_blank">Shipping and Returns</a></li> -->
 				</ul>
 			</div>
 		</div>
 	</div>
-	<!--footer_con
-	<p class="footer_copyright">COPYRIGHT © 2021. voicecaddie. ALL RIGHTS RESERVED.</p>
-	-->
+	<!--footer_con-->
+	<p class="footer_copyright">© 2022 VOICECADDIE VSE ALL RIGHTS RESERVED.</p>
 </div>
 <div id="wp_tg_cts" style="display:none;"></div>
 
