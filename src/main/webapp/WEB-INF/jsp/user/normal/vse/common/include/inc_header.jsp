@@ -34,6 +34,7 @@
 			 <li class=<c:out value="${pageMenuId == 'shop' ? 'active':'' }" />>
 				<a href="/main/shop.vse">Shop</a>
 			</li>
+			<%-- 
 			<li class=<c:out value="${pageMenuId == 'reference' ? 'active':'' }" />>
 				<a href="/product/vse1.vse">REFERENCE</a>
 				<div class="gnb_sub">
@@ -74,6 +75,7 @@
 					</ul>
 				</div>
 			</li>
+			--%>
 		</ul>
 		<!-- gnb -->
 		<!-- mo_gnb -->
