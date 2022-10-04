@@ -58,7 +58,7 @@ public class BoardController extends XController {
     	} else if("app".equals(id)){
     		returnCode = "I1";
     	} else if("vsenews".equals(id)){
-    		returnCode = "J1";
+    		returnCode = id;
     	} else if("vsefaq".equals(id)){
     		returnCode = "J2";
 	    } else if("vseshop".equals(id)){

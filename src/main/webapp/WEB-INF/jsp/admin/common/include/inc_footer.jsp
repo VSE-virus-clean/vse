@@ -88,6 +88,7 @@ $(function () {
 });
 
 var MENU_ID = '${pageMenuId}';
+console.log('MENU_ID : ' + MENU_ID);
 $(document).ready(function(){
 	
 	<c:if test="${sessionScope.sessionVO.authLevel eq 'A'}">
@@ -100,13 +101,18 @@ $(document).ready(function(){
 	
 	$('#lefrMenu').ready(function(){
 	    if (MENU_ID != undefined && MENU_ID != ''){
-	        var depth = MENU_ID.split('');
+	    	
+	    	$('.'+ MENU_ID).addClass('open');
+	    	
+	    	/* 
+	    	var depth = MENU_ID.split('');
 	        var menuId = '';
 	        
 	        for(var i = 0; i < depth.length; i++){
 	        	menuId += depth[i];
 	            $('#snb_'+ menuId).addClass('open');
-	        }                
+	        }
+	         */
 	    }
 	    
 	    $('.depth01.open').find('.depth02').slideDown();
