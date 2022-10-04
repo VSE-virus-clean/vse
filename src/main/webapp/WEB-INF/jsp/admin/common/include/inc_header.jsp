@@ -9,7 +9,7 @@
 <header>
 	<div id="header">
 		<div class="header_inner">
-			<a href="${contextPath}/logoutMan.vc" onclick="location.replace(this.href); return false;">로그아웃</a>
+			<a href="${contextPath}/logoutMan.vc" onclick="location.replace(this.href); return false;">Sign out</a>
 		</div>
 	</div>
 </header>
