@@ -291,7 +291,8 @@ public class AuthServiceImpl extends XAbstractService implements AuthService {
      */
     private String createSession(AuthVO authVO, Map<String, Object> mSession, String code) throws Exception {
         
-        String strFirstMenuUrl = "/mainMan.vc";
+//      String strFirstMenuUrl = "/mainMan.vc";
+        String strFirstMenuUrl = "/board/vsenews/list.vc";
         
         HttpServletRequest httpServletRequest = multiUtil.getHttpServletRequest();
         httpServletRequest.getSession(false).invalidate();  

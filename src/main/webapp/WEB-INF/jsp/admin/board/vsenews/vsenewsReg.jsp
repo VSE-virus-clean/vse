@@ -12,91 +12,95 @@
     Description : 게시판관리 > INFORMATION > NOTICE 입력폼
 --%>
 <div class="sec_top">
-	<h3 class="sec_tit">VSE 이벤트&amp;뉴스 등록</h3>
+	<h3 class="sec_tit">NEWS Registration</h3>
+	<!--  
 	<ul class="top_tab">
 		<li><a href="#">이벤트&amp;뉴스</a></li>
 	</ul>
+	-->
 </div>
 <div class="sec_cont">
-	<h4 class="cont_tit">정보입력</h4>
+<!--<h4 class="cont_tit">정보입력</h4>-->
 	<div class="r_search_box">
 	    <form name="mainForm" method="post" enctype="multipart/form-data" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 	        <table class="r_search_table">
+	            <!--  
 	            <colgroup>
 	                <col width="170px" /><col width="*" /><col width="170px" /><col width="*" />
 	            </colgroup>
+	            -->
 	            <tr>    
-	                <th class="necessary">제목</th>
+	                <th class="necessary">Title</th>
 	                <td colspan="3">
 	                    <input type="text" id="blcTitl" name="blcTitl" maxlength="100" style="width:80%;" title="제목" />
 	                </td> 
 	            </tr>
 	            <tr>    
-	               <th>공개여부</th>
+	               <th>Disclosure Y/N</th>
 	               <td colspan="3">
-	                    <label class="radio_box" for="useY"><input type="radio" name="useYn" id="useY" value="Y" /><span>공개</span></label>&nbsp;&nbsp;
-	                    <label class="radio_box" for="useN"><input type="radio" name="useYn" id="useN" value="N" /><span>비공개</span></label>
+	                    <label class="radio_box" for="useY"><input type="radio" name="useYn" id="useY" value="Y" /><span>Y</span></label>&nbsp;&nbsp;
+	                    <label class="radio_box" for="useN"><input type="radio" name="useYn" id="useN" value="N" /><span>N</span></label>
 	                </td>  
 	            </tr>
 	            <tr>    
-	                <th class="necessary">노출 시작시간</th>
+	                <th class="necessary">Start time</th>
 	                <td colspan="3">
 	                    <input type="text" id="expsRgstDay" name="expsRgstDay" class="datepicker date_input" readonly="readonly" autocomplete="off" />
 	                    <select name="expsRgstTime" style="width:50px; margin-left:20px;" >
 	                    	<c:forEach var="time" begin="0" end="23" varStatus="i">
 	                    		<option value="${time < 10 ? '0' : '' }${time}" >${time}</option>
 	                    	</c:forEach>
-	                    </select> 시
+	                    </select> hour
 	                    <select name="expsRgstMinute" style="width:50px; margin-left:10px;" >
 	                    	<c:forEach var="minute" begin="0" end="59" step="1" varStatus="i">
 	                    		<option value="${minute < 10 ? '0' : '' }${minute}" >${minute}</option>
 	                    	</c:forEach>
-	                    </select> 분
+	                    </select> minute
 	                    <ul class="warn">
-	                     	<li>- 지정하신 일/시간/분 이후에 사이트에 노출됩니다.</li>
-	                     	<li>- 바로 적용하실거면 값을 변경하지 않으시면 됩니다.</li>
+	                     	<li>- The site will be exposed after the specified time.</li>
+	                     	<li>- If you are going to apply it right away, you don't have to change the value.</li>
 	                    </ul>
 	                </td>
 	            </tr>
 	            <tr>    
-	                <th class="necessary">노출 만료시간</th>
+	                <th class="necessary">End time</th>
 	                <td colspan="3">
 	                    <input type="text" id="expsFnhDay" name="expsFnhDay" class="datepicker date_input" readonly="readonly" autocomplete="off"/>
 	                    <select name="expsFnhTime" style="width:50px; margin-left:20px;" >
 	                    	<c:forEach var="time" begin="0" end="23" varStatus="i">
 	                    		<option value="${time < 10 ? '0' : '' }${time}" >${time}</option>
 	                    	</c:forEach>
-	                    </select> 시
+	                    </select> hour
 	                    <select name="expsFnhMinute" style="width:50px; margin-left:10px;" >
 	                    	<c:forEach var="minute" begin="0" end="59" step="1" varStatus="i">
 	                    		<option value="${minute < 10 ? '0' : '' }${minute}" >${minute}</option>
 	                    	</c:forEach>
-	                    </select> 분
+	                    </select> minute
 	                    <ul class="warn">
-	                     	<li>- 지정하신 일/시간/분 이후에 사이트에 노출 되지 않습니다.</li>
-	                     	<li>- 기본값은 7일 후입니다.</li>
+	                     	<li>- The site will not be exposed after the specified time.</li>
+	                     	<li>- The default is 7 days later.</li>
 	                    </ul>
 	                </td>
 	            </tr>
 	            <tr>    
-	                <th class="necessary">내용</th>
+	                <th class="necessary">Contents</th>
 	                <td colspan="3">
-	                    <textarea name="blcSbc1" id="blcSbc1" style="width:100%;height:500px;" title="내용"></textarea>
+	                    <textarea name="blcSbc1" id="blcSbc1" style="width:100%;height:500px;" title="Contents"></textarea>
 	                </td>   
 	            </tr>
 	            <tr>    
-	                <th class="necessary">썸네일이미지</th>
+	                <th class="necessary">Thumbnail Image</th>
 	                <td colspan="3">
 	                	<div class="filebox">
 	                   		${function:printAttachFileReg(1, "THUMB", "배너이미지")}
 	                    </div>
 	                    <ul class="warn">
-	                     	<li>- 이미지 파일만 등록 가능합니다.(JPG, PNG, GIF)</li>
+	                     	<li>- Only image files can be registered.(JPG, PNG, GIF)</li>
 	                    </ul>
 	                </td>   
 	            </tr>
 	            <tr>    
-	                <th class="necessary">첨부파일</th>
+	                <th class="necessary">Attached File</th>
 	                <td colspan="3">
 	                    <div class="filebox">
 	                   		${function:printAttachFileReg(2, "ATTCH", "첨부파일")}
@@ -107,10 +111,10 @@
 	        
 	        <div class="btn_center_gorup clearfix">
 				<div class="left">
-					<button type="button" class="btn btn_gray" onclick="location.href='${contextPath}/${requestUri}/list.vc'; ">목록</button>
+					<button type="button" class="btn btn_gray" onclick="location.href='${contextPath}/${requestUri}/list.vc'; ">List</button>
 				</div>
 				<div class="right">
-					<button type="submit" class="btn btn_red">등록</button>
+					<button type="submit" class="btn btn_red">Save</button>
 				</div>
 			</div>
 	    </form>

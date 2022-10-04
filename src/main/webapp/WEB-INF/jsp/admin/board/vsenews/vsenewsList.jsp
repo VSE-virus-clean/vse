@@ -9,16 +9,18 @@
 
 <%-- 
     JSP Name : noticeList.jsp
-    Description : 게시판관리 > INFORMATION > NOTICE 목록
+    Description : NEWS 목록
 --%>
 <div class="sec_top">
-	<h3 class="sec_tit">VSE 이벤트&amp;뉴스 목록</h3>
+	<h3 class="sec_tit">NEWS</h3>
+	<!-- 
 	<ul class="top_tab">
-		<li><a href="#">이벤트&amp;뉴스</a></li>
+		<li><a href="#">NEWS</a></li>
 	</ul>
+	 -->
 </div>
 <div class="sec_cont">
-	<h4 class="cont_tit">조회조건</h4>
+<!-- 	<h4 class="cont_tit">Search</h4> -->
 	<div class="r_search_box">
 		<form name="searchForm" method="get" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 			<table class="r_search_table">
@@ -30,21 +32,20 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th>검색어</th>
 						<td colspan="3">
 					   		<select id="searchType" name="searchType">
-		                        <option value="0">전체</option>
-		                        <option value="1">제목</option>
-		                        <option value="2">내용</option>
+		                        <option value="0">All</option>
+		                        <option value="1">Title</option>
+		                        <option value="2">Contents</option>
 		                    </select>
-							<input id="searchKey" name="searchKey" type="text" title="상세검색입력" style="width:450px;" maxlength="100" minlength="2"/>
+							<input id="searchKey" name="searchKey" type="text" title="the search input" style="width: calc(100% - 110px);" maxlength="100" minlength="2"/>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="btn_right_gorup">
-				<button type="submit" class="btn btn_red">조회</button>
-				<button type="reset" class="btn btn_gray">초기화</button>
+				<button type="submit" class="btn btn_red">search</button>
+<!-- 			<button type="reset" class="btn btn_gray">reset</button> -->
 			</div>
 		</form>
 	</div>
@@ -52,7 +53,7 @@
 	<div class="content-body">
 		<div class="table_tit">
 			<div class="table_left_title">
-				<span>총<strong class="totCnt" style="font-weight: 700;"> <fmt:formatNumber value="${result.searchInfo.totalRow}" type="number"/></strong>건 조회</span>
+				<span>total<strong class="totCnt" style="font-weight: 700;"> <fmt:formatNumber value="${result.searchInfo.totalRow}" type="number"/></strong></span>
 			</div>
 		</div>
     
@@ -60,32 +61,31 @@
     	<form name="subForm" method="post" action="${contextPath}/${requestUri}/delete.vc" onsubmit="var rtn = formSubmitObj.delSubmit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 		    <table class="cont_table" style="table-layout:fixed">
 		    	<colgroup>
-					<col style="width:100px">
-					<col style="width:150px">
-					<col style="">
-					<col style="width:80px">
-					<col style="width:80px">
-					<col style="width:100px">
-					<col style="width:150px">
-					<col style="width:180px">
+					<col style="width:7%">
+					<col style="width:40%">
+					<col style="width:7%">
+					<col style="width:5%">
+					<col style="width:13%">
+					<col style="width:16%">
+					<col style="width:12%">
 				</colgroup>
 		        <thead>
 		            <tr>
-		                <th><input type="checkbox" class="checkbox-selectAll" id="checkbox-selectAll">번호</th>
-	                    <th>이미지</th>
-		                <th>제목</th>
-		                <th>공개여부</th>
-		                <th>조회수</th>
-		                <th>작성자</th>
-		                <th>노출일</th>
-		                <th>관리</th>
+		                <th><input type="checkbox" class="checkbox-selectAll" id="checkbox-selectAll">No.</th>
+				   <!-- <th>Image</th> -->
+		                <th>Title</th>
+		                <th>Disclosure Y/N</th>
+		                <th>Hits</th>
+		                <th>Writer</th>
+		                <th>Exposure Day</th>
+		                <th>Management</th>
 		            </tr>
 		        </thead>
 		        <tbody>
 		            <c:choose>
 		                <c:when test="${empty result.list}">
 		                    <tr>
-		                        <td colspan="8" class="nodata">등록된 게시물이 없습니다.</td>
+		                        <td colspan="7" class="nodata">There are no registered posts.</td>
 		                    </tr>
 		                </c:when>
 		                <c:otherwise>
@@ -94,19 +94,21 @@
 		                            <td>
 		                            	<input type="checkbox" id="sn_${data.blcSn}" name="delSeq" class="check2 checkbox-select" value="${data.blcSn}" title="선택"> ${function:rowNumber(result.searchInfo, i.count)}
 		                            </td>
+		                            <!--  
 		                            <td class="con">
 		                            	<c:if test="${data.fileSn ne 0 }">
 		                            		${function:printImageFileByList(data.fileSn, data.lgrpCd, data.filNm, data.filNm)}
 		                            	</c:if>
 		                           	</td>
+		                            -->
 		                            <td class="left"><tag:html value="${data.blcTitl}" attr="NQ" /></td>
 		                            <td><span class="${data.useYn eq 'Y' ? 'rtxt' : ''}">${data.useYn}</span></td>
 		                            <td>${data.blcRct}</td>
 		                            <td>${data.rgstId}</td>
 		                            <td>${data.expsRgstDtm}<br/> ~ ${data.expsFnhDtm}</td>
 		                            <td class="table_btn">
-		                            	<a class="btn btn_red" href="${contextPath}/${requestUri}/modify.vc?blcSn=${data.blcSn}${function:searchQuery(result.searchInfo)}">수정</a>
-										<a href="${contextPath}/${requestUri}/delete.vc" class="btn btn_gray btnRowDelete"  data-sn="${data.blcSn}">삭제</a>
+		                            	<a class="btn btn_red" href="${contextPath}/${requestUri}/modify.vc?blcSn=${data.blcSn}${function:searchQuery(result.searchInfo)}">mod</a>
+										<a href="${contextPath}/${requestUri}/delete.vc" class="btn btn_gray btnRowDelete"  data-sn="${data.blcSn}">del</a>
 									</td>
 		                        </tr>
 		                    </c:forEach>
@@ -117,11 +119,11 @@
     
 		    <div class="btn_center_gorup clearfix">
 				<div class="left">
-					<button type="button" class="btn btn_gray btnInfoCancle" onclick="">선택취소</button>
-					<button type="submit" class="btn btn_gray" onclick="">선택삭제</button>
+					<button type="button" class="btn btn_gray btnInfoCancle" onclick="">Uncheck</button>
+					<button type="submit" class="btn btn_gray" onclick="">Delete Selection</button>
 				</div>
 				<div class="right">
-					<button type="button" onclick="location.href='${contextPath}/${requestUri}/register.vc';" class="btn btn_bk">등록</button>
+					<button type="button" onclick="location.href='${contextPath}/${requestUri}/register.vc';" class="btn btn_bk">Registration</button>
 				</div>
 			</div>
 	    </form>

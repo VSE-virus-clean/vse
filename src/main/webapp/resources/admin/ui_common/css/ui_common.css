@@ -73,7 +73,7 @@ select{width: 100px; border:1px solid #c2c2c2; height: 31px;}
 table{width: 100%; border-top: 2px solid #000;}
 table tbody tr{border-bottom:1px solid #ccc}
 table tbody td {padding:15px 30px;font-weight: 500;font-size: 15px;text-align: left;letter-spacing: -0.5px;}
-table  th {background-color:#f9f9f9;font-size:16px;font-weight:400;vertical-align: middle;padding:22px 30px;letter-spacing: -0.5px; text-align: left;}
+table  th {background-color:#f9f9f9;font-size:16px;font-weight:400;width: 15%;vertical-align: middle;padding:22px 30px;letter-spacing: -0.5px; text-align: left;}
 table tbody td label{padding-right: 15px; font-weight: 400; position: relative;  line-height: 31px; cursor:pointer;}
 
 table tbody td .f {padding: 15px 10px; }
@@ -99,7 +99,7 @@ table thead th {padding: 20px; text-align: center;font-weight: 600;}
 .cont_table tbody tr td .btn{width: 70px; display: inline-block; line-height: 35px;font-size: 16px;}
 .cont_table tbody tr td .box {width: 70px; display: inline-block; line-height: 35px; background-color: #8c8c8c;color: #fff; font-size: 16px;}
 
-.cont_table tr input[type="checkbox"] {width: 16px ; position: relative; top: 5px; height: 16px; background-image: url(/resources/admin/images/common/checkoff.png);	 -webkit-appearance: none;  -moz-appearance: none;  appearance: none; background-color: transparent; border:none; -webkit-background-size: cover;
+.cont_table tr input[type="checkbox"] {width: 16px ; position: relative; top: 5px; height: 16px; margin-right: 10px; background-image: url(/resources/admin/images/common/checkoff.png);	 -webkit-appearance: none;  -moz-appearance: none;  appearance: none; background-color: transparent; border:none; -webkit-background-size: cover;
 background-size: cover; }
 .cont_table tr input[type="checkbox"]:checked{background-image: url(/resources/admin/images/common/checkon.png);} 
 
