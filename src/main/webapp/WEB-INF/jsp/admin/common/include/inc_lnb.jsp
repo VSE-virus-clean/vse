@@ -37,6 +37,7 @@
 	</div>
 	<div id="lefrMenu">
 		<ul>
+			<%-- 
 			<li id="snb_A" class="depth01">
 				<a href="javascript:;"><span>배너&amp;팝업관리</span></a>
 				<ul class="depth02">
@@ -96,7 +97,7 @@
 					<li id="snb_H1"><a href="${contextPath}/stats/sales.vc"><span>매출 통계</span></a></li>
 					<li id="snb_H2"><a href="${contextPath}/stats/accounts.vc"><span>정산 통계</span></a></li>
 					<li id="snb_H3"><a href="${contextPath}/stats/products.vc"><span>상품관리 통계</span></a></li>
-<%-- 					<li id="snb_H4"><a href="${contextPath}/stats/origins.vc"><span>정품등록 통계</span></a></li> --%>
+					<!--  <li id="snb_H4"><a href="${contextPath}/stats/origins.vc"><span>정품등록 통계</span></a></li>-->
 				</ul>
 			</li>
 			<li id="snb_J" class="depth01">
@@ -117,6 +118,16 @@
 					<li id="sub_I1"><a href="${contextPath}/board/app/list.vc"><span>펌웨어관리</span></a></li>
 					<li id="sub_I2"><a href="${contextPath}/shop/preferences/modify.vc"><span>운영정책관리</span></a></li>
 				</ul>
+			</li>
+			 --%>
+			<li class="depth01 vsenews">
+				<a href="${contextPath}/board/vsenews/list.vc"><span>NEWS</span></a>
+			</li>
+			<li class="depth01">
+				<a href="${contextPath}/vse/business/list.vc"><span>Support</span></a>
+			</li>
+			<li class="depth01">
+				<a href="${contextPath}/board/vsefaq/list.vc"><span>FAQ</span></a>
 			</li>
 			<c:if test="${sessionScope.sessionVO.authLevel eq 'S'}">
 				<li class="depth01">
