@@ -61,8 +61,8 @@
     	<form name="subForm" method="post" action="${contextPath}/${requestUri}/delete.vc" onsubmit="var rtn = formSubmitObj.delSubmit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 		    <table class="cont_table" style="table-layout:fixed">
 		    	<colgroup>
-					<col style="width:7%">
-					<col style="width:40%">
+					<col style="width:5%">
+					<col style="width:42%">
 					<col style="width:7%">
 					<col style="width:5%">
 					<col style="width:13%">
