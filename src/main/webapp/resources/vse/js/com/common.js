@@ -134,7 +134,7 @@ $(function(){
 		var scrollTop = $(this).scrollTop();
 		var scrollHeight = $(this).prop('scrollHeight');
 	  
-		if (scrollTop + 350 >= scrollHeight) {
+		if (scrollTop + 400 >= scrollHeight) {
 			$("#CounselingInfoRCkWarp").addClass('ck');
 			$('#CounselingInfoRCk').removeAttr('disabled'); //열기
 		}
@@ -145,7 +145,7 @@ $(function(){
 		var scrollTop = $(this).scrollTop();
 		var scrollHeight = $(this).prop('scrollHeight');
 	  
-		if (scrollTop + 350 >= scrollHeight) {
+		if (scrollTop + 400 >= scrollHeight) {
 			$("#BusinessInfoRCkWarp").addClass('ck');
 			$('#BusinessInfoRCk').removeAttr('disabled'); //열기
 		}
@@ -156,7 +156,7 @@ $(function(){
 		var scrollTop = $(this).scrollTop();
 		var scrollHeight = $(this).prop('scrollHeight');
 	  
-		if (scrollTop + 350 >= scrollHeight) {
+		if (scrollTop + 400 >= scrollHeight) {
 			$("#CounselingInfoRCkWarp").addClass('ck');
 			$('#CounselingInfoRCk').removeAttr('disabled'); //열기
 		}
