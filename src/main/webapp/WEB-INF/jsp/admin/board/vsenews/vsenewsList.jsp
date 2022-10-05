@@ -74,7 +74,7 @@
 		                <th><input type="checkbox" class="checkbox-selectAll" id="checkbox-selectAll">No.</th>
 				   <!-- <th>Image</th> -->
 		                <th>Title</th>
-		                <th>Disclosure Y/N</th>
+		                <th>Disclosure</th>
 		                <th>Hits</th>
 		                <th>Writer</th>
 		                <th>Exposure Day</th>

@@ -36,7 +36,7 @@
 	                </td> 
 	            </tr>
 	            <tr>    
-	               <th>Disclosure Y/N</th>
+	               <th>Disclosure</th>
 	               <td colspan="3">
 	                    <label class="radio_box" for="useY"><input type="radio" name="useYn" id="useY" value="Y" /><span>Y</span></label>&nbsp;&nbsp;
 	                    <label class="radio_box" for="useN"><input type="radio" name="useYn" id="useN" value="N" /><span>N</span></label>
