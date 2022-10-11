@@ -12,47 +12,51 @@
     Description : 게시판관리 > INFORMATION > NOTICE 목록
 --%>
 <div class="sec_top">
-	<h3 class="sec_tit">창업상담 목록</h3>
+	<h3 class="sec_tit">Counseling List</h3>
+	<!-- 
 	<ul class="top_tab">
 		<li><a href="#">창업상담 신청관리</a></li>
 	</ul>
+	-->
 </div>
 <div class="sec_cont">
-	<h4 class="cont_tit">조회조건</h4>
+<!--<h4 class="cont_tit">조회조건</h4>-->
 	<div class="r_search_box">
 		<form name="searchForm" method="get" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 			<input type="hidden" name="rowLimit" value="10" />
 			<table class="r_search_table">
+				<%-- 
 				<colgroup>
 					<col style="width:150px">
 					<col style="">
 					<col style="width:150px">
 					<col style="">
 				</colgroup>
+				--%>
 				<tbody>
 					<tr>
-					   <th>등록일</th>
+					   <th>Registration date</th>
 					   <td colspan="3">										
 							<input type="text" id="searchStartDate" name="searchStartDate" class="date_input is-datepick datepicker" readonly="readonly" autocomplete="off"  title="기간" value="${result.searchInfo.searchStartDate}"> <em> ~ </em>
 							<input type="text" id="searchEndDate" name="searchEndDate" class="date_input is-datepick datepicker" readonly="readonly" autocomplete="off" title="기간"  value="${result.searchInfo.searchEndDate}">
 						</td>
 					</tr>
 					<tr>
-						<th>검색어</th>
+						<th>Search</th>
 						<td colspan="3">
 					   		<select id="searchType" name="searchType">
-		                        <option value="0">전체</option>
-		                        <option value="1">제목</option>
-		                        <option value="2">내용</option>
+		                        <option value="0">All</option>
+		                        <option value="1">Title</option>
+		                        <option value="2">Contents</option>
 		                    </select>
-							<input id="searchKey" name="searchKey" type="text" title="상세검색입력" style="width:450px;" maxlength="100" minlength="2" value="${result.searchInfo.searchKey}"/>
+							<input id="searchKey" name="searchKey" type="text" title="the search input" style="width: calc(100% - 120px);" maxlength="100" minlength="2" value="${result.searchInfo.searchKey}"/>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="btn_right_gorup">
-				<button type="submit" class="btn btn_red">조회</button>
-				<button type="reset" class="btn btn_gray">초기화</button>
+				<button type="submit" class="btn btn_red">search</button>
+				<button type="reset" class="btn btn_gray">reset</button>
 			</div>
 		</form>
 		<form name="downForm" method="get">
@@ -66,16 +70,16 @@
 	<div class="content-body">
 		<div class="table_tit left_right">
 			<div class="table_left_title">
-				<span>총<strong class="totCnt" style="font-weight: 700;"> <fmt:formatNumber value="${result.searchInfo.totalRow}" type="number"/></strong>건 조회</span>
+				<span>total<strong class="totCnt" style="font-weight: 700;"> <fmt:formatNumber value="${result.searchInfo.totalRow}" type="number"/></strong></span>
 			</div>
     		<div class="right">
-    			<a href="${contextPath}/${requestUri}/allList.vc" class="btnstyle blue excelDown"><span>엑셀 다운로드</span></a> 
+    			<a href="${contextPath}/${requestUri}/allList.vc" class="btnstyle blue excelDown"><span>Excel Download</span></a> 
     			<select name="rowLimit" id="rowLimit">
-					<option value="10">10개씩보기</option>
-                    <option value="20">20개씩보기</option>
-                    <option value="50">50개씩보기</option>
-                    <option value="100">100개씩보기</option>
-                    <option value="1000">전건보기</option>
+					<option value="10">View 10 each</option>
+                    <option value="20">View 20 each</option>
+                    <option value="50">View 50 each</option>
+                    <option value="100">View 100 each</option>
+                    <option value="1000">Everything</option>
 				</select>
     		</div>
 		</div>
@@ -83,26 +87,26 @@
     	<form name="subForm" method="post" action="${contextPath}/${requestUri}/delete.vc" onsubmit="var rtn = formSubmitObj.delSubmit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 		    <table class="cont_table" style="table-layout:fixed">
 		    	<colgroup>
-					<col style="width:100px">
-					<col style="">
-					<col style="">
-					<col style="width:150px">
-					<col style="width:180px">
+					<col style="width:3%">
+					<col style="width:40%">
+					<col style="width:17%">
+					<col style="width:20%">
+					<col style="width:20%">
 				</colgroup>
 		        <thead>
 		            <tr>
-		                <th><input type="checkbox" class="checkbox-selectAll" id="checkbox-selectAll">번호</th>
-		                <th>이름</th>
-		                <th>연락처</th>
-		                <th>등록일</th>
-		                <th>관리</th>
+		                <th><input type="checkbox" class="checkbox-selectAll" id="checkbox-selectAll">No</th>
+		                <th>Name</th>
+		                <th>Phone</th>
+		                <th>Registration date</th>
+		                <th>Management</th>
 		            </tr>
 		        </thead>
 		        <tbody>
 		            <c:choose>
 		                <c:when test="${empty result.list}">
 		                    <tr>
-		                        <td colspan="5" class="nodata">등록된 게시물이 없습니다.</td>
+		                        <td colspan="5" class="nodata">There are no registered posts.</td>
 		                    </tr>
 		                </c:when>
 		                <c:otherwise>
@@ -115,8 +119,8 @@
 		                            <td>${data.rgstHp}</td>
 		                            <td>${data.rgstDtm}</td>
 		                            <td class="table_btn">
-		                            	<a class="btn btn_red" href="${contextPath}/${requestUri}/view.vc?blcSn=${data.blcSn}${function:searchQuery(result.searchInfo)}">보기</a>
-										<a href="${contextPath}/${requestUri}/delete.vc" class="btn btn_gray btnRowDelete"  data-sn="${data.blcSn}">삭제</a>
+		                            	<a class="btn btn_red" href="${contextPath}/${requestUri}/view.vc?blcSn=${data.blcSn}${function:searchQuery(result.searchInfo)}">view</a>
+										<a href="${contextPath}/${requestUri}/delete.vc" class="btn btn_gray btnRowDelete"  data-sn="${data.blcSn}">del</a>
 									</td>
 		                        </tr>
 		                    </c:forEach>
@@ -127,8 +131,8 @@
     
 		    <div class="btn_center_gorup clearfix">
 				<div class="left">
-					<button type="button" class="btn btn_gray btnInfoCancle" onclick="">선택취소</button>
-					<button type="submit" class="btn btn_gray" onclick="">선택삭제</button>
+					<button type="button" class="btn btn_gray btnInfoCancle" onclick="">Uncheck</button>
+					<button type="submit" class="btn btn_gray" onclick="">Delete Selection</button>
 				</div>
 			</div>
 	    </form>

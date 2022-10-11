@@ -49,7 +49,7 @@ public class ManagerController extends XController {
     
     public final String PAGE_PATH = "manager/info";
     
-    public final String PAGE_MENUID = "Z";
+    public final String PAGE_MENUID = "manager";
 
     /**
      * 운영자 목록

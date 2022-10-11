@@ -60,7 +60,7 @@ public class BoardController extends XController {
     	} else if("vsenews".equals(id)){
     		returnCode = id;
     	} else if("vsefaq".equals(id)){
-    		returnCode = "J2";
+    		returnCode = id;
 	    } else if("vseshop".equals(id)){
 			returnCode = "J6";
 	    } else if("vsebusiness".equals(id)){

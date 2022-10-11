@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* common */
 .clearfix:after {content: '';display: block; clear: both;}
-input{border:1px solid #c2c2c2; line-height: 27px;}
+input{border:1px solid #c2c2c2; line-height: 27px; margin-right: 10px;}
 select{width: 100px; border:1px solid #c2c2c2; height: 31px;}
 .file{font-size: 15px;background-color: #c2c2c2;padding:5px 30px 6px 30px;}
 .date_input {background-image: url(/resources/admin/images/common/cal.png); background-repeat: no-repeat; background-position:10px 6px; text-align: center;}

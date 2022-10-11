@@ -58,7 +58,7 @@ public class UserBoardController extends XController {
     	} else if("BBS".equals(id)){
     		returnCode = "F4";
     	} else if("BUSINESS".equals(id)){
-    		returnCode = "J3";	//창업상담관리
+    		returnCode = "vsebusiness";	//창업상담관리
     	} else if("PRESENTATION".equals(id)){
     		returnCode = "J4";	//사업설명회관리
     	} else if("APPLICATION".equals(id)){

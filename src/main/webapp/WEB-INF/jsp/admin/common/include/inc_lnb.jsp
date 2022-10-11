@@ -123,15 +123,15 @@
 			<li class="depth01 vsenews">
 				<a href="${contextPath}/board/vsenews/list.vc"><span>NEWS</span></a>
 			</li>
-			<li class="depth01">
+			<li class="depth01 vsebusiness">
 				<a href="${contextPath}/vse/business/list.vc"><span>Support</span></a>
 			</li>
-			<li class="depth01">
+			<li class="depth01 vsefaq">
 				<a href="${contextPath}/board/vsefaq/list.vc"><span>FAQ</span></a>
 			</li>
 			<c:if test="${sessionScope.sessionVO.authLevel eq 'S'}">
-				<li class="depth01">
-					<a href="${contextPath}/manager/info/list.vc"><span>운영자관리</span></a>
+				<li class="depth01 manager">
+					<a href="${contextPath}/manager/info/list.vc"><span>Admin</span></a>
 				</li>
 			</c:if>
 		</ul>

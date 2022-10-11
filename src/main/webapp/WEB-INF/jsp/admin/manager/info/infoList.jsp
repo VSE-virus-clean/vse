@@ -12,39 +12,42 @@
     Description : 사이트 관리자 목록
 --%>
 <div class="sec_top">
-	<h3 class="sec_tit">운영자 목록</h3>
+	<h3 class="sec_tit">Admin List</h3>
+	<!-- 
 	<ul class="top_tab">
 		<li><a href="#">운영자 관리</a></li>
 	</ul>
+	-->
 </div>
 <div class="sec_cont">
-	<h4 class="cont_tit">조회조건</h4>
+<!--<h4 class="cont_tit">조회조건</h4>-->
 	<div class="r_search_box">
 		<form name="searchForm" method="get" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 			<table class="r_search_table">
+				<%-- 
 				<colgroup>
 					<col style="width:150px">
 					<col style="">
 					<col style="width:150px">
 					<col style="">
 				</colgroup>
+				--%>
 				<tbody>
 					<tr>
-						<th>검색어</th>
-						<td colspan="3">
+						<td>
 					   		<select id="searchType" name="searchType">
-		                        <option value="0">전체</option>
-		                        <option value="1">아이디</option>
-		                        <option value="2">이름</option>
+		                        <option value="0">All</option>
+		                        <option value="1">Id</option>
+		                        <option value="2">Name</option>
 		                    </select>
-							<input id="searchKey" name="searchKey" type="text" title="상세검색입력" style="width:450px;" maxlength="100" minlength="2"/>
+							<input id="searchKey" name="searchKey" type="text" title="the search input" style="width: calc(100% - 120px);" maxlength="100" minlength="2"/>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="btn_right_gorup">
-				<button type="submit" class="btn btn_red">조회</button>
-				<button type="reset" class="btn btn_gray">초기화</button>
+				<button type="submit" class="btn btn_red">search</button>
+				<button type="reset" class="btn btn_gray">reset</button>
 			</div>
 		</form>
 	</div>
@@ -52,39 +55,38 @@
 	<div class="content-body">
 		<div class="table_tit">
 			<div class="table_left_title">
-				<span>총<strong class="totCnt" style="font-weight: 700;"> <fmt:formatNumber value="${result.searchInfo.totalRow}" type="number"/></strong>건 조회</span>
+				<span>total<strong class="totCnt" style="font-weight: 700;"> <fmt:formatNumber value="${result.searchInfo.totalRow}" type="number"/></strong></span>
 			</div>
 		</div>
-    
 		<form name="subForm" method="post" action="${contextPath}/${requestUri}/delete.vc" onsubmit="var rtn = formSubmitObj.delSubmit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
    			<table class="cont_table" style="table-layout:fixed">
 		        <colgroup>
-		            <col width="100px" />
-		            <col width="130px" />
-		            <col width="*" />
-		            <col width="150px" />
-		            <col width="110px" />
-		            <col width="150px" />
-		            <col width="100px" />
-		            <col width="100px" />
+		            <col width="3%" />
+		            <col width="15%" />
+		            <col width="33%" />
+		            <col width="15%" />
+		            <col width="10%" />
+		            <col width="10%" />
+		            <col width="7%" />
+		            <col width="7%" />
 		        </colgroup>
 		        <thead>
 		            <tr>
-		                <th>번호</th>
-		                <th>이름</th>
-		                <th>아이디</th>
-		                <th>부서</th>
-		                <th>등록일</th>
-		                <th>최종접속일</th>
-		                <th>계정상태</th>
-		                <th>관리</th>
+		                <th>No</th>
+		                <th>Name</th>
+		                <th>Id</th>
+		                <th>Department</th>
+		                <th>Registration date</th>
+		                <th>Last connection date</th>
+		                <th>Usage status</th>
+		                <th>Management</th>
 		            </tr>
 		        </thead>
 		        <tbody>
 		            <c:choose>
 		                <c:when test="${empty result.list}">
 		                    <tr>
-		                        <td colspan="8">등록된 사용자가 없습니다.</td>
+		                        <td colspan="8">There are no registered posts.</td>
 		                    </tr>
 		                </c:when>
 		                <c:otherwise>
@@ -97,10 +99,10 @@
 		                            <td>${data.rgstDtm}</td>
 		                            <td>${data.finCnncDtm}</td>
 		                            <td>
-		                                <a class="btn btn_gray stCdMod" data="${data.mgrSn}|${data.stCd  eq 'Y' ? 'N' : 'Y'}" href="#" >${data.stCd eq 'Y' ? '사용' : '사용중지'}</a>
+		                                <a class="btn btn_gray stCdMod" data="${data.mgrSn}|${data.stCd  eq 'Y' ? 'N' : 'Y'}" href="#" >${data.stCd eq 'Y' ? 'Y' : 'N'}</a>
 		                            </td>
 		                            <td class="table_btn">
-		                            	<a class="btn btn_red" href="${contextPath}/${requestUri}/modify.vc?mgrSn=${data.mgrSn}${function:searchQuery(result.searchInfo)}">수정</a>
+		                            	<a class="btn btn_red" href="${contextPath}/${requestUri}/modify.vc?mgrSn=${data.mgrSn}${function:searchQuery(result.searchInfo)}">mod</a>
 									</td>
 		                        </tr>
 		                    </c:forEach>
@@ -111,7 +113,7 @@
     
 		    <div class="btn_center_gorup clearfix">
 				<div class="right">
-					<button type="button" onclick="location.href='${contextPath}/${requestUri}/register.vc';" class="btn btn_bk">등록</button>
+					<button type="button" onclick="location.href='${contextPath}/${requestUri}/register.vc';" class="btn btn_bk">Registration</button>
 				</div>
 			</div>
 	    </form>
@@ -156,7 +158,7 @@ var formSubmitObj = {
      * - 사용중지 -> 사용
      */
     submitStCdMod : function(object){
-        if(confirm('계정상태를 변경하시겠습니까?')){
+        if(confirm('Do you want to change your account status?')){
             var data = { mgrSn : $(object).attr('data').split('|')[0], stCd : $(object).attr('data').split('|')[1]};
             ajaxUtil.postDisableAsync('${contextPath}/${requestUri}/stcdMod.vc', data, formSubmitObj.resultStCdMod);
         }

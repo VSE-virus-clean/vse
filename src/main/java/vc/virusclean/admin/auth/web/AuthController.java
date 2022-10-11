@@ -85,7 +85,8 @@ public class AuthController extends XController {
 		
 		model.addAttribute("dashboard", statsService.selectDashboard());
         
-        return "auth/mainMan";
+//        return "auth/mainMan";
+		return "redirect:/admin/board/vsenews/list.vc";
     }
     
     /**

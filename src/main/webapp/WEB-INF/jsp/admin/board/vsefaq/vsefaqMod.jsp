@@ -12,13 +12,15 @@
     Description : FAQ 수정
 --%>
 <div class="sec_top">
-	<h3 class="sec_tit">VSE FAQ 수정</h3>
+	<h3 class="sec_tit">FAQ Modify</h3>
+	<!-- 
 	<ul class="top_tab">
 		<li><a href="#">FAQ</a></li>
 	</ul>
+	-->
 </div>
 <div class="sec_cont">
-	<h4 class="cont_tit">정보입력</h4>
+<!--<h4 class="cont_tit">정보입력</h4>-->
 	<div class="r_search_box">
     
 	    <form name="mainForm" method="post" enctype="multipart/form-data" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
@@ -28,8 +30,8 @@
 	                 <col width="170px" /><col width="*" /><col width="170px" /><col width="*" />
 	            </colgroup>
 	            <tr>    
-	                <th>제목</th>
-	                <td colspan="3"><input type="text" id="blcTitl" name="blcTitl" maxlength="100" style="width:80%;" title="제목" value="${result.info.blcTitl}" />
+	                <th>Title</th>
+	                <td colspan="3"><input type="text" id="blcTitl" name="blcTitl" maxlength="100" style="width:80%;" title="Title" value="${result.info.blcTitl}" />
 	            </tr>
 <!-- 	            <tr>     -->
 <!-- 	                <th class="necessary">카테고리</th> -->
@@ -40,20 +42,20 @@
 <!-- 	                </td>  -->
 <!-- 	            </tr> -->
 	            <tr>
-	                <th>작성자</th>
+	                <th>Writer</th>
 	                <td>${result.info.rgstId}</td>
-	                <th>등록시간</th>
+	                <th>Registration date</th>
 	                <td>${result.info.rgstDtm}</td>
 	            </tr>
 	          	<tr>    
-		             <th>공개여부</th>
+		             <th>Disclosure</th>
 		             <td colspan="3">
-	                    <label class="radio_box" for="useY"><input type="radio" name="useYn" id="useY" value="Y" /><span>공개</span></label>&nbsp;&nbsp;
-	                    <label class="radio_box" for="useN"><input type="radio" name="useYn" id="useN" value="N" /><span>비공개</span></label>
+	                    <label class="radio_box" for="useY"><input type="radio" name="useYn" id="useY" value="Y" /><span>Y</span></label>&nbsp;&nbsp;
+	                    <label class="radio_box" for="useN"><input type="radio" name="useYn" id="useN" value="N" /><span>N</span></label>
 	                 </td>  
 	            </tr>
 	            <tr>    
-	                <th class="necessary">내용</th>
+	                <th class="necessary">Contents</th>
 	                <td colspan="3" class="con">
 	                    <textarea name="blcSbc1" id="blcSbc1" style="width:95%;height:500px;" title="내용">${result.info.blcSbc1}</textarea>
 	                </td>   
@@ -61,10 +63,10 @@
 	        </table>
 	        <div class="btn_center_gorup clearfix">
 				<div class="left">
-					<button type="button" class="btn btn_gray" onclick="location.href='${contextPath}/${requestUri}/list.vc?${function:searchQuery(result.searchInfo)}'; ">목록</button>
+					<button type="button" class="btn btn_gray" onclick="location.href='${contextPath}/${requestUri}/list.vc?${function:searchQuery(result.searchInfo)}'; ">List</button>
 				</div>
 				<div class="right">
-					<button type="submit" class="btn btn_red">수정</button>
+					<button type="submit" class="btn btn_red">Save</button>
 				</div>
 			</div>
 	    </form>

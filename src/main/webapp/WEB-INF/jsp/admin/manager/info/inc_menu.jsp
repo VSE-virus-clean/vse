@@ -177,7 +177,7 @@
 <!-- 			<td></td> -->
 <!-- 		</tr> -->
 		<tr>
-			<th scope="row" rowspan="4">
+			<th scope="row" rowspan="5">
 				<input type="checkbox" title="VSE" id="J" name="menuCds" prenMenuCd="0" menuPathCd="J" value="J|VSE" > <label for="J">VSE 관리</label>
 			</th>
 			<td><input  type="checkbox" title="이벤트-뉴스" id="J1" name="menuCds" prenMenuCd="J" menuPathCd="J-J1" value="J1|이벤트-뉴스" > <label for="J1">이벤트&amp;뉴스관리</label></td>

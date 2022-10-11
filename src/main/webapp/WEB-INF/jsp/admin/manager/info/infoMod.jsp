@@ -17,80 +17,82 @@
 </style>
 
 <div class="sec_top">
-	<h3 class="sec_tit">운영자 수정</h3>
+	<h3 class="sec_tit">Admin Modify</h3>
+	<!-- 
 	<ul class="top_tab">
 		<li><a href="#">운영자 관리</a></li>
 	</ul>
+	-->
 </div>
 <div class="sec_cont">
     <form name="mainForm" method="post"  onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
     <input type="hidden" name="mgrId" value="${result.info.mgrId}" />
     <input type="hidden" name="mgrSn" value="${result.info.mgrSn}" />
     
-		<h4 class="cont_tit">정보입력</h4>
+<!-- 	<h4 class="cont_tit">정보입력</h4> -->
 		<div class="r_search_box">
 	        <table class="r_search_table">
+	            <%-- 
 	            <colgroup>
 	                <col width="170px" /><col width="*" /><col width="170px" /><col width="*" />
 	            </colgroup>
+	            --%>
 	            <tr>    
-	                <th>이름</th>
-	                <td colspan="3">
-	                	<input type="text" id="mgrNm" name="mgrNm" style="width:250px;" title="이름" value="${result.info.mgrNm}" />
+	                <th>Name</th>
+	                <td>
+	                	<input type="text" id="mgrNm" name="mgrNm" style="width:250px;" title="name" value="${result.info.mgrNm}" />
 	               	</td>   
 	           	</tr>
 	            <tr>    
-	                <th>아이디</th>
+	                <th>Id</th>
 	                <td colspan="3">${result.info.mgrId}</td>
 	            </tr>
 	            <tr>    
-	                <th>비밀번호</th>
+	                <th>Password</th>
 	                <td colspan="3">
-	                    <a href="${contextPath}/${requestUri}/resetPassword.vc" class="btn btn_gray btn_resetPw">비밀번호 초기화</a> <span id="resetPw" class="hidden">변경된 비밀번호 : <em></em></span>
+	                    <a href="${contextPath}/${requestUri}/resetPassword.vc" class="btn btn_gray btn_resetPw">Password initialization</a> <span id="resetPw" class="hidden">Changed password : <em></em></span>
 	                </td>   
 	            </tr>
 	            <tr>   
 	                <th>E-mail<span class="ess">*</span></th>
-	                <td colspan="3">
+	                <td>
 	                    <input type="text" id="mgrEml" name="mgrEml" style="width:250px;" title="E-mail" value="${result.info.mgrEml}" />
 	                </td>
 	            </tr>
 	            <tr>    
-	                <th>부서</th>
-	                <td colspan="3">
-	                    <input type="text" id="mgrOpsNm" name="mgrOpsNm" style="width:250px;" title="부서" value="${result.info.mgrOpsNm}"  />
+	                <th>Department</th>
+	                <td>
+	                    <input type="text" id="mgrOpsNm" name="mgrOpsNm" style="width:250px;" title="department" value="${result.info.mgrOpsNm}"  />
 	                </td>
 	            </tr>
 	            <tr>
-					<th>권한타입</th>
-					<td colspan="3">
-						<label class="radio_box" for="mgrAuthCdA"><input type="radio" name="mgrAuthCd" id="mgrAuthCdA" value="A" /><span>일반관리자</span></label>&nbsp;
-	                   	<label class="radio_box" for="mgrAuthCdS"><input type="radio" name="mgrAuthCd" id="mgrAuthCdS" value="S" /><span>운영관리자</span></label>
+					<th>Permission type</th>
+					<td>
+						<label class="radio_box" for="mgrAuthCdA"><input type="radio" name="mgrAuthCd" id="mgrAuthCdA" value="A" /><span>General Manager</span></label>&nbsp;
+	                   	<label class="radio_box" for="mgrAuthCdS"><input type="radio" name="mgrAuthCd" id="mgrAuthCdS" value="S" /><span>Operations manager</span></label>
 					</td>
 				</tr>
 	            <tr> 
-	                <th>계정상태</th>
-	                <td colspan="3">
-	                    <label class="radio_box" for="stCdY"><input type="radio" name="stCd" id="stCdY" value="Y" /><span>사용</span></label>&nbsp;
-	                    <label class="radio_box" for="stCdN"><input type="radio" name="stCd" id="stCdN" value="N" /><span>사용중지</span></label>
+	                <th>Usage status</th>
+	                <td>
+	                    <label class="radio_box" for="stCdY"><input type="radio" name="stCd" id="stCdY" value="Y" /><span>Y</span></label>&nbsp;
+	                    <label class="radio_box" for="stCdN"><input type="radio" name="stCd" id="stCdN" value="N" /><span>N</span></label>
 	                </td> 
 	            </tr>
 	        </table>
         </div>
-        
-        <h4 class="cont_tit showAuthU">메뉴권한설정</h4>
-		<div class="r_search_box showAuthU">
-			
+<!--         <h4 class="cont_tit showAuthU">메뉴권한설정</h4> -->
+		<div class="r_search_box showAuthU" style="display:none">
 			<%@ include file="/WEB-INF/jsp/admin/manager/info/inc_menu.jsp" %>
 	    </div>
         <div class="r_search_box">    
 	        <div class="btn_center_gorup clearfix">
 				<div class="left">
-					<button type="button" class="btn btn_gray" onclick="location.href='${contextPath}/${requestUri}/list.vc?${function:searchQuery(result.searchInfo)}'; ">목록</button>
+					<button type="button" class="btn btn_gray" onclick="location.href='${contextPath}/${requestUri}/list.vc?${function:searchQuery(result.searchInfo)}'; ">List</button>
 				</div>
 				<div class="right">
-					<button type="button" class="btn btn_gray btn_adminDel">삭제</button>
-					<button type="submit" class="btn btn_red">수정</button>
+					<button type="button" class="btn btn_gray btn_adminDel">Delete</button>
+					<button type="submit" class="btn btn_red">Save</button>
 				</div>
 			</div>
 		</div>
@@ -99,6 +101,7 @@
 
 
 <script type="text/javascript">
+/* 
 $(document).ready(function(){
 	<c:if test="${result.info.mgrAuthCd eq 'A'}">
 		<c:forTokens var="menu" items="${result.info.menuCd}" delims="|">
@@ -108,6 +111,7 @@ $(document).ready(function(){
 		 $('.showAuthU').show();
 	</c:if>
 });
+*/
 
 $(function(){
     $('form[name=mainForm]').ready(function(){
@@ -115,6 +119,7 @@ $(function(){
         $('input[name=mgrAuthCd][value=${result.info.mgrAuthCd}]').prop('checked', true).trigger('click'); 
     });
     
+    /* 
     $('input[name=mgrAuthCd]').on('change', function(e){
    	 if($(this).val() == 'A'){
    		 $('.showAuthU').show();
@@ -122,6 +127,7 @@ $(function(){
    		 $('.showAuthU').hide();
    	 }
     });
+    */
     
     /**
      * 비밀번호 초기화

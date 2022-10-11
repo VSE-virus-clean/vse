@@ -88,17 +88,32 @@
 				</div>
 				<div  class="mo_gnb_con">
 					<ul class="mo_gnb_1">
+						<li>
+							<a href="/main/vse.vse"><span>VSE</span></a>			
+						</li>
+						<li>
+							<a href="/main/news.vse"><span>NEWS</span></a>			
+						</li>
+						<li>
+							<a href="/main/support.vse"><span>Support</span></a>			
+						</li>
+						<li>
+							<a href="/main/shop.vse"><span>Shop</span></a>			
+						</li>
+					</ul>
+					<!-- 
+					<ul class="mo_gnb_1">
 						<li class="">
 							<a href="#none"><span>VSE</span></a>
 							<ul class="inner"> 
 								<li>
 									<a href="/product/vse1.vse">VSE1</a>
 								</li>
-								<!-- 
+								
 								<li>
 									<a href="/product/vse2.vse">VSE2</a>
 								</li>
-								 -->
+								
 								<li>
 									<a href="/product/ohter.vse">Ohter</a>
 								</li>
@@ -121,16 +136,16 @@
 								</li>
 							</ul>
 						</li>
-						<!-- 
+						
 						<li>
 							<a href="/startups.vse"><span>창업</span></a>			
 						</li>
-						 -->
-						<!--
+						
+						
 						<li>
 							<a href="/business/presentation.vse"><span>사업 설명회</span></a>
 						</li>
-						-->
+						
 						<li class="sub">
 							<a href="#none"><span>CS CENTER</span></a>
 							<ul class="inner">
@@ -149,6 +164,7 @@
 							</ul>
 						</li>
 					</ul>
+					-->
 				</div>
 			</div>
 		</div>

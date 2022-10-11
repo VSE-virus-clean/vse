@@ -24,28 +24,30 @@
 	<div class="r_search_box">
 		<form name="searchForm" method="get" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 			<table class="r_search_table">
+				<%-- 			
 				<colgroup>
 					<col style="width:150px">
 					<col style="">
 					<col style="width:150px">
 					<col style="">
 				</colgroup>
+				--%>
 				<tbody>
 					<tr>
-						<td colspan="3">
+						<td>
 					   		<select id="searchType" name="searchType">
 		                        <option value="0">All</option>
 		                        <option value="1">Title</option>
 		                        <option value="2">Contents</option>
 		                    </select>
-							<input id="searchKey" name="searchKey" type="text" title="the search input" style="width: calc(100% - 110px);" maxlength="100" minlength="2"/>
+							<input id="searchKey" name="searchKey" type="text" title="the search input" style="width: calc(100% - 120px);" maxlength="100" minlength="2"/>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="btn_right_gorup">
 				<button type="submit" class="btn btn_red">search</button>
-<!-- 			<button type="reset" class="btn btn_gray">reset</button> -->
+				<button type="reset" class="btn btn_gray">reset</button>
 			</div>
 		</form>
 	</div>
@@ -71,7 +73,7 @@
 				</colgroup>
 		        <thead>
 		            <tr>
-		                <th><input type="checkbox" class="checkbox-selectAll" id="checkbox-selectAll">No.</th>
+		                <th><input type="checkbox" class="checkbox-selectAll" id="checkbox-selectAll">No</th>
 				   <!-- <th>Image</th> -->
 		                <th>Title</th>
 		                <th>Disclosure</th>
@@ -153,7 +155,7 @@ var formSubmitObj = {
         return true;
     },
     submitDel : function(object){
-		var msg = '게시물을 삭제 하시겠습니까?'
+		var msg = 'Are you sure you want to delete the news?'
 	    if(confirm(msg)){
 	        var data = { blcSn : $(object).data('sn') };
 	        ajaxUtil.postDisableAsync($(object).attr('href'), data, formSubmitObj.delResult);    
@@ -161,11 +163,11 @@ var formSubmitObj = {
 	},
 	delSubmit : function(form){
         if($('input.checkbox-select:checked').length > 0){
-        	if (confirm('선택한 게시물을 삭제 하시겠습니까?')) {
+        	if (confirm('Are you sure you want to delete the selected news?')) {
             	ajaxUtil.postDisableAsync(form.action, $(form).serialize(), formSubmitObj.delResult);
         	}
         }else{
-            alert('1개이상 선택해 주세요.');
+            alert('Please select at least one.');
         }
         
         return false;

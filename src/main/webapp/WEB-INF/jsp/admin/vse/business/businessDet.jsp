@@ -12,13 +12,15 @@
     Description : 게시판관리 > INFORMATION > NOTICE 상세조회
 --%>
 <div class="sec_top">
-	<h3 class="sec_tit">창업상담 정보</h3>
+	<h3 class="sec_tit">Counseling Information</h3>
+	<!-- 
 	<ul class="top_tab">
 		<li><a href="#">창업상담 신청관리</a></li>
 	</ul>
+	-->
 </div>
 <div class="sec_cont">
-	<h4 class="cont_tit">상세정보</h4>
+<!--<h4 class="cont_tit">상세정보</h4>-->
 	<div class="r_search_box">
 	    <form name="mainForm" method="post" action="${contextPath}/${requestUri}/delete.vc" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 		    <input name="blcSn" type="hidden" value="${result.info.blcSn}"/>
@@ -28,17 +30,22 @@
 	            </colgroup>
 	            <tbody>
 	            <tr>
-	                <th>등록시간</th>
+	                <th>Registration date</th>
 	                <td>${result.info.rgstDtm}</td>
 	            </tr>
 	            <tr>    
-	                <th>이름</th>
+	                <th>Name</th>
 	                <td>${result.info.rgstName}</td>    
 	            </tr>
 	            <tr>    
-	                <th>연락처</th>
+	                <th>Phone</th>
 	                <td>${result.info.rgstHp}</td>    
 	            </tr>
+	            <tr>    
+	                <th>Email </th>
+	                <td>${result.info.rgstEml}</td>    
+	            </tr>
+	            <%-- 
 	            <tr>    
 	                <th>직업</th>
 	                <td>${result.info.item1}</td>    
@@ -59,6 +66,7 @@
 	                <th>희망타석</th>
 	                <td>${result.info.item3}</td>    
 	            </tr>
+	            --%>
 	            </tbody>
 	        </table>
 
