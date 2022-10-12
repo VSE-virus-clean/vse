@@ -43,7 +43,7 @@
 			<div class="footer_sec">
 				<h3>Customer Service</h3>
 				<ul>
-					<li>Support@voicecaddie.com</li>
+					<li>james@voicecaddie.com</li>
 					<li>562-926-3978</li>
 				</ul>
 			</div>

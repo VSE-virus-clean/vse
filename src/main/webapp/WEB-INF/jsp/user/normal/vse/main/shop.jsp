@@ -25,7 +25,7 @@
 				</div>
 				<a href="/customer/request_more_information.vse" class="btn2 mt20">BUY IT NOW</a>
 			</div>
-			<div class="_img _items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)"></div>
+			<div class="_img _items _sub_sec" style="background-image: url(/resources/vse/images/subpage/MARKED_BALLS.jpg)"></div>
 		</div>
 		
 		<div class="_item_wrap">
@@ -39,7 +39,7 @@
 				</div>
 				<a href="/customer/request_more_information.vse" class="btn2 mt20">BUY IT NOW</a>
 			</div>
-			<div class="_img _items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)"></div>
+			<div class="_img _items _sub_sec" style="background-image: url(/resources/vse/images/subpage/PROJECTOR_LAMP.jpg)"></div>
 		</div>
 		
 		

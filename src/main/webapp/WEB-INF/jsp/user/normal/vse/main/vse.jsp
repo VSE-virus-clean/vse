@@ -362,7 +362,7 @@
 							</ul>
 						</div>
 						<span class="img">
-							<img class="shadow" src="/resources/vse/images/subpage/productapp_slide_05.jpg">
+							<img class="shadow" src="/resources/vse/images/subpage/productapp_slide_06.jpg">
 						</span>
 						<p class="sub_txt text_center mb30">
 							Download Google Play store / App store
@@ -421,7 +421,7 @@
 	</div>
 	<div class="_sub_sec_w _pdb110">
 		<div class="inner _sub_sec_mo">
-			<div class="_items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)">
+			<div class="_items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_01.jpg)">
 				<div class="overlay">
 					<div class="txt_area">
 						<p class="tit"><b>RESIDENTIAL INSTALLS</b></p>
@@ -454,7 +454,7 @@
 					<a href="/main/support.vse" class="btn2 btn_round" style="margin: 0.7rem 0;">LEARN MORE</a>			
 				</div>
 			</div>
-			<div class="_items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)">
+			<div class="_items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Residential_04.jpg)">
 				<div class="overlay">
 					<div class="txt_area">
 						<p class="tit"><b>Golf Club & Golf Facility</b></p>
@@ -525,7 +525,7 @@
 		<!--hardware_info_wrap-->
 		<div class="hardware_info_wrap">
 			<div class="img">
-				<img src="/resources/vse/images/subpage/pup_vse_hardwarei_02.jpg" alt="" />
+				<img src="/resources/vse/images/subpage/pup_vse_hardwarei_02_02.jpg" alt="" />
 			</div>
 			<div class="con">
 				<h4 class="tit">Ball Tracking</h4>
