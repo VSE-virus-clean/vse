@@ -155,35 +155,34 @@
 var formSubmitObj1 = {
     submit : function(form){
         
+        if($("input[name=a1]").val() == '') {
+    	   alert("First name must be entered.");
+    	   $("input[name=a1]").focus();
+    	   return false;
+        }
+        
+        if($("input[name=a1_2]").val() == '') {
+    	   alert("Last name must be entered.");
+    	   $("input[name=a1_2]").focus();
+    	   return false;
+        }
+        
+        if($("input[name=b1]").val() == '') {
+     	   alert("You must enter your phone number");
+     	   $("input[name=b1]").focus();
+     	   return false;
+         }
+        
+        if($("input[name=c1]").val() == '') {
+     	   alert("You must enter an email.");
+     	   $("input[name=c1]").focus();
+     	   return false;
+         }
+        
     	if(!$("input[name=agreePersonal]").is(":checked")){
 			alert("You must agree to VSE's Privacy Policy and Terms.");
 			return false;
 		}
-    	
-        //바뀐것 체크
-        if(!submitUtil.isEmpty(form.rgstName)){
-            return false;
-        }
-        
-        if(!submitUtil.isEmpty(form.rgstHp)){
-            return false;
-        }
-        
-        if(!submitUtil.isEmpty(form.dist1)){
-            return false;
-        }
-        
-        if(!submitUtil.isEmpty(form.item1)){
-            return false;
-        }
-        
-        if(!submitUtil.isEmpty(form.blcSbc1)){
-            return false;
-        }
-        
-        if(!submitUtil.isEmpty(form.blcSbc2)){
-            return false;
-        }
         
         ajaxUtil.formSubmit($(form), formSubmitObj1.result);
         

@@ -326,6 +326,28 @@ public class UserBoardServiceImpl extends XAbstractService implements UserBoardS
             throw processException("exception.error", exception);
         }
         
+        if(boardVO.getLgrpCd().equals("BUSINESS")) {
+        	
+        	String message ="";
+    		
+    		message += "Name : " + boardVO.getRgstName();
+    		message += "Phone Number : " + boardVO.getRgstHp();
+    		message += "Email : " + boardVO.getRgstEml();
+    		
+            //답변 메일 발송
+        	String strMailTitle = "Support Register";
+    		String strMailFileName = "supportReg.html";
+    		
+    		Map<String, String> mailInfo = new HashMap<String, String>();
+    		mailInfo.put("$$NAME$$", boardVO.getRgstName());
+    		mailInfo.put("$$PHONE$$", boardVO.getRgstHp());
+    		mailInfo.put("$$EMAIL$$", boardVO.getRgstEml());
+    		
+    		//메일 발송
+            mailSenderUtil.mailSendToUser(csMailAdress, strMailTitle, strMailFileName, mailInfo);
+    		
+        }
+        
         mResult.put("status", bStatus);
             
         return mResult;

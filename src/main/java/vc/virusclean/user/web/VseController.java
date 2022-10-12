@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +23,6 @@ import vc.virusclean.cmm.service.BoardService;
 import vc.virusclean.cmm.service.UserBoardService;
 import vc.virusclean.cmm.vo.BoardVO;
 import vc.virusclean.cmm.vo.UserBoardVO;
-
 
 /**
  * <pre>
@@ -269,11 +268,10 @@ public class VseController extends XController {
 	/**
      * 커뮤니티 입력
      */
-	/*
 	@AuthCheck(loginCheck=false)
     @ResponseBody
     @RequestMapping(value= "/apply/register.vse", method=RequestMethod.POST)
-    public Map<String, Object> communityReg(@Valid @ModelAttribute UserBoardVO boardVO, BindingResult bindingResult) throws Exception{
+    public Map<String, Object> communityReg(@Valid @ModelAttribute UserBoardVO boardVO, BindingResult bindingResult, HttpServletRequest request) throws Exception{
         
         Map<String, Object> mResult = new HashMap<String, Object>();
         
@@ -286,12 +284,20 @@ public class VseController extends XController {
             mResult.put("message", xMessageSource.getMessage("exception.binding"));
         }else{
         	boardVO.setIsApi(true);
-            mResult.put("result", userBoardService.insertBoardVse(boardVO));
+        	
+        	if(boardVO.getLgrpCd().equals("BUSINESS")) {   
+        		
+        		boardVO.setRgstName(request.getParameter("a1") + " " + request.getParameter("a1_2"));
+        		boardVO.setRgstHp(request.getParameter("b1"));
+        		boardVO.setRgstEml(request.getParameter("c1"));
+        		
+        	}
+        	
+             mResult.put("result", userBoardService.insertBoardVse(boardVO));
         }
         
         return mResult;
     }
-    */
 	
 	/**
 	 * VSE
