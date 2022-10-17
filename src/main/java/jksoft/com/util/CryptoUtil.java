@@ -183,7 +183,7 @@ public class CryptoUtil {
     {
         Base64 baseDecoder = new Base64();
        
-        return baseDecoder.decodeBase64(_strHash);
+        return baseDecoder.decode(_strHash);
     }  
     
     /**
@@ -197,7 +197,7 @@ public class CryptoUtil {
     {
         Base64 baseDecoder = new Base64();
         
-        return new String(baseDecoder.decodeBase64(_strHash));
+        return new String(baseDecoder.decode(_strHash));
     } 
     
     /**
@@ -235,6 +235,8 @@ public class CryptoUtil {
         if(strPasswordEnc.isEmpty()){
             throw new IllegalArgumentException("exception.binding");
         }else{
+        	
+        	System.out.println("Hash ---------------------------------- " + strPasswordEnc);
             strRtn = CryptoUtil.encodeUserPassword(new String(CryptoUtil.getBASE64Decoder(strPasswordEnc)));
         }
         
