@@ -257,8 +257,6 @@ public class CryptoUtil {
         if(strPasswordEnc.isEmpty()){
             throw new IllegalArgumentException("exception.binding");
         }else{
-        	
-        	System.out.println("Hash ---------------------------------- " + strPasswordEnc);
             strRtn = CryptoUtil.encodeUserPassword(new String(CryptoUtil.getBASE64Decoder(strPasswordEnc)));
         }
         
