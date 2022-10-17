@@ -63,9 +63,9 @@
 
 .pro_hardware img {width:100%;}
 .vse_pro_hardware .info {font-size:15px;}
-.vse_pro_hardware .pro_hardware .pro_more_01 {bottom:18%;right:28%;}
+.vse_pro_hardware .pro_hardware .pro_more_01 {bottom:28%;right:20%;}
 .vse_pro_hardware .pro_hardware .pro_more_02 {top:10%;}
-.vse_pro_hardware .pro_hardware .pro_more_03 {bottom: 15%;margin-left: -12px;}
+.vse_pro_hardware .pro_hardware .pro_more_03 {bottom: 17%;margin-left: -12px;}
 
 
 .product_info {padding-top:20px;margin-top:0;}
@@ -112,7 +112,7 @@
 .product_slide_02 .btn img {height:15px;width:auto}
 .product_slide_02 .slide_type_01 {width:100%;margin:0;}
 
-/*�씤�뀒由ъ뼱*/
+/*占쎌뵥占쎈�믥뵳�딅선*/
 .top_video {margin-top: -45px;}
 .top_video iframe.shadow {height:405px !important;width:calc(100% + 36px) !important;margin-left:-18px;}
 .interior_slide.slide_type_01 {width:100%;margin:0;padding-top:40px;}
@@ -137,7 +137,7 @@
 .faq_wrap li .faq_con:before {top:20px;left:20px;width:24px;height:24px;background-size:24px;}
 .faq_wrap li.active .faq_tit:after {top: 50%;right:10px;width:24px;height:24px;margin-top: -12px;background-size:20px auto;}
 
-/*留ㅼ옣李얘린*/
+/*筌띲끉�삢筌≪뼐由�*/
 .map_wrap .f_l {display: block;width: 100% !important;}
 .map_wrap .border_box {padding: 10px !important;}
 .map_wrap .map.f_l .root_daum_roughmap,
@@ -184,7 +184,7 @@
 .swiper-scrollbar {height:3px;}
 
 
-/*李쎌뾽*/
+/*筌≪럩毓�*/
 .process_slide {width: calc(100% + 36px);margin-top: 20px;margin-left: -18px;}
 .process_slide > .swiper-wrapper {width:inherit;overflow: unset;margin-bottom:20px;}
 .process_slide .swiper-scrollbar {width:calc(100% - 18px);margin-left:18px;}
@@ -215,7 +215,7 @@
 .startups_videos {height: auto !important;}
 .startups_videos iframe {width:100% !important;height: 56.25vw !important;}
 
-/*�젅�뒯�봽濡�*/
+/*占쎌쟿占쎈뮣占쎈늄嚥∽옙*/
 .techingpro_process_slide {margin-top:0 !important;}
 .techingpro_process_slide .swiper-scrollbar {display:block;}
 .techingpro_process li {width:105px;height:105px;padding:3px;transform: translate3d(-105px, 0, 0);}
@@ -269,7 +269,7 @@ label[for="ProCertif-Other"] {margin-left:0 !important;}
 	.product_slide_02 .btn {padding:4.17vw !important;}
 	.product_slide_02 .btn img {height:4.17vw;}
 
-	/*�씤�뀒由ъ뼱*/
+	/*占쎌뵥占쎈�믥뵳�딅선*/
 	.top_video {margin-top: -12.50vw;}
 	.top_video iframe.shadow {width:calc(100% + 10.00vw) !important;margin-left:-5.00vw;}
 	.interior_slide.slide_type_01 {width:100%;margin:0;padding-top:11.11vw;}
@@ -292,7 +292,7 @@ label[for="ProCertif-Other"] {margin-left:0 !important;}
 	.faq_wrap li .faq_con:before {top:5.56vw;left:5.56vw;width:6.67vw;height:6.67vw;background-size:6.67vw;}
 	.faq_wrap li.active .faq_tit:after {top: 50%;right:2.78vw;width:6.67vw;height:6.67vw;margin-top: -3.33vw;background-size:5.56vw auto;}
 
-	/*留ㅼ옣李얘린*/
+	/*筌띲끉�삢筌≪뼐由�*/
 	.map_wrap .f_l {width: 100% !important;}
 	.map_wrap .border_box {padding: 2.78vw !important;}
 	.map_wrap .map.f_l .root_daum_roughmap  {width: 100% !important;height:55.5556vw;}
@@ -326,7 +326,7 @@ label[for="ProCertif-Other"] {margin-left:0 !important;}
 	.swiper-scrollbar {height:0.83vw;}
 
 
-	/*李쎌뾽*/
+	/*筌≪럩毓�*/
 	.process_slide  {width: calc(100% + 10.00vw);margin-left: -5.00vw;}
 	.process_slide > .swiper-wrapper {width:inherit;margin-bottom:5.56vw;}
 	.process_slide .swiper-scrollbar {width:calc(100% - 5.00vw);margin-left:5.00vw;}
@@ -351,7 +351,7 @@ label[for="ProCertif-Other"] {margin-left:0 !important;}
 	.startups_top {padding-bottom:0 !important;}
 	.startups_top .top_video {margin-bottom:-1.11vw;}
 	.startups_videos {height: auto !important;}
-	/*�젅�뒯�봽濡�*/
+	/*占쎌쟿占쎈뮣占쎈늄嚥∽옙*/
 	.techingpro_process li {width:29.17vw;height:29.17vw;padding:0.83vw;transform: translate3d(-29.17vw, 0, 0);}
 	.techingpro_process li + li {margin-left:6.94vw;}
 	.techingpro_process li + li:after {left:-7.67vw;background-size:2.78vw auto;}

@@ -182,29 +182,11 @@ input::placeholder{
 
 /* main.css 가져옴 */
 .section01 {height:100vh;position:relative;overflow:hidden;}
-.section01 .video_wrap {position:fixed;top:0;left:0;right: 0;bottom: 0;z-index:0;overflow: hidden;}
-.section01 .video_wrap .img {width:100%;height:auto;}
 .section01 .up {position:absolute;bottom:0;left:0;width:100%;min-width:1200px;text-align:center;z-index:1;}
-.section01 .video_text {margin-bottom:-90px;bottom:50%;opacity: 0; transform: translate(0, 100px); transition:all 1.5s;z-index:2;}
-
-.section01 .video_text h3 {font-size: 46px;line-height: 60px;color:#fff;font-weight:bold;}
-.section01 .video_wrap #MainVideo01 {width:100%;}
-.section01 .btn {    margin-top: 70px}
-
-.section.active .video_text { opacity: 1 ; transform: translate(0, 0);}
-
-
 .section01 .scroll_swing {bottom:40px;}
 .section01 .scroll_swing span:before {content:'';display:block;width:14px;height:9px;background:url('../../images/icon/arrow_w.png') center no-repeat;margin: 10px auto;}
 .section01 .scroll_swing span {display:block;color:#fff;font-size:12px;line-height:12px;animation:scrollArrow 1.5s infinite}
 
-.section01 #MainVideo01.v_image_only{
-	background-image: url(/resources/vse/images/main/home_main_01.jpg);
-	height: 100%;
-    background-size: cover;
-    background-position: center;
-    transform: none;
-    min-width: 100%!important
-}
-
-
+/*section02*/
+.section02 {position:relative;overflow:hidden;}
+.section02 .video_wrap #MainVideo01 {width:100%;}

@@ -13,7 +13,6 @@
 .mobile	.section01 .scroll_swing img {width:20px;height:auto;}
 .mobile	#MainVideo01 {min-width: 1100px;height: 100%;transform: translate3d(0px, 10px, 10px);}
 /*section02*/
-.mobile	.section02 {padding:65px 0;}
 .mobile	.section02 h3.tit {font-size: 28px;line-height:46px;}
 .mobile	.section02 h3.tit img {margin-top:-5px;height: 28px;}
 /*section03*/

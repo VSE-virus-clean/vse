@@ -30,8 +30,8 @@
 		</p>
 	</div>
 	
-	<div>
-		<div class="video_wrap" style="margin-bottom: -5px;">
+	<div class="section02">
+		<div class="video_wrap">
 			<video id="MainVideo01" style="min-width:1200px;" autoplay="" loop="" muted="" playsinline="">
 				<source src="/resources/vse/videos/videos_01.mp4" type="video/mp4">
 			</video>
@@ -48,15 +48,15 @@
 					<img src="/resources/vse/images/subpage/vse_pro_hardwareimg.jpg" alt="">
 					<a href="javascript:void(0);" class="btn_pro_more pro_more_01" value="pop_pro_hardware01">
 						<em class="icon_pro_more"></em>
-						<span class="mark">SENSOR</span>
+						<span class="mark">KIOSK</span>
 					</a>
 					<a href="javascript:;" class="btn_pro_more pro_more_02" value="pop_pro_hardware02">
 						<em class="icon_pro_more"></em>
-						<span class="mark">Swing Cam</span>
+						<span class="mark">SENSOR</span>
 					</a>
 					<a href="javascript:;" class="btn_pro_more pro_more_03" value="pop_pro_hardware03">
 						<em class="icon_pro_more"></em>
-						<span class="mark">KIOSK</span>
+						<span class="mark">Swing Cam</span>
 					</a>
 				</div>
 			</div>
