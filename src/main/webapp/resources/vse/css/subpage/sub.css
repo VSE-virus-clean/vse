@@ -232,7 +232,7 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 .vse_pro_hardware .pro_hardware .pro_more_03 {bottom: 178px;left: 53.3%;margin-left: -26px;}
 .hardware_slide {height:100%;position:relative;}
 .hardware_slide .slick-dots {position:absolute;bottom:20px;left:50%;transform:translate(-50%,0);}
-.hardware_slide .slick-dots li button {background:#fff;}
+.hardware_slide .slick-dots li button {background:#cccccc;}
 .hardware_slide .slick-dots li.slick-active button {background:#c10023;}
 
 .hardware_info_wrap {display: flex;height:100%;}

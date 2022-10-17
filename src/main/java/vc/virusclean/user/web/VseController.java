@@ -177,7 +177,6 @@ public class VseController extends XController {
 	/**
 	 * 고객지원 > 이벤트뉴스 > 목록
 	 * customer/customer_event.html
-	 */
 	@AuthCheck(loginCheck=false)
     @RequestMapping(value={"/customer/event/list.vse"} )
     public String customer_event_list(@ModelAttribute BoardVO boardVO, ModelMap model) throws Exception{     
@@ -190,6 +189,25 @@ public class VseController extends XController {
 		model.addAttribute("requestUri", "customer/event");
 		model.addAttribute("pageMenuId", "customer");
         return "vse/customer/customer_event";
+    }
+	 */
+	
+	/**
+	 * NEWS list
+	 * main/news.html
+	 */
+	@AuthCheck(loginCheck=false)
+    @RequestMapping(value={"/main/news/list.vse"} )
+    public String main_news_list(@ModelAttribute BoardVO boardVO, ModelMap model) throws Exception{     
+		
+		boardVO.setIsApi(true);
+		boardVO.setLgrpCd("VSENEWS");    //게시판 아이디
+		boardVO.setRowLimit(3);
+		
+		model.addAttribute("result", boardService.selectBoardList(boardVO));
+		model.addAttribute("requestUri", "main/news");
+		model.addAttribute("pageMenuId", "news");
+        return "vse/main/news";
     }
 	
 	/**
@@ -323,7 +341,7 @@ public class VseController extends XController {
 		boardVO.setRowLimit(3);
 		
 		model.addAttribute("result", boardService.selectBoardList(boardVO));
-		model.addAttribute("requestUri", "customer/event");
+		model.addAttribute("requestUri", "main/news");
 		model.addAttribute("pageMenuId", "news");
 		
         return "vse/main/news";
@@ -341,8 +359,8 @@ public class VseController extends XController {
 		boardVO.setLgrpCd("VSENEWS");    //게시판 아이디
 		
 		model.addAttribute("result", boardService.selectBoard(boardVO));
-        model.addAttribute("requestUri", "customer/event");
-		model.addAttribute("pageMenuId", "customer");
+        model.addAttribute("requestUri", "main/news");
+		model.addAttribute("pageMenuId", "news");
 		
         return "vse/main/news_view";
     }
