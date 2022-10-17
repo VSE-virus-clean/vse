@@ -3,7 +3,7 @@
 .main_contant {position:relative;z-index:1;background:#fff;width:100%;overflow:hidden;}
 .section .btn {width:250px}
 /*section01*/
-.section01 {height:100vh;position:relative;overflow:hidden;}
+.section01 {height:100vh;position:relative;overflow:hidden;display: flex;align-items: center;}
 .section01 .video_wrap {position:fixed;top:0;left:0;right: 0;bottom: 0;z-index:0;overflow: hidden;}
 .section01 .video_wrap .img {width:100%;height:auto;}
 .section01 .up {position:absolute;bottom:0;left:0;width:100%;min-width:1200px;display:block;text-align:center;z-index:1;}

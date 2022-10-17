@@ -3,11 +3,11 @@
 .mobile #MainVideo01 {z-index:1;}
 .section01 .video_text {top:calc(100vh - 60%);}
 .section01 .scroll_swing {top: calc(100vh - 16%);}
-.section01 .up {z-index:2;position:fixed;bottom:inherit;opacity: 1 !important;transform: translate3d(0, 0px, 0px) !important;}
+.section01 .up {z-index:2;/* position:fixed; */bottom:inherit;opacity: 1 !important;transform: translate3d(0, 0px, 0px) !important;}
 .main_contant {z-index:5;}
 .mobile .section01,
 .mobile .section01 .video_wrap {height: 100vh;}
-.mobile	.section01 .up {min-width:auto;}
+.mobile	.section01 .up {min-width: auto;width: 100%;}
 .mobile	.section01 .video_text h3 {font-size:28px;line-height:35px;margin-bottom:-18px;}
 .mobile	.section01 .scroll_swing span {font-size:10px;}
 .mobile	.section01 .scroll_swing img {width:20px;height:auto;}

@@ -20,7 +20,7 @@
 <div id="header">
 	<h2 id="gnbAnchor">menu</h2>
 	<div class="header_wrap">
-		<a href="#none" class="logo"><img src="/resources/vse/images/com/logo02_png-white-2.png" alt="VSE" /></a>
+		<a href="/main/vse.vse" class="logo"><img src="/resources/vse/images/com/logo02_png-white-2.png" alt="VSE" /></a>
 		<ul class="gnb">
 			<li class=<c:out value="${pageMenuId == 'vse' ? 'active':'' }" />>
 				<a href="/main/vse.vse">VSE</a>
@@ -83,7 +83,7 @@
 			<a href="javascript:;" class="allmenu"></a>
 			<div class="mo_gnb">
 				<div class="mo_gnb_header">
-					<a href="/index.vse" class="logo"><img src="/resources/vse/images/com/logo02_png-white-2.png" alt="VSE"></a>
+					<a href="/main/vse.vse" class="logo"><img src="/resources/vse/images/com/logo02_png-white-2.png" alt="VSE"></a>
 					<a href="javascript:;" class="allmenu_close" title="CLOSE"></a>
 				</div>
 				<div  class="mo_gnb_con">
@@ -169,7 +169,7 @@
 			</div>
 		</div>
 		<!-- END:mo_gnb -->
-		<a href="https://voicecaddie.com/" class="top_link" target="_blank"><img src="/resources/vse/images/com/logo.png" alt="voice caddie" /></a>	
+<!-- 		<a href="https://voicecaddie.com/" class="top_link" target="_blank"><img src="/resources/vse/images/com/logo.png" alt="voice caddie" /></a>	 -->
 	</div>
 </div>
 

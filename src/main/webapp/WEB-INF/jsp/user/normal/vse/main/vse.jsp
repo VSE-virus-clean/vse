@@ -13,15 +13,15 @@
 
 <div id="contentWrap" class="" style="padding-top:0;">
 	<h2 id="contentAnchor">콘텐츠 영역</h2>
-	<div class=" _sub_sec2 section01" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)">
-		<div class="_txt_centers" style="text-align: center; align-items: center;">
+	<div class="section01 _sub_sec2" style="background-image: url(/resources/vse/images/subpage/Residential_Installs.jpg)">
+		<div class="_txt_centers up move">
 			<h3 style="margin-bottom: 2rem">Your Complete Station for Play and Practice.</h3>
 			<p class="">
 				<a href="/product/vse1.vse" class="btn2 btn_round" style="margin: 1rem 0;">CONTACT SALES</a>
 				<br>
 				You can raise the quality of practice with VSE
 				<br>
-				And experience a now play with Voce Caddie.
+				And experience a now play with Voice Caddie.
 			</p>
 		</div>
 		<p class="scroll_swing up">
