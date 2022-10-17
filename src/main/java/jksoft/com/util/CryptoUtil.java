@@ -3,12 +3,15 @@ package jksoft.com.util;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
+// import org.apache.commons.codec.binary.Base64;
 
 import jksoft.com.util.encrypt.kisa.cipher.aira.ARIACipher;
 
@@ -154,9 +157,14 @@ public class CryptoUtil {
      */
     public static String getBASE64Encoder(byte[] btHash)
     {
-        Base64 baseEncoder = new Base64();
-                    
+        /*
+    	Base64 baseEncoder = new Base64();
         return baseEncoder.encodeToString(btHash).trim();
+        */
+    	
+    	Encoder encoder = Base64.getEncoder();
+    	byte[] encodedBytes = encoder.encode(btHash);
+    	return (new String(encodedBytes));
     }
     
     /**
@@ -167,9 +175,14 @@ public class CryptoUtil {
      */
     public static String getBASE64Encoder(String strHash)
     {
+    	/*
         Base64 baseEncoder = new Base64();
-                   
         return baseEncoder.encodeToString(strHash.getBytes());
+        */
+    	
+    	Encoder encoder = Base64.getEncoder();
+    	byte[] encodedBytes = encoder.encode(strHash.getBytes());
+    	return (new String(encodedBytes));
     }
    
    /**
@@ -181,9 +194,13 @@ public class CryptoUtil {
     */
     public static byte[] getBASE64Decoder(String _strHash) throws Exception
     {
+    	/*
         Base64 baseDecoder = new Base64();
-       
         return baseDecoder.decode(_strHash);
+        */
+    	
+    	Decoder decoder = Base64.getDecoder();
+    	return decoder.decode(_strHash);
     }  
     
     /**
@@ -195,9 +212,14 @@ public class CryptoUtil {
      */
     public static String getBASE64Decoder2(String _strHash) throws Exception
     {
+    	/*
         Base64 baseDecoder = new Base64();
-        
         return new String(baseDecoder.decode(_strHash));
+        */
+    	
+    	Decoder decoder = Base64.getDecoder();
+    	byte[] decodedBytes = decoder.decode(_strHash);
+    	return (new String(decodedBytes, "UTF-8"));
     } 
     
     /**
@@ -299,7 +321,10 @@ public class CryptoUtil {
         
     	Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
         c.init(Cipher.DECRYPT_MODE, secretKey, iv);
-        byte[] byteStr = Base64.decodeBase64(plainText.getBytes("UTF-8"));
+        
+        // byte[] byteStr = Base64.decodeBase64(plainText.getBytes("UTF-8"));
+        Decoder decoder = Base64.getDecoder();
+        byte[] byteStr = decoder.decode(plainText.getBytes("UTF-8"));
         
         return new String(c.doFinal(byteStr), "UTF-8");
     }
