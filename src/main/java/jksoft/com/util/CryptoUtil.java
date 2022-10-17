@@ -183,7 +183,7 @@ public class CryptoUtil {
     {
         Base64 baseDecoder = new Base64();
        
-        return baseDecoder.decode(_strHash);
+        return baseDecoder.decodeBase64(_strHash);
     }  
     
     /**
@@ -197,7 +197,7 @@ public class CryptoUtil {
     {
         Base64 baseDecoder = new Base64();
         
-        return new String(baseDecoder.decode(_strHash));
+        return new String(baseDecoder.decodeBase64(_strHash));
     } 
     
     /**
