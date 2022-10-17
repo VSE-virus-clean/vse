@@ -22,8 +22,8 @@
 			<form name="mainForm" method="post" action="${contextPath}/loginMan.vc" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
 	        <input type="hidden" name="mgrPwEnc" value="" /> 
 	        <input type="hidden" name="returnUrl" value="${param.returnUrl}" />
-				<input type="text" name="mgrId" id="mgrId" class="idput engMode noSpace" style="width:300px;" maxlength="20" minlength="2" title="아이디"  value="" placeholder="아이디를 입력해주세요"/>
-				<input type="password" class="submit" name="mgrPw" id="mgrPw" class="pwdput engMode noSpace" style="width:300px;" maxlength="30" minlength="2" title="비밀번호" value="" autocomplete="off" placeholder="패스워드를 입력해주세요" />
+				<input type="text" name="mgrId" id="mgrId" class="idput engMode noSpace" style="width:300px;" maxlength="20" minlength="2" title="ID"  value="" placeholder="ID"/>
+				<input type="password" class="submit" name="mgrPw" id="mgrPw" class="pwdput engMode noSpace" style="width:300px;" maxlength="30" minlength="2" title="pwssword" value="" autocomplete="off" placeholder="password" />
 				<div class="btn_center_gorup">
 					<button type="submit" class="btn btn_red">Sign in</button>
 				</div>
