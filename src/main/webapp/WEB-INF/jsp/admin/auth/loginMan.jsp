@@ -16,7 +16,7 @@
 	<div class="top_bar"></div>	
 	<div class="inner">
 		<a href="#" class="ad_logo" style="display:block; text-align:center;">
-			<img src="/resources/admin/images/common/ad_logo.png" alt="" >
+			<img src="/resources/admin/images/common/ad_logo.png" alt="" style="width:450px">
 		</a>
 		<div class="page_box">
 			<form name="mainForm" method="post" action="${contextPath}/loginMan.vc" onsubmit="var rtn = formSubmitObj.submit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
