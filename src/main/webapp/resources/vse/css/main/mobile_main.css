@@ -1,20 +1,19 @@
 .mobile .section .btn {width:182px;}
 /*section01*/
-.mobile #MainVideo01 {z-index:1;}
 .section01 .video_text {top:calc(100vh - 60%);}
 .section01 .scroll_swing {top: calc(100vh - 16%);}
 .section01 .up {z-index:2;/* position:fixed; */bottom:inherit;opacity: 1 !important;transform: translate3d(0, 0px, 0px) !important;}
 .main_contant {z-index:5;}
 .mobile .section01,
 .mobile .section01 .video_wrap {height: 100vh;}
-.mobile	.section01 .up {min-width: auto;width: 100%;}
+.mobile	.section01 .up {min-width: auto;width: -webkit-fill-available;}
 .mobile	.section01 .video_text h3 {font-size:28px;line-height:35px;margin-bottom:-18px;}
 .mobile	.section01 .scroll_swing span {font-size:10px;}
 .mobile	.section01 .scroll_swing img {width:20px;height:auto;}
-.mobile	#MainVideo01 {min-width: 1100px;height: 100%;transform: translate3d(0px, 10px, 10px);}
 /*section02*/
 .mobile	.section02 h3.tit {font-size: 28px;line-height:46px;}
 .mobile	.section02 h3.tit img {margin-top:-5px;height: 28px;}
+.mobile	#MainVideo01 {min-width:auto !important; width: -webkit-fill-available;z-index:1;}
 /*section03*/
 .mobile	.section03 {height:100vh;}
 .mobile	.section03 h3.tit {font-size:28px;line-height:38px;}
@@ -35,7 +34,6 @@
 .mobile .section05 .tab_con {margin-top:35px !important;}
 .mobile .section05 .tab_list .x_1  {padding:0 !important;}
 .mobile .section05 .privacy_wrap {}
-.mobile	#MainVideo01 {min-width:auto !important;width:100%;height:auto;transform: translate3d(0px, 10px, 10px);}
 .mobile .section05 .btn_wrap {overflow:hidden;display:flex;}
 .mobile .section05 .btn {width:calc(50% - 10px);float:left;flex: 1;}
 /*section06*/
@@ -51,7 +49,7 @@
 .section06 .inner_sol .sub,
 .section06 .sns_linkwrap > span{font-size:16px;}
 @media screen and (max-width:460px) {
-	.mobile	#MainVideo01 {min-width:auto !important;width: auto !important;height:100%;transform: translate3d(-280px, 10px, 10px);}
+/* 	.mobile	#MainVideo01 {min-width:auto !important;width: auto !important;height:100%;transform: translate3d(-280px, 10px, 10px);} */
 }
 
 @media screen and (max-width:360px) {

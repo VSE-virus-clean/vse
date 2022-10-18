@@ -32,7 +32,7 @@
 	
 	<div class="section02">
 		<div class="video_wrap">
-			<video id="MainVideo01" style="min-width:1200px;" autoplay="" loop="" muted="" playsinline="">
+			<video id="MainVideo01" autoplay="" loop="" muted="" playsinline="">
 				<source src="/resources/vse/videos/videos_01.mp4" type="video/mp4">
 			</video>
 		</div>

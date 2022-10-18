@@ -383,7 +383,7 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 }
 
 @media screen and (max-width:640px) {
-	
+	.hardware_info_wrap .con {width: 100%;}
 }
 
 @media screen and (max-width:460px) {
