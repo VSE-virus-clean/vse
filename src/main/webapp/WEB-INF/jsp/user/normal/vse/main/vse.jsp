@@ -205,7 +205,7 @@
 								</li>
 							</ul>
 							<ul class="tab_con">
-								<li class="tab_list active">연습횟수와 타수,  클럽별 거리 확인으로 나의 실력 확인 </li>
+								<li class="tab_list active">Check your Practice by checking the number of practices, scores, and distance by club</li>
 							</ul>
 						</div>
 						<span class="img">
@@ -244,7 +244,7 @@
 								</li>
 							</ul>
 							<ul class="tab_con">
-								<li class="tab_list active">회차별 연습현황 확인으로 연습과정 기록</li>
+								<li class="tab_list active">Check the practice status of each session and record the practice</li>
 							</ul>
 						</div>
 						<span class="img">
@@ -282,7 +282,7 @@
 								</li>
 							</ul>
 							<ul class="tab_con">
-								<li class="tab_list active">1일 5개 영상세트(정면/측면)가 자동 저장되어 스윙 변화 확인</li>
+								<li class="tab_list active">Five videos (front/side) are automatically saved per day to check my swing change</li>
 							</ul>
 						</div>
 						<span class="img">
@@ -320,7 +320,7 @@
 								</li>
 							</ul>
 							<ul class="tab_con">
-								<li class="tab_list active">사용클럽의 거리, 방향성 확인을 통해 실력 확인 가능</li>
+								<li class="tab_list active">Check the distance and direction of the club used</li>
 							</ul>
 						</div>
 						<span class="img">

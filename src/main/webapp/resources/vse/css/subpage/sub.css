@@ -257,14 +257,18 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 .product_info li h4 {color:#999999;font-weight:bold;font-size:46px;line-height:50px;}
 .product_info li span {color:#cccccc;font-weight:400;font-size:20px;line-height:20px;margin-bottom:20px;font-weight:bold;}
 .product_info li .sub_tit {color:#999999;font-weight:bold;font-size:24px;line-height:28px;}
-.product_info li.active a {border:2px solid #c10023;behavior: url(ie-css3.htc); /* This lets IE know to call the script on all elements which get the 'box' class */
+.product_info li.active a,
+.product_info li:hover a {border:2px solid #c10023;behavior: url(ie-css3.htc); /* This lets IE know to call the script on all elements which get the 'box' class */
 	box-shadow: 3px 4px 10px #ddd; /* Opera 10.5+, future browsers and IE6+ using IE-CSS3 */
 	-moz-box-shadow: rgb(0 0 0 / 14%) 5px 5px 4px !important; /* Firefox */
 	-webkit-box-shadow: rgb(0 0 0 / 14%) 5px 5px 4px!important; /* Safari and Chrome */	
 	 box-shadow: rgb(0 0 0 / 14%) 5px 5px 4px !important;}
-.product_info li.active h4 {color:#c10023;}
-.product_info li.active span {color:#010101;}
-.product_info li.active .sub_tit {color:#c31330;}
+.product_info li.active h4,
+.product_info li:hover h4 {color:#c10023;}
+.product_info li.active span,
+.product_info li:hover span {color:#010101;}
+.product_info li.active .sub_tit,
+.product_info li:hover .sub_tit {color:#c31330;}
 .product_slide_01 {margin-bottom:100px;}
 .product_slide_01 .slide_type_01 > ul {padding:0 0 0;margin-top:50px;}
 .product_slide_01 .slide_type_01 .slick-list {overflow:inherit;}

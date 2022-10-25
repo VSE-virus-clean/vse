@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vc.virusclean.admin.auth.service.ManagerService;
 import vc.virusclean.admin.auth.vo.AuthVO;
+import vc.virusclean.cmm.vo.BoardVO;
 import jksoft.com.annotation.AuthCheck;
 import jksoft.com.filter.FilterUtil;
 import jksoft.com.web.XController;
@@ -270,6 +271,49 @@ public class ManagerController extends XController {
             
         }else{
             mResult.put("result", managerService.updateByStCd(authVO));
+        }
+        
+        return mResult;	
+    }
+    
+    /**
+     * 화면 노출 세팅
+     */
+    @AuthCheck(roleCode="S")
+    @RequestMapping(value= "/setting.vc", method=RequestMethod.GET)
+    public String infoSet(ModelMap model) throws Exception{
+
+    	BoardVO boardVO = new BoardVO();
+    	model.addAttribute("result", managerService.selectInfoSettingList(boardVO));
+    	model.addAttribute("pageMenuId", PAGE_MENUID);
+        model.addAttribute("requestUri", PAGE_PATH );
+        
+        return PAGE_PATH + "/infoSetting";
+    }
+    
+    /**
+     * 화면 노출 상태값 변경
+     *
+     * @param authVO2
+     * @param mSession
+     * @throws Exception 
+     */
+    @AuthCheck(roleCode="S")
+    @ResponseBody
+    @RequestMapping(value="/useYnMod.vc", method=RequestMethod.POST)
+	private Map<String, Object> updateByuseYn(@Valid @ModelAttribute BoardVO boardVO, BindingResult bindingResult) throws Exception {
+    	Map<String, Object> mResult = new HashMap<String, Object>();
+        
+        if(bindingResult.hasErrors()){
+            for(FieldError f : bindingResult.getFieldErrors()){
+               log.debug("[bindingResult Error] " + f.getField() + " : " + f.getObjectName() + " : " + f.getDefaultMessage() + " : " + f.isBindingFailure()); 
+            }
+            mResult.put("bindingFields", bindingResult.getFieldErrors());
+            mResult.put("bindingStatus", false);
+            mResult.put("message", xMessageSource.getMessage("exception.binding"));
+            
+        }else{
+            mResult.put("result", managerService.updateByuseYn(boardVO));
         }
         
         return mResult;	

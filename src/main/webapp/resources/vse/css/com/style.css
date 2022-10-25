@@ -64,7 +64,7 @@
 .move03{transition:all 1.5s 1s;}
 .move04{transition:all 1.5s 1.5s;}
 .move05{transition:all 1.5s 2s;}
-.active .move { opacity: 1 ; transform: translate(0, 0) !important;}
+.active .move { opacity: 1 ; transform: translate(0, 0) !important;background: #10101096;}
 .mobile .move {opacity: 1 !important; transform: translate(0, 0)!important;}
 
 @keyframes scrollArrow{

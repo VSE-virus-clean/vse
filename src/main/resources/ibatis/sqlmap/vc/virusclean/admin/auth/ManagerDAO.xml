@@ -8,6 +8,7 @@
 <sqlMap namespace="virus_clean_admin_auth_ManagerDAO">
 
 	<typeAlias alias="authVO" type="vc.virusclean.admin.auth.vo.AuthVO" />
+	<typeAlias alias="boardVO" type="vc.virusclean.cmm.vo.BoardVO" />
 
 	<!-- 
 		Query Name : managerDAO.selectInfoCount 
@@ -239,5 +240,44 @@
         ]]>
 	</select>
 
+	<!-- 
+		Query Name : managerDAO.selectInfoSettingList 
+		Description : 화면 세팅 목록을 조회한다.
+	-->
+	<select id="managerDAO.selectInfoSettingList" parameterClass="boardVO" resultClass="boardVO">
+        <![CDATA[
+			/* ProgramID=managerDAO.selectInfoSettingList */
+            SELECT BLC_SN blcSn
+                 , LGRP_CD lgrpCd
+                 , USE_YN useYn
+                 , RGST_SN rgstSn
+                 , RGST_ID rgstId
+                 , RGST_DTM rgstDtm
+                 , MDFY_SN mdfySn
+                 , MDFY_ID mdfyId
+                 , MDFY_DTM mdfyDtm
+              FROM VC_COM_07
+        ]]>
+        	 WHERE 1=1
+        <dynamic>
+			<isNotEmpty property="lgrpCd">
+			   AND LGRP_CD = #lgrpCd#
+			</isNotEmpty>
+		</dynamic>
+	</select>
 
+	<!-- 
+		Query Name : managerDAO.updateByuseYn 
+		Description : 화면 상태값 변경 
+	-->
+	<update id="managerDAO.updateByuseYn" parameterClass="boardVO">
+        <![CDATA[
+            /* ProgramID=managerDAO.updateByuseYn */ 
+            UPDATE VC_COM_07
+               SET USE_YN = #useYn# 
+                 , MDFY_ID = #mdfyId#
+                 , MDFY_DTM =  NOW()
+             WHERE BLC_SN = #blcSn#
+        ]]>
+	</update>
 </sqlMap>

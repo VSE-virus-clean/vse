@@ -1,6 +1,7 @@
 package vc.virusclean.user.web;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jksoft.com.annotation.AuthCheck;
 import jksoft.com.util.MultiUtil;
 import jksoft.com.web.XController;
+import vc.virusclean.admin.auth.service.ManagerService;
 import vc.virusclean.cmm.service.BoardService;
 import vc.virusclean.cmm.service.UserBoardService;
 import vc.virusclean.cmm.vo.BoardVO;
@@ -44,6 +46,8 @@ public class VseController extends XController {
 	@Resource(name="userBoardService")
 	private UserBoardService userBoardService;
 	
+    @Resource(name="managerService")   
+    private ManagerService managerService;
 
 	/**
      * 메인페이지
@@ -375,6 +379,12 @@ public class VseController extends XController {
 		boardVO.setIsApi(true);
 		boardVO.setLgrpCd("VSEFAQ");    //게시판 아이디
 		model.addAttribute("result", boardService.selectBoardList(boardVO));
+		
+		boardVO.setLgrpCd("FAQ");    	//게시판 아이디
+		Map<String, Object> map = managerService.selectInfoSettingList(boardVO);
+		List<BoardVO> boardList = (List<BoardVO>)map.get("list");
+		BoardVO board_ = boardList.get(0);
+		model.addAttribute("faqUseYn", board_.getUseYn());
 		
 		model.addAttribute("requestUri", "customer/faq");
 		model.addAttribute("pageMenuId", "support");

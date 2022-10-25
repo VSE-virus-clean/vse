@@ -130,27 +130,40 @@
 		</div>
     </div>
 	
-	<h3 class="tit mt150"> FAQ </h3>
-	<div class="inner mt100">
-		<ul class="faq_wrap">
-			<c:choose>
-			<c:when test="${empty result.list}">
-				<li class="nodata">No Data.</li>
-			</c:when>
-			<c:otherwise>
-				<c:forEach items="${result.list}" var="data" varStatus="i">
-					<li>
-						<a class="faq_tit" href="javascript:;">${data.blcTitl}</a>
-						<div class="faq_con editor_wrap"><tag:html value="${data.blcSbc1}" attr="NQ" /><div>
-					</li>
-				</c:forEach>
-			</c:otherwise>
-			</c:choose>
-		</ul>
+	<div class="faq_chk display_none">
+		<h3 class="tit mt150"> FAQ </h3>
+		<div class="inner mt100">
+			<ul class="faq_wrap">
+				<c:choose>
+				<c:when test="${empty result.list}">
+					<li class="nodata">No Data.</li>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${result.list}" var="data" varStatus="i">
+						<li>
+							<a class="faq_tit" href="javascript:;">${data.blcTitl}</a>
+							<div class="faq_con editor_wrap"><tag:html value="${data.blcSbc1}" attr="NQ" /><div>
+						</li>
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
+			</ul>
+		</div>
 	</div>
 </div>
 
 <script>
+
+$(function () {
+	
+	const chkYn = '<c:out value="${faqUseYn}" />';
+	
+	if(chkYn == 'Y') {
+		$('.faq_chk').removeClass('display_none');
+	} else {
+		$('.faq_chk').addClass('display_none');
+	}
+});
 
 var formSubmitObj1 = {
     submit : function(form){

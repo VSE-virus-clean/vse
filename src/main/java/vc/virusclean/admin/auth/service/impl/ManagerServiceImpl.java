@@ -1,6 +1,7 @@
 package vc.virusclean.admin.auth.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import vc.virusclean.admin.auth.service.ManagerService;
 import vc.virusclean.admin.auth.service.dao.ManagerDAO;
 import vc.virusclean.admin.auth.vo.AuthVO;
+import vc.virusclean.cmm.vo.BoardVO;
 import jksoft.com.exception.LeaveaTraceException;
 import jksoft.com.exception.NoResourceException;
 import jksoft.com.service.XAbstractService;
@@ -293,5 +295,49 @@ public class ManagerServiceImpl extends XAbstractService implements ManagerServi
         
         return mResult;
 	}
+    
+    /*
+     * 화면 세팅 목록을 조회한다.
+     */
+    public Map<String, Object> selectInfoSettingList(BoardVO boardVO) throws Exception {
+        
+        Map<String, Object> mResult = new HashMap<String, Object>();
 
+        mResult.put("list", (List<BoardVO>)managerDAO.selectInfoSettingList(boardVO));
+
+        return mResult;
+
+    }
+
+    /*
+     * 화면 노출값 상태값 변경
+     * - 상태(Y:사용, N:사용중지, D:삭제)  
+     */
+    public Map<String, Object> updateByuseYn(BoardVO boardVO) throws Exception {
+        
+        Map<String, Object> mResult = new HashMap<String, Object>();
+        
+        boolean bStatus = false; 
+        
+        try{  	
+
+            Map<String,Object> mSession = multiUtil.getSessionInfo();
+            boardVO.setMdfyId((String)mSession.get("userId"));
+     
+            if(managerDAO.updateByuseYn(boardVO) == 1){
+                bStatus = true;
+            }else{
+                throw new IllegalArgumentException();
+            }
+                      
+        }catch(Exception exception){          
+            bStatus = false;
+            throw processException("exception.error", exception);
+        }
+        
+        mResult.put("status", bStatus);
+        mResult.put("check", bStatus ? "Y" : "N");
+            
+        return mResult;
+    }
 }

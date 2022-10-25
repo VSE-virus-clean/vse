@@ -11,13 +11,16 @@
     JSP Name : infoList.jsp
     Description : 사이트 관리자 목록
 --%>
-<div class="sec_top">
+<div class="sec_top" style="display:flex; justify-content: space-between;">
 	<h3 class="sec_tit">Admin List</h3>
 	<!-- 
 	<ul class="top_tab">
 		<li><a href="#">운영자 관리</a></li>
 	</ul>
 	-->
+	<div>
+		<button type="button" onclick="location.href='${contextPath}/${requestUri}/setting.vc';" class="btn btn_gray" style="padding: 8px;">settings</button>
+	</div>
 </div>
 <div class="sec_cont">
 <!--<h4 class="cont_tit">조회조건</h4>-->
@@ -161,6 +164,7 @@ var formSubmitObj = {
         if(confirm('Do you want to change your account status?')){
             var data = { mgrSn : $(object).attr('data').split('|')[0], stCd : $(object).attr('data').split('|')[1]};
             ajaxUtil.postDisableAsync('${contextPath}/${requestUri}/stcdMod.vc', data, formSubmitObj.resultStCdMod);
+            location.reload(true);
         }
     },
     resultStCdMod : function(json){

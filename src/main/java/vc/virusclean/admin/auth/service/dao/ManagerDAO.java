@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import vc.virusclean.admin.auth.vo.AuthVO;
+import vc.virusclean.cmm.vo.BoardVO;
 import jksoft.com.dao.XAbstractDAO;
 
 /**
@@ -114,6 +115,27 @@ public class ManagerDAO extends XAbstractDAO {
      */
     public int selectInfoCheckDuplicate(AuthVO authVO) throws Exception {
         return (Integer)select("managerDAO.selectInfoCheckDuplicate", authVO);
+    }
+    
+    /**
+     * 화면 세팅 목록을 조회한다.
+     * @return List<BoardVO> 
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<BoardVO> selectInfoSettingList(BoardVO boardVO) throws Exception {
+        return (List<BoardVO>)list("managerDAO.selectInfoSettingList", boardVO);
+    }
+    
+    /**
+     *  화면 상태값 변경
+     *
+     * @param boardVO - 수정할 정보가 담긴 VO
+     * @return int
+     * @throws Exception
+     */
+    public int updateByuseYn(BoardVO boardVO) throws Exception {
+        return update("managerDAO.updateByuseYn", boardVO);
     }
     
 }

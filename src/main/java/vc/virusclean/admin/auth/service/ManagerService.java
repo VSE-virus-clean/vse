@@ -3,6 +3,7 @@ package vc.virusclean.admin.auth.service;
 import java.util.Map;
 
 import vc.virusclean.admin.auth.vo.AuthVO;
+import vc.virusclean.cmm.vo.BoardVO;
 
 /**
  * <pre>
@@ -82,5 +83,22 @@ public interface ManagerService {
      * @throws Exception
      */
     public Map<String, Object> selectInfoCheckDuplicate(AuthVO authVO) throws Exception;
+    
+    /**
+     * 화면 세팅 목록을 조회한다.
+     *
+     * @param boardVO - 조회할 정보가 담긴 VO
+     * @throws Exception
+     */
+    public Map<String, Object> selectInfoSettingList(BoardVO boardVO) throws Exception;
+    
+    /**
+     * 화면 상태값 변경
+     * - 상태(Y:사용, N:사용중지, D:삭제)  
+     *
+     * @param boardVO - 삭제할 정보가 담긴 VO
+     * @throws Exception
+     */
+    public Map<String, Object> updateByuseYn(BoardVO boardVO) throws Exception;
     
 }

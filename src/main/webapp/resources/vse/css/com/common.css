@@ -190,3 +190,5 @@ input::placeholder{
 /*section02*/
 .section02 {position:relative;overflow:hidden;}
 .section02 .video_wrap #MainVideo01 {width:100%; min-width: 1200px;}
+
+.display_none {display:none;}
