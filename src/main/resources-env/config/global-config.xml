@@ -8,7 +8,7 @@
 <properties>
 
 	<entry key="service.mode">env</entry>
-	<entry key="site.user.domain">https://www.viruscleanlab.com</entry>
+	<entry key="site.user.domain">http://vse.voicecaddie.com</entry>
 	<entry key="site.user.host">local</entry>
 	<entry key="site.user.mobile.host">mlocal</entry>
 
@@ -73,58 +73,57 @@
 	<entry key="login.lock.errorCount">5</entry>
 	<entry key="login.password.dateDiff">0</entry>
 	
-	<!-- 네이버 로그인 -->
+	<!-- 네이버 로그인 
 	<entry key="sns.naver.clientId">OvUTUVmYEz2Er83BAdGK</entry>
 	<entry key="sns.naver.clientSecret">YU8ksn8K8k</entry>
 	<entry key="sns.naver.serviceUrl">https://www.viruscleanlab.com</entry>
 	<entry key="sns.naver.callbackUrl">https://www.viruscleanlab.com/api/member/callback/naver.vc</entry>
-	
-	<!-- 카카오 로그인 -->
+	-->
+	<!-- 카카오 로그인 
 	<entry key="sns.kakao.appkey.native">2f036d1683aa566e1dbae8c6ce2f86f9</entry>
 	<entry key="sns.kakao.appkey.rest">6d1d8108308baa19ef100cd47f9c22ab</entry>
 	<entry key="sns.kakao.appkey.javascript">0e94b2a8c762fac471a657d325f50015</entry>
 	<entry key="sns.kakao.callbackUrl">https://www.viruscleanlab.com/api/member/callback/kakao.vc</entry>
-	
-	<!-- 구글 로그인 -->
+	-->
+	<!-- 구글 로그인 
 	<entry key="sns.google.clientId">187413867387-2fja1gq041hg219ngj9hckpjuptei5e3.apps.googleusercontent.com</entry>
 	<entry key="sns.google.clientSecret">Uj5eOnGjCSASbR4gLSO9aTZm</entry>
 	<entry key="sns.google.callbackUrl">https://www.viruscleanlab.com/api/member/callback/google.vc</entry>
 	<entry key="sns.google.site.verification">i1Y0wtl8XCP3KYIreV2f1ruPR7NVh7RHJkeoEOxyLVY</entry>
-	
-	<!-- 애플 로그인 -->
+	-->
+	<!-- 애플 로그인 
 	<entry key="sns.apple.clientId">viruscleanlab.voicecaddie.com</entry>
 	<entry key="sns.apple.keyId">GBUHRL7B98</entry>
 	<entry key="sns.apple.appId">CYQWQ8K9F8</entry>
 	<entry key="sns.apple.callbackUrl">https://www.viruscleanlab.com/api/member/callback/apple.vc</entry>
-	
+	-->
 	<!-- 
 		SMS발송 
 		- sms.send_number : 발송번호
 		- sms.kakao.senderKey : 카카오알림 발신프로필 KEY
 		- sms.kakao.templateCode.comment : 카카오알림 텝플릿코드 - 상품평
 		- sms.kakao.templateCode.delivery : 카카오알림 텝플릿코드 - 배송안내
-	-->
 	<entry key="sms.send_number">0313844314</entry>
 	<entry key="sms.kakao.senderKey">5ab97c458439daaae2b46a4c9cf66e36a37547f8</entry>
 	<entry key="sms.kakao.templateCode.comment">bizp_2021030214265025563336631</entry>
 	<entry key="sms.kakao.templateCode.delivery">bizp_2021030214001325563694623</entry>
-	
-	<!-- 이니시스 결제관련  -->
+	-->
+	<!-- 이니시스 결제관련  
 	<entry key="inicis.mid">virusclean</entry>
 	<entry key="inicis.signKey">TEFLcHJQVVhacWFNaDJxdTRiNkVQdz09</entry>
 	<entry key="inicis.apiKey">RjiyfNtJCjpDzxjw</entry>
 	<entry key="inicis.apiIV">S0y26xbuxpwxzY==</entry>
-	
-	<!-- 구글 firebase 설정 -->
+	-->
+	<!-- 구글 firebase 설정 
 	<entry key="firebase.api.url">https://fcm.googleapis.com/fcm/send</entry>
 	<entry key="firebase.api.key">AAAAK6K8q3s:APA91bFFhLyV8HBkAjBRmm_Fa3jTD-32rhznKDguw1SIMTI_7rX2YAvibSlQM_C7F_V1xvsDIHTcKYwweImrQEAC3cDdwhW6118kzXY9V9mNamgLmSL3OjipgG_g_h3ivmg1E_00un0G</entry>
-	
-	<!-- https://openweathermap.org API KEY -->
+	-->
+	<!-- https://openweathermap.org API KEY 
 	<entry key="openweathermap.api.url.find">https://api.openweathermap.org/data/2.5/find?lat={LAT}<![CDATA[&]]>lon={LON}<![CDATA[&]]>units=metric<![CDATA[&]]>lang=en<![CDATA[&]]>cnt=1<![CDATA[&]]>appid={KEY}</entry>
 	<entry key="openweathermap.api.url.air">https://api.openweathermap.org/data/2.5/air_pollution?lat={LAT}<![CDATA[&]]>lon={LON}<![CDATA[&]]>units=metric<![CDATA[&]]>lang=en<![CDATA[&]]>cnt=1<![CDATA[&]]>appid={KEY}</entry>
 	<entry key="openweathermap.api.key">9ab4f8ec489629fafb134a807eb3e8d9</entry>
-	
-	<!-- 네이버 페이  -->
+	-->
+	<!-- 네이버 페이  
 	<entry key="npay.account.id">s_20e3846d9b50</entry>
 	<entry key="npay.shop.id">np_rabfy579721</entry>
 	<entry key="npay.certi.key">F86ABA0D-908A-4A19-9B3C-5577C1AFADC9</entry>
@@ -134,5 +133,5 @@
 	<entry key="npay.order.backUrl">https://www.viruscleanlab.com</entry>
 	<entry key="npay.wish.api">https://pay.naver.com/customer/api/wishlist.nhn</entry>
 	<entry key="npay.wish.url">https://pay.naver.com/customer/wishlistPopup.nhn</entry>
-
+	-->
 </properties>

@@ -17,7 +17,7 @@
 	</context:component-scan>
 
 	<!-- SpEL을 사용하기 위한 Properties 선언 -->
-	<util:properties id="global" location="classpath:/config/global-config.xml" />
+	<util:properties id="global" location="classpath:../resources-env/config/global-config.xml" />
 
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
