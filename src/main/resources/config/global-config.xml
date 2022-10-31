@@ -28,8 +28,8 @@
 		경로 file.system.path.default : SYSTEM 기본 저장 경로 file.web.path.default : WEB 
 		페이지에서 표시하기 위한 파일 경로 -->
 	<entry key="file.maxSize">419430400</entry>
-	<entry key="file.system.path.temp">/home/ec2-user/apache-tomcat-8.5.82/webapps/resources/temp</entry>
-	<entry key="file.system.path.default">/home/ec2-user/apache-tomcat-8.5.82/webapps/resources/upload</entry>
+	<entry key="file.system.path.temp">/home/ec2-user/app/vse/vse/target/virusclean-1.0.0/resources/temp</entry>
+	<entry key="file.system.path.default">/home/ec2-user/app/vse/vse/target/virusclean-1.0.0/resources/upload</entry>
 	<entry key="file.web.path.default">/resources/upload</entry>
 
 
