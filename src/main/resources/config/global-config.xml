@@ -27,11 +27,11 @@
 	<!-- 파일 관련 기본 속성 file.maxSize : 업로드 최대 용량 file.system.path.temp : 임시 저장 
 		경로 file.system.path.default : SYSTEM 기본 저장 경로 file.web.path.default : WEB 
 		페이지에서 표시하기 위한 파일 경로 -->
+	
 	<entry key="file.maxSize">419430400</entry>
-	<entry key="file.system.path.temp">/home/ec2-user/app/vse/vse/target/virusclean-1.0.0/resources/temp</entry>
-	<entry key="file.system.path.default">/home/ec2-user/app/vse/vse/target/virusclean-1.0.0/resources/upload</entry>
+	<entry key="file.system.path.temp">/var/webapps/upload/temp</entry>
+	<entry key="file.system.path.default">/var/webapps/upload</entry>
 	<entry key="file.web.path.default">/resources/upload</entry>
-
 
 	<!-- 메일 관련 속성 mail.host : 메일서버 IP mail.port : 메일서버 PORT mail.protocol : 
 		메일서버 PROTOCOL mail.userID : 메일서버 관리자 아이디 mail.userPW : 메일서버 관리자 비밀번호 ->> 
