@@ -17,11 +17,6 @@
 <div class="sec_cont">
 
 	<div class="content-body">
-		<div class="table_tit">
-			<div class="table_left_title">
-				<span>total<strong class="totCnt" style="font-weight: 700;"> <fmt:formatNumber value="${result.searchInfo.totalRow}" type="number"/></strong></span>
-			</div>
-		</div>
 		<form name="subForm" method="post" action="${contextPath}/${requestUri}/delete.vc" onsubmit="var rtn = formSubmitObj.delSubmit(this); if(!rtn){ submitUtil.enable(); } return rtn;">
    			<table class="cont_table" style="table-layout:fixed">
    				<%-- 
