@@ -25,5 +25,11 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ICERTSecu_JDK17.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/INIpaySample_v1.3.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

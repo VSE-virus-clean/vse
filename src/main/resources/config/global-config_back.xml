@@ -7,8 +7,8 @@
 
 <properties>
 
-	<entry key="service.mode">env</entry>
-	<entry key="site.user.domain">http://vse.voicecaddie.com</entry>
+	<entry key="service.mode">dev</entry>
+	<entry key="site.user.domain">http://127.0.0.1:8080</entry>
 	<entry key="site.user.host">local</entry>
 	<entry key="site.user.mobile.host">mlocal</entry>
 
@@ -28,8 +28,8 @@
 		경로 file.system.path.default : SYSTEM 기본 저장 경로 file.web.path.default : WEB 
 		페이지에서 표시하기 위한 파일 경로 -->
 	<entry key="file.maxSize">419430400</entry>
-	<entry key="file.system.path.temp">/home/virusclean/temp</entry>
-	<entry key="file.system.path.default">/home/virusclean/was/resources/upload</entry>
+	<entry key="file.system.path.temp">C://Work/project/tmp</entry>
+	<entry key="file.system.path.default">C://Work/project/source/virus_clean/src/main/webapp/resources/upload</entry>
 	<entry key="file.web.path.default">/resources/upload</entry>
 
 
@@ -44,11 +44,11 @@
 	<entry key="mail.protocol">smtp</entry>
 	<entry key="mail.userID">help@vcinc.co.kr</entry>
 	<entry key="mail.userPW">vcwork12!@</entry>
-	<entry key="mail.imageDomain">http://vse.voicecaddie.com</entry>
+	<entry key="mail.imageDomain">https://www.viruscleanlab.com</entry>
 	<entry key="mail.primaryMailPersonal">VIRUS CLEAN LAB</entry>
 	<entry key="mail.primaryMailAdress">help@vcinc.co.kr</entry>
 	<entry key="mail.testMailAdress">fss1999@naver.com</entry>
-	<entry key="mail.htmlFilePath">/home/virusclean/was/WEB-INF/jsp/mail</entry>
+	<entry key="mail.htmlFilePath">C://Work/project/source/virus_clean/src/main/webapp/WEB-INF/jsp/mail</entry>
 	
 	<!-- 고객문의 받을 대표 이메일-->
 	<entry key="mail.csMailAdress">fss1999@naver.com</entry>
