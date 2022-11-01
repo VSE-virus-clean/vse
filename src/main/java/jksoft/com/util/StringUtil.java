@@ -1878,7 +1878,7 @@ public class StringUtil {
         StringBuilder stringBuilder = new StringBuilder();
         
         if(!(filSn == 0 || filNm.isEmpty())){
-            stringBuilder.append("<img src=\"/resources/upload/").append(menuCd.toUpperCase()).append("/").append(filNm).append("\" alt=\"").append(filExpl).append("\" />");
+            stringBuilder.append("<img src=\"/var/webapps/upload/").append(menuCd.toUpperCase()).append("/").append(filNm).append("\" alt=\"").append(filExpl).append("\" />");
         }
 
         return stringBuilder.toString();

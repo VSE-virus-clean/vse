@@ -38,7 +38,7 @@
 	<entry key="file.maxSize">419430400</entry>
 	<entry key="file.system.path.temp">/var/webapps/upload/temp</entry>
 	<entry key="file.system.path.default">/var/webapps/upload</entry>
-	<entry key="file.web.path.default">/var/webapps/upload</entry>
+	<entry key="file.web.path.default">/resources/upload</entry>
 	
 	<!--  
 	<entry key="file.maxSize">419430400</entry>
