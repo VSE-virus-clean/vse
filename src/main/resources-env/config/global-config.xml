@@ -8,7 +8,7 @@
 <properties>
 
 	<entry key="service.mode">env</entry>
-	<entry key="site.user.domain">https://www.viruscleanlab.com</entry>
+	<entry key="site.user.domain">http://vse.voicecaddie.com</entry>
 	<entry key="site.user.host">local</entry>
 	<entry key="site.user.mobile.host">mlocal</entry>
 
@@ -28,8 +28,8 @@
 		경로 file.system.path.default : SYSTEM 기본 저장 경로 file.web.path.default : WEB 
 		페이지에서 표시하기 위한 파일 경로 -->
 	<entry key="file.maxSize">419430400</entry>
-	<entry key="file.system.path.temp">/home/ec2-user/apache-tomcat-8.5.82/webapps/upload/temp</entry>
-	<entry key="file.system.path.default">/home/ec2-user/apache-tomcat-8.5.82/webapps/upload</entry>
+	<entry key="file.system.path.temp">var/webapps/upload/temp</entry>
+	<entry key="file.system.path.default">/var/webapps/upload</entry>
 	<entry key="file.web.path.default">/resources/upload</entry>
 
 
