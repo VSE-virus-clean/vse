@@ -27,21 +27,21 @@
 			</div>
 			<div class="_img _items _sub_sec" style="background-image: url(/resources/vse/images/subpage/MARKED_BALLS.jpg)"></div>
 		</div>
-		
 		<div class="_item_wrap">
 			<div class="_txt _items">
 				<div class="_line30 _w100">
-					<h3>Projector lamp</h3>
+					<h3>Auto tee-up Machine</h3>
+					<!--  
 					<p class="_color_222">
 						If you or warning of the lamp replacement icon  
 						is displayed. Try to replace the projector lamps. 
 					</p>
+					-->
 				</div>
 				<a href="/customer/request_more_information.vse" class="btn2 mt20">BUY IT NOW</a>
 			</div>
-			<div class="_img _items _sub_sec" style="background-image: url(/resources/vse/images/subpage/PROJECTOR_LAMP.jpg)"></div>
+			<div class="_img _items _sub_sec" style="background-image: url(/resources/vse/images/subpage/Auto-tee-up-Machine.jpg)"></div>
 		</div>
-		
 		
 	</div>
 	

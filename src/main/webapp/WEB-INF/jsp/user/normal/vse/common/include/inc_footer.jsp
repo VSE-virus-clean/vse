@@ -27,9 +27,9 @@
 			<div class="footer_sec footer_sns_wrap">
 				<h3>FOLLOW US</h3>
 				<ul class="footer_sns">
-					<li><a href="https://www.youtube.com/channel/UCLMJLbX6Pur9ukrnJ52LPLQ" target="_blank" class="sns_y" ></a></li>
-					<li><a href="https://www.facebook.com/voicecaddie.VSE/" target="_blank" class="sns_f"></a></li>
-					<li><a href="https://instagram.com/vse_kor?utm_medium=copy_link" target="_blank" class="sns_i"></a></li>
+					<li><a href="https://www.youtube.com/channel/UC0Qgwu1fwWF6XfuknonotOg/featured" target="_blank" class="sns_y" ></a></li>
+					<li><a href="https://www.facebook.com/Voicecaddieofficial/" target="_blank" class="sns_f"></a></li>
+					<li><a href="https://www.instagram.com/voicecaddie_us/" target="_blank" class="sns_i"></a></li>
 <!-- 				<li><a href="https://blog.naver.com/voicecaddiek" target="_blank" class="sns_nb"></a></li> -->
 <!-- 				<li><a href="https://post.naver.com/voicecaddiek/" target="_blank" class="sns_np"></a></li> -->
 				</ul>

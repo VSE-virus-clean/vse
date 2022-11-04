@@ -15,7 +15,7 @@ h3.tit + .sub_txt  {opacity: 0; transform: translate(0, 100px); transition:all 3
 .keywords_wrap {color:#1151b1;font-size:20px;}
 /*choose your space*/
 ._sub_sec{
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
 }
